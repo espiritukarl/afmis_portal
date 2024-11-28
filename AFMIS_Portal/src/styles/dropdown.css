@@ -1,0 +1,73 @@
+/* Dropdown menu styling */
+.dropdown-menu,
+.dropdown-submenu {
+  position: absolute;
+  top: 99%;
+  left: 0;
+  background-color: var(--dropdown-green);
+  color: #fff;
+  box-shadow: 0 4px 8px var(--text-box-shadow);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: none;
+  width: auto;
+  white-space: nowrap;
+  z-index: 1000;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+/* Display dropdown on hover */
+.tabs > li:hover .dropdown-menu {
+  display: block;
+}
+
+/* Dropdown items */
+.dropdown-item {
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 200ms ease-in-out;
+  font-size: 0.95rem;
+  border-bottom: 1.5px solid var(--primary-yellow);
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item > a,
+.has-submenu {
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dropdown-item:hover {
+  background-color: var(--primary-yellow);
+}
+
+.dropdown-item:hover > a,
+.has-submenu:hover {
+  color: var(--primary-green);
+}
+
+/* Submenu for nested dropdowns */
+.dropdown-submenu {
+  top: 65%;
+  left: 100%;
+}
+
+.dropdown-submenu > .dropdown-item {
+  padding-right: 3rem;
+}
+
+.dropdown-item.has-submenu:hover > .dropdown-submenu {
+  display: block;
+}
+
+.dropdown-icon {
+  margin-left: 50px;
+}

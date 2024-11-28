@@ -1,0 +1,142 @@
+.content-container {
+  display: flex;
+}
+
+.home-section-headers {
+  font-size: 24px;
+  margin: 60px 0 30px 0;
+}
+
+.selection-bar-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+
+  border: 1px solid transparent;
+  border-radius: 10px;
+  box-shadow: 2px 2px 4px var(--text-box-shadow);
+  overflow: hidden;
+  font-size: 1.15rem;
+}
+
+.selection-bar-choice {
+  width: 100%;
+  text-align: center;
+  padding: 13px 0px;
+  cursor: pointer;
+}
+
+.selection-bar-choice:hover {
+  background-color: var(--primary-yellow);
+}
+
+.selection-bar-chosen {
+  background-color: var(--primary-green);
+  color: #fff;
+  font-weight: 600;
+}
+
+.selection-bar-choice.selection-bar-chosen:hover {
+  background-color: var(--primary-green);
+}
+
+.image-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: 50vh;
+  width: 100%;
+  overflow: hidden;
+  transition: transform 100ms ease-in-out;
+}
+
+.section-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--section-background);
+  z-index: 10;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  transition: background-color 100ms ease-in-out;
+}
+
+.price-report-img {
+  position: absolute;
+  width: 60%;
+  object-fit: cover;
+}
+
+.infographic-img {
+  position: absolute;
+  width: 100%;
+  object-fit: cover;
+}
+
+.image-wrapper:hover {
+  transform: scale(1.03);
+}
+
+.section-overlay:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* ASIDE */
+aside {
+  margin: 50px;
+  flex: 1;
+}
+
+.card-container {
+  background-color: var(--side-background);
+  padding: 16px;
+  margin-bottom: 5vh;
+  border-radius: 5px;
+}
+
+.card-header {
+  font-size: 24px;
+  margin: 0;
+}
+
+.card-content-container {
+  margin: 24px 15px;
+  padding: 15px 25px;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  background-color: rgba(255, 255, 255, 0.35);
+  border-radius: 5px;
+}
+
+.card-content {
+  margin-top: 5px;
+  margin-left: 8px;
+  width: 100%;
+}
+
+.card-content > h4 {
+  font-size: 18px;
+}
+
+.card-content > p {
+  margin-top: 5px;
+  font-size: 15px;
+}
+
+.card-links {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 20px;
+  color: var(--primary-green);
+  text-decoration: underline;
+}
+
+.card-links:hover {
+  color: #000;
+}

@@ -1,0 +1,58 @@
+/* MAIN */
+
+main {
+  flex: 2;
+}
+
+main > article {
+  margin: 50px;
+  text-align: justify;
+}
+
+main > section {
+  margin: 50px;
+}
+
+main > article > p {
+  font-size: 20px;
+  margin: 0;
+}
+
+main > article > .article-goals {
+  font-size: 22px;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+main > article > ul > li {
+  list-style-type: disc;
+  margin-left: 2rem;
+  font-size: 17px;
+  line-height: 25px;
+}
+
+.container {
+  max-width: 1360px;
+  height: auto;
+  margin: 0 auto;
+  padding: 0;
+  background-color: var(--content-fill);
+}
+
+.section-container {
+  margin-top: 4rem;
+  width: 60%;
+  height: 7.5vh;
+  background-color: var(--primary-yellow);
+  display: flex;
+  align-items: center;
+  border-top-right-radius: 9px;
+  border-bottom-right-radius: 9px;
+  box-shadow: 4px 4px 4px var(--text-box-shadow);
+}
+
+.section-title {
+  padding-left: 5rem;
+  font-size: 32px;
+  text-shadow: 2px 2px #fff;
+}

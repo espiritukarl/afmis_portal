@@ -1,0 +1,87 @@
+.events-cards-container {
+  padding: 50px 75px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 35px;
+}
+
+.event-card {
+  width: 30%;
+  height: 320px;
+  margin-bottom: 25px;
+  border-radius: 5px;
+  box-shadow: 8px 8px 20px var(--text-box-shadow);
+  background-color: var(--section-background);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.event-fill-container {
+  justify-content: space-around;
+}
+
+.event-fill-container > .event-card {
+  width: 40%;
+  height: 450px;
+}
+
+.event-fill-container > .event-card > .img-container {
+  flex: 3;
+}
+
+.img-container {
+  flex: 1.5;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: 100%;
+}
+
+.img-container > img {
+  position: absolute;
+  width: 100%;
+  object-fit: contain;
+}
+
+.info-container {
+  flex: 1;
+  background-color: var(--table-header-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.event-title {
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.event-author {
+  font-size: 14px;
+}
+
+.bottom-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.event-date {
+  font-size: 14px;
+}
+
+.event-read-more {
+  padding: 6px 9px;
+  background-color: var(--primary-green);
+  color: #fff;
+  border: none;
+  border-radius: 2px;
+  text-shadow: 2px 2px 2px var(--text-box-shadow);
+  box-shadow: 4px 4px 8px var(--text-box-shadow);
+  font-size: 12px;
+}
