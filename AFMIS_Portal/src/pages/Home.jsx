@@ -9,7 +9,7 @@ import { priceTrends, eventsList, newsList } from "../components/Data/HomeData";
 export function LandingMain() {
   return (
     <main>
-      <article>
+      <article className="afmis-portal-description">
         <p className="roboto-regular">
           The AFMIS Portal consolidates all the market-related systems of the
           Department in a single platform for easy access and unified view of

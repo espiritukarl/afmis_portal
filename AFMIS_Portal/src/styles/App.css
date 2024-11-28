@@ -4,7 +4,7 @@ main {
   flex: 2;
 }
 
-main > article {
+main > .afmis-portal-description {
   margin: 50px;
   text-align: justify;
 }
@@ -32,7 +32,7 @@ main > article > ul > li {
 }
 
 .container {
-  max-width: 1360px;
+  width: 1360px;
   height: auto;
   margin: 0 auto;
   padding: 0;
