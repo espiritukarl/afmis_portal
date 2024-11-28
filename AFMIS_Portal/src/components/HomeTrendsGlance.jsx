@@ -4,9 +4,7 @@ export default function PriceTrendsGlance({ priceTrends }) {
   const [chosenPriceTrend, setChosenPriceTrend] = useState("rice");
 
   function isChosen(category) {
-    if (chosenPriceTrend === category.toLowerCase())
-      return "selection-bar-chosen";
-    return null;
+    return chosenPriceTrend === category.toLowerCase();
   }
 
   return (
@@ -18,13 +16,20 @@ export default function PriceTrendsGlance({ priceTrends }) {
         {priceTrends.map((category) => (
           <div
             key={category.toLowerCase()}
-            className={`selection-bar-choice ${isChosen(category)}`}
+            className={`selection-bar-choice ${
+              isChosen(category) ? "selection-bar-chosen" : ""
+            }`}
             onClick={() => setChosenPriceTrend(category.toLowerCase())}
           >
             {category}
           </div>
         ))}
       </div>
+      {priceTrends.map((category) => {
+        if (isChosen(category)) {
+          return <div key={`${category}ischosen`}>{category}</div>;
+        }
+      })}
     </section>
   );
 }
