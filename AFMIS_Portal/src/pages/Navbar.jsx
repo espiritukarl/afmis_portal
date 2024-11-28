@@ -14,6 +14,32 @@ export default function Navbar() {
   const handleSubMouseEnter = (submenu) => setVisibleSubDropdown(submenu);
   const handleSubMouseLeave = () => setVisibleSubDropdown(null);
 
+  function isExternal(item) {
+    if (item.external) {
+      return (
+        <a
+          href={item.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="dropdown-item lato-regular"
+        >
+          {item.name}
+          <Icon
+            icon={"gridicons:external"}
+            width={16}
+            height={16}
+            className="dropdown-icon"
+          />
+        </a>
+      );
+    }
+    return (
+      <Link to={item.link} className="dropdown-item lato-regular">
+        {item.name}
+      </Link>
+    );
+  }
+
   //Dropdown items
   const renderMenu = (items) =>
     items.map((item, idx) => {
@@ -37,30 +63,7 @@ export default function Navbar() {
           </li>
         );
       } else {
-        return (
-          <li key={idx} className="dropdown-item lato-regular">
-            {item.external ? (
-              <a
-                href={item.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="dropdown-link"
-              >
-                {item.name}
-                <Icon
-                  icon={"gridicons:external"}
-                  width={16}
-                  height={16}
-                  className="dropdown-icon"
-                />
-              </a>
-            ) : (
-              <Link to={item.link} className="dropdown-link">
-                {item.name}
-              </Link>
-            )}
-          </li>
-        );
+        return <>{isExternal(item)}</>;
       }
     });
 
