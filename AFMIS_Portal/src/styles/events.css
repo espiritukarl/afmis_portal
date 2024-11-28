@@ -84,4 +84,11 @@
   text-shadow: 2px 2px 2px var(--text-box-shadow);
   box-shadow: 4px 4px 8px var(--text-box-shadow);
   font-size: 12px;
+  transition: background-color 150ms ease-in-out, color 150ms ease-in-out;
+}
+
+.event-read-more:hover {
+  background-color: var(--primary-yellow);
+  color: var(--primary-green);
+  cursor: pointer;
 }
