@@ -1,0 +1,54 @@
+.faq-container {
+  width: 75%;
+  margin: 4rem auto;
+}
+
+.faq-card {
+  min-height: 5vh;
+  height: auto;
+  border: 1px solid #0000005d;
+  border-radius: 5px;
+  background-color: var(--faq-card);
+  box-shadow: 2px 2px 10px var(--text-box-shadow);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 35px;
+  margin: 4rem 0;
+}
+
+.faq-card:hover {
+  cursor: pointer;
+}
+
+.faq-text-container {
+  flex: 5;
+}
+
+.faq-header {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.faq-answer {
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  font-size: 1.15rem;
+  text-align: justify;
+  margin-top: 15px;
+}
+
+.faq-answer > a {
+  color: var(--link-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.faq-icon {
+  align-self: flex-start;
+}
+
+.iconify--solar.faq-icon > g {
+  stroke-width: 1;
+}
