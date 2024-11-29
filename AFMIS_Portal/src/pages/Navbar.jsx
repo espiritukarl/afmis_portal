@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/navbar.css";
 import "../styles/dropdown.css";
@@ -8,7 +8,13 @@ import { Icon } from "@iconify/react";
 export default function Navbar() {
   const [visibleDropdown, setVisibleDropdown] = useState(null);
   const [visibleSubDropdown, setVisibleSubDropdown] = useState(null);
-  const [isActive, setIsActive] = useState("Home");
+  const [isActive, setIsActive] = useState(() => {
+    return localStorage.getItem("activeMenu") || "Home";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("activeMenu", isActive);
+  }, [isActive]);
 
   const handleMouseEnter = (menu) => setVisibleDropdown(menu);
   const handleMouseLeave = () => setVisibleDropdown(null);
@@ -47,7 +53,7 @@ export default function Navbar() {
 
   //Dropdown items
   const renderMenu = (menu, items) =>
-    items.map((item, idx) => {
+    items?.map((item, idx) => {
       if (item.submenu) {
         return (
           <li
@@ -85,7 +91,13 @@ export default function Navbar() {
             onMouseLeave={handleMouseLeave}
             tabIndex={idx + 1}
           >
-            {menu === "Home" ? <a href="/home">{menu}</a> : menu}
+            {menu === "Home" ? (
+              <a href="/home" onClick={() => setIsActive(menu)}>
+                {menu}
+              </a>
+            ) : (
+              menu
+            )}
 
             {visibleDropdown === menu && items.length > 0 && (
               <ul className="dropdown-menu">{renderMenu(menu, items)}</ul>
