@@ -25,6 +25,7 @@ export default function Navbar() {
     if (item.external) {
       return (
         <a
+          key={item.link}
           href={item.link}
           target="_blank"
           rel="noopener noreferrer"
@@ -42,6 +43,7 @@ export default function Navbar() {
     }
     return (
       <Link
+        key={item.link}
         to={item.link}
         className="dropdown-item lato-regular"
         onClick={() => setIsActive(menu)}
@@ -57,7 +59,7 @@ export default function Navbar() {
       if (item.submenu) {
         return (
           <li
-            key={idx}
+            key={`${menu}-${item.name}-${idx}`}
             className="dropdown-item lato-regular has-submenu"
             onMouseEnter={() => handleSubMouseEnter(item.name)}
             onMouseLeave={handleSubMouseLeave}
@@ -69,12 +71,18 @@ export default function Navbar() {
               className="dropdown-icon"
             />
             {visibleSubDropdown === item.name && (
-              <ul className="dropdown-submenu">{renderMenu(item.submenu)}</ul>
+              <ul className="dropdown-submenu">
+                {renderMenu(menu, item.submenu)}
+              </ul>
             )}
           </li>
         );
       } else {
-        return <>{isExternal(menu, item)}</>;
+        return (
+          <React.Fragment key={item.name + "EXTERNAL"}>
+            {isExternal(menu, item)}
+          </React.Fragment>
+        );
       }
     });
 
@@ -84,7 +92,7 @@ export default function Navbar() {
       <ul className="tabs">
         {Object.entries(menuItems).map(([menu, items], idx) => (
           <li
-            key={menu}
+            key={`${menu}-${idx}`}
             className="navbar-item"
             id={isActive === menu ? "navbar-item-active" : ""}
             onMouseEnter={() => handleMouseEnter(menu)}
