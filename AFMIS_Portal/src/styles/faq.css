@@ -15,10 +15,12 @@
   align-items: center;
   padding: 35px;
   margin: 4rem 0;
+  transition: box-shadow 200ms ease-in-out;
 }
 
 .faq-card:hover {
   cursor: pointer;
+  box-shadow: 8px 8px 20px var(--text-box-shadow);
 }
 
 .faq-text-container {
@@ -45,10 +47,29 @@
   font-weight: 500;
 }
 
+.faq-answer > a:hover {
+  color: darkblue;
+  text-decoration: underline;
+}
+
+.faq-answer > ul > li {
+  list-style-type: disc;
+  margin-left: 2rem;
+}
+
 .faq-icon {
   align-self: flex-start;
 }
 
+.faq-card:hover > .faq-icon {
+  transform: scale(1.1);
+  transition: transform 200ms ease-in-out;
+}
+
 .iconify--solar.faq-icon > g {
   stroke-width: 1;
+}
+
+.faq-card:hover > .iconify--solar.faq-icon > g {
+  stroke-width: 1.25;
 }

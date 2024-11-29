@@ -1,15 +1,50 @@
 export const faqDetails = [
   {
     question: "What does AFMIS mean?",
-    answer: <></>,
+    answer: (
+      <>
+        <span style={{ fontWeight: 600 }}>
+          Agriculture and Fishery Market Information System
+        </span>{" "}
+        (AFMIS) is a unified agricultural marketing information system that
+        would provide timely, accurate, relevant information required by
+        agribusiness stakeholders for well-informed business decisions. It is
+        also a gateway to other market-related systems. It will feature a single
+        user account for other web-based market-related systems.
+      </>
+    ),
   },
   {
     question: "What is the purpose of the AFMIS Portal?",
-    answer: <></>,
+    answer: (
+      <ul>
+        <li>
+          Serve as the Market Information dissemination platform of the
+          Department
+        </li>
+        <li>
+          Serve as a planning, policy and decision-making tool of the Department
+          in providing strategic interventions and solutions whenever there are
+          price and supply fluctuations and irregularities.
+        </li>
+        <li>
+          Provide better user experience through simplifying login for AMAS/AMAD
+          users handling 2 or more marketing related systems
+        </li>
+      </ul>
+    ),
   },
   {
     question: "What is the Price Monitoring System?",
-    answer: <></>,
+    answer: (
+      <>
+        The price monitoring system, also known as{" "}
+        <span style={{ fontWeight: 600 }}>Bantay Presyo Monitoring System</span>{" "}
+        (BPMS) is a web based system for collection, monitoring and analysis of
+        retail price data of agri-fishery commodities at selected markets
+        nationwide.
+      </>
+    ),
   },
   {
     question: "What is FFEDIS?",
