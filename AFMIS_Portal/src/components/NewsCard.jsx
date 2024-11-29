@@ -4,7 +4,7 @@ export default function NewsCard({ title, news, author, date, imgSrc }) {
   return (
     <article className="news-card">
       <div className="news-container">
-        <div className="img-container">
+        <div className="news-img-container">
           <img src={imgSrc} alt="" />
         </div>
         <div className="news-info-container">

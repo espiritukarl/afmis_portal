@@ -1,6 +1,6 @@
 .news-card {
-  width: 100%;
-  margin-top: 4rem;
+  width: 1360px;
+  margin-top: 2rem;
 }
 
 .news-container {
@@ -10,16 +10,17 @@
   padding: 50px;
 }
 
-.img-container {
+.news-img-container {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   padding: 0;
+  height: 100%;
 }
 
-.img-container > img {
+.news-img-container > img {
   min-width: 100%;
   min-height: 100%;
   object-fit: cover;
@@ -32,7 +33,6 @@
   justify-content: space-between;
   padding: 0 50px;
   text-align: justify;
-  height: 100%;
 }
 
 .news-info-container > h4 {
