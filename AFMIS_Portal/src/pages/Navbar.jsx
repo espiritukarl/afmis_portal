@@ -8,13 +8,14 @@ import { Icon } from "@iconify/react";
 export default function Navbar() {
   const [visibleDropdown, setVisibleDropdown] = useState(null);
   const [visibleSubDropdown, setVisibleSubDropdown] = useState(null);
+  const [isActive, setIsActive] = useState("Home");
 
   const handleMouseEnter = (menu) => setVisibleDropdown(menu);
   const handleMouseLeave = () => setVisibleDropdown(null);
   const handleSubMouseEnter = (submenu) => setVisibleSubDropdown(submenu);
   const handleSubMouseLeave = () => setVisibleSubDropdown(null);
 
-  function isExternal(item) {
+  function isExternal(menu, item) {
     if (item.external) {
       return (
         <a
@@ -34,14 +35,18 @@ export default function Navbar() {
       );
     }
     return (
-      <Link to={item.link} className="dropdown-item lato-regular">
+      <Link
+        to={item.link}
+        className="dropdown-item lato-regular"
+        onClick={() => setIsActive(menu)}
+      >
         {item.name}
       </Link>
     );
   }
 
   //Dropdown items
-  const renderMenu = (items) =>
+  const renderMenu = (menu, items) =>
     items.map((item, idx) => {
       if (item.submenu) {
         return (
@@ -63,7 +68,7 @@ export default function Navbar() {
           </li>
         );
       } else {
-        return <>{isExternal(item)}</>;
+        return <>{isExternal(menu, item)}</>;
       }
     });
 
@@ -75,6 +80,7 @@ export default function Navbar() {
           <li
             key={menu}
             className="navbar-item"
+            id={isActive === menu ? "navbar-item-active" : ""}
             onMouseEnter={() => handleMouseEnter(menu)}
             onMouseLeave={handleMouseLeave}
             tabIndex={idx + 1}
@@ -82,7 +88,7 @@ export default function Navbar() {
             {menu === "Home" ? <a href="/home">{menu}</a> : menu}
 
             {visibleDropdown === menu && items.length > 0 && (
-              <ul className="dropdown-menu">{renderMenu(items)}</ul>
+              <ul className="dropdown-menu">{renderMenu(menu, items)}</ul>
             )}
           </li>
         ))}

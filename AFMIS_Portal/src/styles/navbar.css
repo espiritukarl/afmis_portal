@@ -29,6 +29,12 @@
   padding: 1.5rem 5px;
 }
 
+#navbar-item-active,
+#navbar-item-active > a {
+  color: var(--primary-yellow);
+  text-decoration: underline;
+}
+
 .navbar-item > a {
   color: #fff;
   text-decoration: none;
