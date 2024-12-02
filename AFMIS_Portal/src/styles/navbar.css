@@ -71,11 +71,6 @@
   cursor: pointer;
 }
 
-textarea:focus,
-input:focus {
-  outline: none;
-}
-
 /* Login button styling */
 .navbar-login {
   padding: 5px 40px;
