@@ -67,9 +67,8 @@
 }
 
 .faq-card:hover > .faq-text-container > .faq-header {
-  transform: scale(1.01);
-  transform: translateX(1px);
-  transition: transform 200ms ease-in-out;
+  text-shadow: 2px 2px 2px #74747442;
+  transition: text-shadow 200ms ease-in-out;
 }
 
 .iconify--solar.faq-icon > g {
