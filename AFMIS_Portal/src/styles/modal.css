@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.75);
+  background: var(--modal-background);
 
   display: flex;
   justify-content: center;
@@ -15,7 +15,7 @@
   position: relative;
   background: #fff;
   color: #000;
-  height: 70%;
+  height: 65%;
   width: 45%;
   padding: 0;
   border-radius: 5px;
@@ -33,20 +33,70 @@
 .modal-content > div {
   display: flex;
   width: 100%;
+  height: 100%;
 }
 
 .left-half,
 .right-half {
   flex: 1;
+  overflow: hidden;
 }
 
 .left-half > img {
-  position: absolute;
-  right: 20%;
+  position: relative;
+  right: 50%;
   object-fit: cover;
-  height: 100%;
+  height: 120%;
 }
 
 .right-half {
-  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+}
+
+.right-half > img {
+  width: 52.5%;
+}
+
+.right-half > h2 {
+  font-size: 2.3rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.login-form > input {
+  width: 240%;
+  border: 1px solid var(--modal-login-input-outline);
+  background-color: var(--modal-login-content);
+  padding: 13px 0;
+  border-radius: 20px;
+}
+
+.login-form > input::placeholder {
+  padding-left: 15px;
+  font-size: 0.9rem;
+}
+
+.login-submit {
+  width: 240%;
+  background-color: var(--modal-login-button);
+  color: #fff;
+  border: none;
+  padding: 13px 0;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.open-registration {
+  font-size: 0.9rem;
+  color: var(--link-color);
+  margin-bottom: 25px;
 }
