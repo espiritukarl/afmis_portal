@@ -3,11 +3,14 @@ import { Link } from "react-router-dom";
 import "../styles/navbar.css";
 import "../styles/dropdown.css";
 import { menuItems } from "../components/Data/MenuItems";
+import Login from "./Login";
 import { Icon } from "@iconify/react";
 
 export default function Navbar() {
   const [visibleDropdown, setVisibleDropdown] = useState(null);
   const [visibleSubDropdown, setVisibleSubDropdown] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [isActive, setIsActive] = useState(() => {
     return localStorage.getItem("activeMenu") || "Home";
   });
@@ -126,7 +129,10 @@ export default function Navbar() {
           />
         </div>
       </ul>
-      <button className="navbar-login">Login</button>
+      <button onClick={() => setIsModalOpen(true)} className="navbar-login">
+        Login
+      </button>
+      <Login isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </nav>
   );
 }
