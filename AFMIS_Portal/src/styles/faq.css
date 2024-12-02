@@ -66,6 +66,12 @@
   transition: transform 200ms ease-in-out;
 }
 
+.faq-card:hover > .faq-text-container > .faq-header {
+  transform: scale(1.01);
+  transform: translateX(1px);
+  transition: transform 200ms ease-in-out;
+}
+
 .iconify--solar.faq-icon > g {
   stroke-width: 1;
 }
