@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "../styles/navbar.css";
 import "../styles/dropdown.css";
 import { menuItems } from "../components/Data/MenuItems";
-import Login from "./Login";
+import Modal from "../components/Modal";
 import { Icon } from "@iconify/react";
 
 export default function Navbar() {
@@ -103,9 +103,9 @@ export default function Navbar() {
             tabIndex={idx + 1}
           >
             {menu === "Home" ? (
-              <a href="/home" onClick={() => setIsActive(menu)}>
+              <Link to="/home" onClick={() => setIsActive(menu)}>
                 {menu}
-              </a>
+              </Link>
             ) : (
               menu
             )}
@@ -132,7 +132,7 @@ export default function Navbar() {
       <button onClick={() => setIsModalOpen(true)} className="navbar-login">
         Login
       </button>
-      <Login isModalOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </nav>
   );
 }
