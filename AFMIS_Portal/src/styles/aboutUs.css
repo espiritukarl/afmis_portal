@@ -1,0 +1,19 @@
+main > .about-us {
+  width: 80%;
+  margin: 3rem auto;
+}
+
+.about-us > h4 {
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+}
+
+.about-us > p,
+.about-us > ul {
+  font-size: 1.05rem;
+  text-align: justify;
+}
+
+.about-us > ul > li {
+  margin-bottom: 4px;
+}

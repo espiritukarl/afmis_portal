@@ -5,6 +5,7 @@ import Navbar from "./pages/Navbar.jsx";
 import { LandingMain, LandingSide } from "./pages/Home.jsx";
 import UpcomingEvents from "./pages/UpcomingEvents.jsx";
 import NewsArticles from "./pages/NewsArticles.jsx";
+import AboutUs from "./pages/AboutUs.jsx";
 import Faq from "./pages/Faq.jsx";
 import "./styles/App.css";
 
@@ -16,6 +17,7 @@ function App() {
         <Navbar />
         <div className="content-container">
           <Routes>
+            {/* HOME SECTION */}
             <Route
               path="/home"
               element={
@@ -25,8 +27,12 @@ function App() {
                 </>
               }
             />
+            {/* NEWS SECTION */}
             <Route path="/upcoming-events" element={<UpcomingEvents />} />
             <Route path="/news-articles" element={<NewsArticles />} />
+
+            {/* ABOUT SECTION */}
+            <Route path="/about-us" element={<AboutUs />} />
             <Route path="/faq" element={<Faq />} />
           </Routes>
         </div>
