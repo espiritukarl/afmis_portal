@@ -1,0 +1,114 @@
+main > .table-graphic,
+main > .table-container {
+  width: 80%;
+  margin: 3rem auto;
+}
+
+.table-graphic > img {
+  max-width: 100%;
+}
+
+main > .table-container {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: left;
+}
+
+.table-info-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-info-container > h2 {
+  font-size: 1.5rem;
+}
+
+.table-info-container > .search-container > input {
+  padding: 7.5px 20px;
+  width: 82.5%;
+  border-radius: 5px;
+  border: 1px solid var(--table-outline-color);
+  font-size: 0.9rem;
+  color: #000;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+td,
+th {
+  border: 1px solid var(--table-outline-color);
+  padding: 12.5px 15px;
+  text-align: left;
+}
+
+th {
+  font-size: 1.1rem;
+  background-color: var(--table-header-color);
+}
+
+.table-resource > *,
+.sortable > * {
+  vertical-align: middle;
+}
+
+.sortable {
+  cursor: pointer;
+}
+
+.file-icon {
+  margin-right: 5px;
+}
+
+tr {
+  display: table-row;
+}
+
+.table-resource {
+  width: 70%;
+}
+
+.table-size,
+.table-info-container > .search-container {
+  width: 30%;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pagination > div {
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.pagination-button {
+  border: none;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 10px;
+  margin-left: 20px;
+  font-size: 1rem;
+  transition: background-color 200ms ease-in-out;
+}
+
+.pagination-button:hover:not([disabled]) {
+  cursor: pointer;
+  background-color: rgba(128, 128, 128, 0.397);
+  border-radius: 5px;
+}
+
+.sort-icon {
+  margin-left: 5px;
+}

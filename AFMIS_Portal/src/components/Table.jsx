@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Icon } from "@iconify/react";
-import "../styles/pricereport.css";
 
 export default function DailyPriceReports({ rawData, title }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -41,97 +40,114 @@ export default function DailyPriceReports({ rawData, title }) {
 
   // Handle sorting changes
   const handleSortChange = (key) => {
-    if (key === "recent") {
-      setSortKey("recent");
-    } else if (sortKey === key) {
+    if (sortKey === key) {
       setSortOrder(sortOrder === "asc" ? "desc" : "asc"); // Toggle sort order
     } else {
       setSortKey(key);
-      setSortOrder("asc"); // Default to ascending order
+      setSortOrder("desc"); // Default to ascending order
     }
   };
 
   return (
-    <div className="table-container">
-      <h2>{title}</h2>
-      <div
-        onClick={() => handleSortChange("recent")}
-        className={sortKey === "recent" ? "sortable active" : "sortable"}
-      >
-        Recently Added
+    <div className="table-container roboto-regular">
+      <div className="table-info-container">
+        <h2 className="roboto-bold">{title}</h2>
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Search here..."
+            value={searchTerm}
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              setCurrentPage(1);
+            }}
+            className="search-input roboto-thin"
+          />
+        </div>
       </div>
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Search here..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="search-input"
-        />
-      </div>
-      <table className="reports-table">
+
+      <table className="table-data">
         <thead>
-          <tr>
+          <tr className="roboto-bold">
             <th
               onClick={() => handleSortChange("name")}
-              className={sortKey === "name" ? "sortable active" : "sortable"}
+              className={sortKey === "name" ? "sortable active" : "sortable "}
             >
-              Resources
+              <span>Resources</span>
               {sortKey === "name" && (
                 <Icon
                   icon={sortOrder === "asc" ? "mdi:arrow-up" : "mdi:arrow-down"}
                   className="sort-icon"
+                  width={15}
                 />
               )}
             </th>
             <th
               onClick={() => handleSortChange("size")}
-              className={sortKey === "size" ? "sortable active" : "sortable"}
+              className={sortKey === "size" ? "sortable active" : "sortable "}
             >
-              Size
+              <span>Size</span>
               {sortKey === "size" && (
                 <Icon
                   icon={sortOrder === "asc" ? "mdi:arrow-up" : "mdi:arrow-down"}
                   className="sort-icon"
+                  width={15}
                 />
               )}
             </th>
           </tr>
         </thead>
         <tbody>
-          {currentItems.map((report, index) => (
-            <tr key={index}>
-              <td className="report-resource">
-                <Icon icon="bxs:file" className="file-icon" />
-                {report.name}
-              </td>
-              <td>{report.size}</td>
+          {currentItems.length ? (
+            currentItems.map((report, index) => (
+              <tr key={index}>
+                <td className="table-resource">
+                  <Icon
+                    icon="bxs:file"
+                    className="file-icon"
+                    width={32}
+                    color="#4d6180"
+                  />
+                  {report.name}
+                </td>
+                <td className="table-size">{report.size}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td className="roboto-light-italic">No data found</td>
+              <td></td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
       <div className="pagination">
         <span>
-          Showing {currentPage * itemsPerPage - (itemsPerPage - 1)} to{" "}
-          {Math.min(currentPage * itemsPerPage, filteredReports.length)} of{" "}
+          Showing{" "}
+          {currentItems.length
+            ? currentPage * itemsPerPage - (itemsPerPage - 1)
+            : 0}{" "}
+          to {Math.min(currentPage * itemsPerPage, filteredReports.length)} of{" "}
           {filteredReports.length} entries
         </span>
         <div>
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-            className="pagination-button"
+            disabled={currentPage === 1 || currentItems.length === 0}
+            className="pagination-button roboto-bold"
           >
+            <Icon icon={"icon-park-outline:left"} width={20} />
             Previous
           </button>
           <button
             onClick={() =>
               setCurrentPage((prev) => Math.min(prev + 1, totalPages))
             }
-            disabled={currentPage === totalPages}
-            className="pagination-button"
+            disabled={currentPage === totalPages || currentItems.length === 0}
+            className="pagination-button roboto-bold"
           >
             Next
+            <Icon icon={"icon-park-outline:right"} width={20} />
           </button>
         </div>
       </div>
