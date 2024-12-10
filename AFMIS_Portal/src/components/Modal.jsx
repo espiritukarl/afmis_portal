@@ -84,10 +84,7 @@ function openedModal(isLogIn, setLogInModal) {
           />
         </form>
         <div className="registration-buttons-container">
-          <button
-            className="roboto-regular"
-            onClick={() => setLogInModal(true)}
-          >
+          <button className="roboto-medium" onClick={() => setLogInModal(true)}>
             <Icon
               icon={"icon-park-outline:left"}
               className="left-arrow-reg"
@@ -95,7 +92,7 @@ function openedModal(isLogIn, setLogInModal) {
             />
             <span>Go back</span>
           </button>
-          <button className="roboto-regular">Register</button>
+          <button className="roboto-medium">Register</button>
         </div>
       </div>
     );
