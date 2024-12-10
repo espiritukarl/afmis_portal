@@ -8,6 +8,7 @@ import NewsArticles from "./pages/NewsArticles.jsx";
 import AboutUs from "./pages/AboutUs.jsx";
 import Faq from "./pages/Faq.jsx";
 import "./styles/App.css";
+import PriceReport from "./pages/PriceReport.jsx";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
             {/* NEWS SECTION */}
             <Route path="/upcoming-events" element={<UpcomingEvents />} />
             <Route path="/news-articles" element={<NewsArticles />} />
+            <Route path="/price-report" element={<PriceReport />} />
 
             {/* ABOUT SECTION */}
             <Route path="/about-us" element={<AboutUs />} />
