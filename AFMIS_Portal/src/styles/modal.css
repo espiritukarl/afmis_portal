@@ -97,6 +97,10 @@
   cursor: pointer;
 }
 
+.open-registration:hover {
+  color: darkblue;
+}
+
 .registration-modal {
   width: 100%;
   display: flex;
@@ -133,7 +137,7 @@
 }
 
 .registration-buttons-container {
-  margin: 1rem;
+  margin: 0.8rem;
   display: flex;
   justify-self: flex-end;
   align-self: flex-end;
@@ -148,14 +152,15 @@
   padding: 12.5px 20px;
   border-radius: 5px;
   border: none;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: #fff;
-  transition: transform 200ms ease-in-out;
+  transition: opacity 200ms ease-in-out;
 }
 
 .registration-buttons-container > button:hover {
   cursor: pointer;
-  transform: scale(1.025);
+  opacity: 95%;
+  box-shadow: 2px 2px 2px var(--text-box-shadow);
 }
 
 .registration-buttons-container > button:nth-child(1) {
