@@ -197,6 +197,10 @@
   overflow: auto;
 }
 
+.modal-general::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
 .modal-general > .modal-close-button {
   position: sticky;
   z-index: 999;
