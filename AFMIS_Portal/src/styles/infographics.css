@@ -1,0 +1,74 @@
+.daily-infographics-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 3rem;
+}
+
+.daily-infographics {
+  width: 70%;
+  cursor: pointer;
+  transition: transform 200ms ease-in-out;
+  box-shadow: 2px 2px 20px var(--text-box-shadow);
+}
+
+.daily-infographics:hover {
+  transform: scale(1.02);
+}
+
+.infographics-carousel {
+  display: flex;
+  justify-content: center;
+}
+
+.image-preview-container {
+  display: flex;
+  justify-content: center;
+  min-height: 800px;
+  max-height: 800px;
+  margin: 3rem 10%;
+  padding: 1rem;
+  background-color: var(--text-box-shadow);
+  border-radius: 5px;
+}
+
+.image-preview-container > img {
+  width: 60%;
+}
+
+.carousel-container {
+  height: auto;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  padding: 1rem;
+  border-radius: 5px;
+  background-color: var(--primary-yellow);
+}
+
+.carousel-item {
+  width: 250px;
+  height: 300px;
+  opacity: 50%;
+  cursor: pointer;
+  transition: transform 200ms ease-in-out, opacity 200ms ease-in-out;
+}
+
+.carousel-item:hover {
+  opacity: 70%;
+  transform: scale(1.025);
+}
+
+.carousel-item.active {
+  opacity: 100%;
+  transform: scale(1.025);
+}
+
+.carousel-slide {
+  cursor: pointer;
+  transition: transform 200ms ease-in-out;
+}
+
+.carousel-slide:hover {
+  transform: scale(1.25);
+}
