@@ -6,7 +6,7 @@
   align-items: center;
   /* navbar stays at top even when scrolling down */
   position: sticky;
-  z-index: 999;
+  z-index: 99;
   top: 0;
 }
 

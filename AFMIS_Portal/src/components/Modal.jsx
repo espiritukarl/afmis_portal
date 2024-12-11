@@ -2,7 +2,7 @@ import "../styles/Modal.css";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useState } from "react";
 
-export default function Modal({ isOpen, onClose }) {
+export default function Modal({ isOpen, onClose, content = "" }) {
   const [logInModal, setLogInModal] = useState(true);
 
   if (!isOpen) return null;
@@ -15,7 +15,10 @@ export default function Modal({ isOpen, onClose }) {
       }}
       className="modal-overlay"
     >
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div
+        className={content ? "modal-general" : "modal-content"}
+        onClick={(e) => e.stopPropagation()}
+      >
         <Icon
           icon={"line-md:close"}
           className="modal-close-button"
@@ -25,7 +28,7 @@ export default function Modal({ isOpen, onClose }) {
           }}
           width={24}
         />
-        <div>{openedModal(logInModal, setLogInModal)}</div>
+        <div>{content ? content : openedModal(logInModal, setLogInModal)}</div>
       </div>
     </div>
   );

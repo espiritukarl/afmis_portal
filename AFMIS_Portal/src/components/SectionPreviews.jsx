@@ -1,13 +1,21 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import Modal from "./Modal";
 
-export default function SectionPreviews({ header, imgSrc, navUrl, imgClass }) {
+export default function SectionPreviews({ header, imgSrc, imgClass }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <section>
       <h4 className="roboto-medium home-section-headers">{header}</h4>
-      <div className="image-wrapper">
-        <Link className="section-overlay" to={navUrl}></Link>
+      <div className="image-wrapper" onClick={() => setIsModalOpen(true)}>
+        <div className="section-overlay"></div>
         <img src={imgSrc} alt="" className={imgClass} />
       </div>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        content={<img src={imgSrc} alt="" className="modal-content-img" />}
+      />
     </section>
   );
 }
