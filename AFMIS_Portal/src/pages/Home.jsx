@@ -38,13 +38,11 @@ export function LandingMain() {
       <SectionPreviews
         header={"Price Report"}
         imgSrc={PriceReport}
-        navUrl={"/price-report"}
         imgClass={"price-report-img"}
       />
       <SectionPreviews
         header={"Infographics"}
         imgSrc={Infographics}
-        navUrl={"/infographics"}
         imgClass={"infographic-img"}
       />
     </main>
