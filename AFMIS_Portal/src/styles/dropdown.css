@@ -57,10 +57,6 @@
   left: 100%;
 }
 
-.dropdown-submenu > .dropdown-item {
-  padding-right: 3rem;
-}
-
 .dropdown-item.has-submenu:hover > .dropdown-submenu {
   display: block;
 }

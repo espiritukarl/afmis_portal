@@ -21,6 +21,11 @@ export const menuItems = {
       submenu: [
         { name: "Price Report", link: "/price-report" },
         { name: "Infographics", link: "/infographics" },
+        {
+          name: "Comparitive World Prices",
+          link: "https://docs.google.com/spreadsheets/d/1C7qUSTm8N6dDrGE9ceA4ODV_-XMxwsF3xmtl_w2y3QE/edit?gid=697672754#gid=697672754",
+          external: true,
+        },
       ],
     },
   ],
