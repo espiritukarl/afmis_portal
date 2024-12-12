@@ -64,6 +64,7 @@
 .feedback-options > input[type="radio"] {
   margin: 0 1rem;
   transform: scale(1.7);
+  background-color: var(--modal-login-content);
 }
 
 .feedback-options > label {
@@ -113,6 +114,7 @@ textarea {
   padding: 10px 10px;
   resize: none;
   height: 15rem;
+  background-color: var(--modal-login-content);
 }
 
 .contact-us.submit-form {
