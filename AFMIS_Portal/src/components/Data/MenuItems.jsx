@@ -1,6 +1,6 @@
 export const menuItems = {
   Home: [],
-  "Projects&Programs": [
+  "Projects & Programs": [
     { name: "KADIWA", link: "https://kadiwa.da.gov.ph/", external: true },
     {
       name: "FoodLane",
@@ -13,7 +13,7 @@ export const menuItems = {
       external: true,
     },
   ],
-  "News&Events": [
+  "News & Events": [
     { name: "News Articles", link: "/news-articles" },
     { name: "Upcoming Events", link: "/upcoming-events" },
     {
