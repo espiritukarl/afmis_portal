@@ -6,6 +6,7 @@ import { LandingMain, LandingSide } from "./pages/Home.jsx";
 import UpcomingEvents from "./pages/UpcomingEvents.jsx";
 import NewsArticles from "./pages/NewsArticles.jsx";
 import AboutUs from "./pages/AboutUs.jsx";
+import ContactUs from "./pages/ContactUs.jsx";
 import Faq from "./pages/Faq.jsx";
 import "./styles/App.css";
 import PriceReport from "./pages/PriceReport.jsx";
@@ -37,6 +38,7 @@ function App() {
 
             {/* ABOUT SECTION */}
             <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/faq" element={<Faq />} />
           </Routes>
         </div>
