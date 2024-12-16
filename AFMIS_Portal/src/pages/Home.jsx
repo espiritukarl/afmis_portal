@@ -4,7 +4,12 @@ import HomeTrendsGlance from "../components/HomeTrendsGlance";
 import SectionPreviews from "../components/SectionPreviews";
 import PriceReport from "/price_report.jpg";
 import Infographics from "/infographics.jpg";
-import { priceTrends, eventsList, newsList } from "../components/Data/HomeData";
+import {
+  priceTrends,
+  priceTrendData,
+  eventsList,
+  newsList,
+} from "../components/Data/HomeData";
 
 export function LandingMain() {
   return (
@@ -34,7 +39,10 @@ export function LandingMain() {
           </li>
         </ul>
       </article>
-      <HomeTrendsGlance priceTrends={priceTrends} />
+      <HomeTrendsGlance
+        priceTrends={priceTrends}
+        priceTrendData={priceTrendData}
+      />
       <SectionPreviews
         header={"Price Report"}
         imgSrc={PriceReport}
