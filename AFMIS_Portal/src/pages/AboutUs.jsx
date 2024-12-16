@@ -11,7 +11,7 @@ export default function AboutUs() {
           The Agribusiness and Marketing Assistance Service collaborates with
           and provides direct assistance to the private sector, including
           concerned NGOs and POs in marketing ventures and in the conduct of
-          market analysis, identification and matching. (AFMA IRR Rule 40).
+          market analysis, identification and matching. (AFMA IRR Rule 40).{" "}
           <br />
           <br />
           It shall provide a unified market development and investment
