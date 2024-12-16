@@ -5,6 +5,7 @@ import {
   CategoryScale,
   LinearScale,
   PointElement,
+  BarElement,
   LineElement,
   Title,
   Tooltip,
@@ -15,6 +16,7 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
+  BarElement,
   LineElement,
   Title,
   Tooltip,
@@ -61,10 +63,19 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
                 tension: 0.4,
               },
               {
-                label: "Other data",
-                data: [18, 19, 16, 13, 12, 13, 13, 13, 11, 13, 15, 17],
+                label: `${category} 2 Prices`,
+                data: trendData.secondaryData,
                 borderColor: "red",
                 backgroundColor: "rgba(255, 123, 0, 0.5)",
+                fill: true,
+                tension: 0.4,
+              },
+              {
+                type: "bar",
+                label: "Sales data",
+                data: trendData.barData,
+                borderColor: "rgba(75,192,192,1)",
+                backgroundColor: "rgba(75,192,192,0.5)",
                 fill: true,
                 tension: 0.4,
               },
@@ -79,7 +90,7 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
             scales: {
               y: {
                 beginAtZero: true, // Ensures the Y-axis always starts at 0
-                max: 80,
+                max: 100,
               },
             },
           };
