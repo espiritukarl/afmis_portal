@@ -87,7 +87,7 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
           const options = {
             responsive: true,
             plugins: {
-              legend: { position: "top" },
+              legend: { position: "bottom" },
             },
             scales: {
               y: {
