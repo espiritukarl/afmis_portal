@@ -68,6 +68,11 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
             plugins: {
               legend: { position: "top" },
             },
+            scales: {
+              y: {
+                beginAtZero: true, // Ensures the Y-axis always starts at 0
+              },
+            },
           };
 
           return (
