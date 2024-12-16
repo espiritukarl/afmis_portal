@@ -60,6 +60,14 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
                 fill: true,
                 tension: 0.4,
               },
+              {
+                label: "Other data",
+                data: [18, 19, 16, 13, 12, 13, 13, 13, 11, 13, 15, 17],
+                borderColor: "red",
+                backgroundColor: "rgba(255, 123, 0, 0.5)",
+                fill: true,
+                tension: 0.4,
+              },
             ],
           };
 
@@ -71,13 +79,18 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
             scales: {
               y: {
                 beginAtZero: true, // Ensures the Y-axis always starts at 0
+                max: 80,
               },
             },
           };
 
           return (
             <div key={`${category}ischosen`}>
-              <Line data={chartData} options={options} />
+              <Line
+                data={chartData}
+                options={options}
+                className="price-trends-chart"
+              />
             </div>
           );
         }

@@ -140,3 +140,7 @@ aside {
 .card-links:hover {
   color: #000;
 }
+
+.price-trends-chart {
+  margin-top: 2rem;
+}
