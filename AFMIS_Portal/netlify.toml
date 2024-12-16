@@ -1,4 +1,12 @@
+# Netlify configuration file
+# Redirect from root (/) to /home
 [[redirects]]
   from = "/"
   to = "/home"
   status = 301
+
+# SPA routing support (for React apps using client-side routing)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
