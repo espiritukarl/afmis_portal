@@ -103,7 +103,7 @@ export default function Navbar() {
             tabIndex={idx + 1}
           >
             {menu === "Home" ? (
-              <Link to="/home" onClick={() => setIsActive(menu)}>
+              <Link to="/" onClick={() => setIsActive(menu)}>
                 {menu}
               </Link>
             ) : (

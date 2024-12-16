@@ -22,7 +22,7 @@ function App() {
           <Routes>
             {/* HOME SECTION */}
             <Route
-              path="/home"
+              path="/"
               element={
                 <>
                   <LandingMain />
