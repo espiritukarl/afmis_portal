@@ -57,29 +57,22 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
             labels: trendData.labels,
             datasets: [
               {
+                type: "line",
                 label: `${category} Prices`,
                 data: trendData.data,
                 borderColor: "blue",
-                backgroundColor: "rgba(0, 123, 255, 0.5)",
-                fill: true,
-                tension: 0.4,
               },
               {
+                type: "line",
                 label: `${category} 2 Prices`,
                 data: trendData.secondaryData,
                 borderColor: "red",
-                backgroundColor: "rgba(255, 123, 0, 0.5)",
-                fill: true,
-                tension: 0.4,
               },
               {
                 type: "bar",
                 label: "Sales data",
                 data: trendData.barData,
-                borderColor: "rgba(75,192,192,1)",
                 backgroundColor: "rgba(75,192,192,0.5)",
-                fill: true,
-                tension: 0.4,
               },
             ],
           };
