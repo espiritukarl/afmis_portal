@@ -144,3 +144,8 @@ aside {
 .price-trends-chart {
   margin-top: 2rem;
 }
+
+.dropdown-container {
+  position: absolute;
+  background-color: red;
+}

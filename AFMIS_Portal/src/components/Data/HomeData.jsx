@@ -61,6 +61,8 @@ export const priceTrendData = {
   },
 };
 
+export const timePeriod = ["Yearly", "Monthly", "Weekly", "Daily"];
+
 export const eventsList = [
   {
     id: 123,

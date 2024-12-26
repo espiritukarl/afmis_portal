@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Line } from "react-chartjs-2";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import { getRegion, timePeriod } from "./Data/HomeData";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -27,9 +29,29 @@ ChartJS.register(
 
 export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
   const [chosenPriceTrend, setChosenPriceTrend] = useState("Rice");
+  const [showDropdown, setShowDropdown] = useState({
+    region: false,
+    time: false,
+  });
 
   function isChosen(category) {
     return chosenPriceTrend === category;
+  }
+
+  async function getRegion() {
+    const response = await fetch("https://psgc.gitlab.io/api/regions/", {
+      method: "GET",
+      headers: {
+        Accept: "text/html",
+      },
+    });
+    if (!response.ok) {
+      throw new Error("Failed to fetch regions data");
+    }
+    const text = await response.text();
+    const data = JSON.parse(text);
+    console.log(data);
+    return data.map((region) => region.regionName);
   }
 
   return (
@@ -37,6 +59,34 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
       <h4 className="roboto-medium home-section-headers">
         Price Trends at a Glance
       </h4>
+      <div className="selection-bar-container roboto-regular">
+        <div
+          className="selection-bar-choice selection-bar-chosen"
+          onClick={() => console.log(getRegion())}
+        >
+          Region I{" "}
+          <Icon
+            icon={showDropdown.region ? "bxs:up-arrow" : "bxs:down-arrow"}
+            width={10}
+          />
+        </div>
+        <div
+          className="selection-bar-choice "
+          onClick={() =>
+            setShowDropdown((prevInfo) => ({
+              ...prevInfo,
+              time: !showDropdown.time,
+            }))
+          }
+        >
+          {timePeriod[0]}{" "}
+          <Icon
+            icon={showDropdown.time ? "bxs:up-arrow" : "bxs:down-arrow"}
+            width={10}
+          />
+          <DropdownChoices show={showDropdown.time} dataArr={timePeriod} />
+        </div>
+      </div>
       <div className="selection-bar-container roboto-regular">
         {priceTrends.map((category) => (
           <div
@@ -102,5 +152,17 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
         }
       })}
     </section>
+  );
+}
+
+function DropdownChoices({ show, dataArr }) {
+  if (!show) return null;
+
+  return (
+    <div className="dropdown-container">
+      {dataArr.map((choice) => {
+        return <div className="item">{choice}</div>;
+      })}
+    </div>
   );
 }
