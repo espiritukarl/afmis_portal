@@ -1,3 +1,18 @@
+export async function getRegion() {
+  const response = await fetch("https://psgc.gitlab.io/api/regions/", {
+    method: "GET",
+    headers: {
+      Accept: "text/html",
+    },
+  });
+  if (!response.ok) {
+    throw new Error("Failed to fetch regions data");
+  }
+  const text = await response.text();
+  const data = JSON.parse(text);
+  return data.map((region) => region.regionName);
+}
+
 export const priceTrends = [
   "Rice",
   "Meat",

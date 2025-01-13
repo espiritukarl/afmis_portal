@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { getRegion, timePeriod } from "./Data/HomeData";
@@ -29,29 +29,27 @@ ChartJS.register(
 
 export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
   const [chosenPriceTrend, setChosenPriceTrend] = useState("Rice");
+  const [regions, setRegions] = useState([]);
   const [showDropdown, setShowDropdown] = useState({
     region: false,
     time: false,
   });
 
+  useEffect(() => {
+    async function fetchRegions() {
+      try {
+        const regionNames = await getRegion();
+        setRegions(regionNames);
+      } catch (error) {
+        console.error("Error fetching regions:", error);
+      }
+    }
+
+    fetchRegions();
+  }, []);
+
   function isChosen(category) {
     return chosenPriceTrend === category;
-  }
-
-  async function getRegion() {
-    const response = await fetch("https://psgc.gitlab.io/api/regions/", {
-      method: "GET",
-      headers: {
-        Accept: "text/html",
-      },
-    });
-    if (!response.ok) {
-      throw new Error("Failed to fetch regions data");
-    }
-    const text = await response.text();
-    const data = JSON.parse(text);
-    console.log(data);
-    return data.map((region) => region.regionName);
   }
 
   return (
@@ -62,19 +60,27 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
       <div className="selection-bar-container roboto-regular">
         <div
           className="selection-bar-choice selection-bar-chosen"
-          onClick={() => console.log(getRegion())}
+          onClick={() =>
+            setShowDropdown((prevInfo) => ({
+              ...prevInfo,
+              region: !showDropdown.region,
+              time: false,
+            }))
+          }
         >
           Region I{" "}
           <Icon
             icon={showDropdown.region ? "bxs:up-arrow" : "bxs:down-arrow"}
             width={10}
           />
+          <DropdownChoices show={showDropdown.region} dataArr={regions} />
         </div>
         <div
           className="selection-bar-choice "
           onClick={() =>
             setShowDropdown((prevInfo) => ({
               ...prevInfo,
+              region: false,
               time: !showDropdown.time,
             }))
           }
@@ -161,7 +167,11 @@ function DropdownChoices({ show, dataArr }) {
   return (
     <div className="dropdown-container">
       {dataArr.map((choice) => {
-        return <div className="item">{choice}</div>;
+        return (
+          <div className="item roboto-regular" key={dataArr + choice}>
+            {choice}
+          </div>
+        );
       })}
     </div>
   );
