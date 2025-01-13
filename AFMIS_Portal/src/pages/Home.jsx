@@ -2,6 +2,7 @@ import "../styles/home.css";
 import HomeCard from "../components/HomeCard";
 import HomeTrendsGlance from "../components/HomeTrendsGlance";
 import SectionPreviews from "../components/SectionPreviews";
+import Banner from "../components/Banner";
 import PriceReport from "/price_report.jpg";
 import Infographics from "/infographics.jpg";
 import {
@@ -14,6 +15,7 @@ import {
 export function LandingMain() {
   return (
     <main>
+      <Banner />
       <article className="afmis-portal-description">
         <p className="roboto-regular">
           The AFMIS Portal consolidates all the market-related systems of the
