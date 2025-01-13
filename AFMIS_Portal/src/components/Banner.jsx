@@ -49,9 +49,11 @@ export default function Banner() {
         className={isAnimating ? "banner-image transition" : "banner-image"}
       />
       <img
-        src={bannerImages[(index + 1 + length) % length]}
+        src={bannerImages[(index + 1) % length]}
         alt=""
-        className={isAnimating ? "fade-in" : "fade-out"}
+        className={
+          isAnimating ? "next-banner-image fade-out" : "next-banner-image"
+        }
       />
       <Icon
         icon={"icon-park-outline:right"}
