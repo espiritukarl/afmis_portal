@@ -24,10 +24,6 @@
   opacity: 1;
 }
 
-.banner-image.transition {
-  opacity: 0;
-}
-
 .next-banner-image {
   display: flex;
   justify-content: center;

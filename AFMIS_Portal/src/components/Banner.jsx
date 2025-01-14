@@ -3,32 +3,19 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 
 export default function Banner() {
   const [index, setIndex] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
   const length = bannerImages.length;
 
   const handlePrevious = () => {
-    setIsAnimating(true);
-    setTimeout(() => {
-      setIsAnimating(false);
-      setIndex((prevIndex) => (prevIndex - 1 + length) % length);
-    }, 300);
+    setIndex((prevIndex) => (prevIndex - 1 + length) % length);
   };
 
   const handleNext = () => {
-    setIsAnimating(true);
-    setTimeout(() => {
-      setIsAnimating(false);
-      setIndex((prevIndex) => (prevIndex + 1) % length);
-    }, 300);
+    setIndex((prevIndex) => (prevIndex + 1) % length);
   };
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setIsAnimating(true);
-      setTimeout(() => {
-        setIsAnimating(false);
-        setIndex((prevIndex) => (prevIndex + 1) % length);
-      }, 300);
+      setIndex((prevIndex) => (prevIndex + 1) % length);
     }, 5000);
     return () => {
       clearInterval(interval);
@@ -43,18 +30,7 @@ export default function Banner() {
         onClick={handlePrevious}
         className="previous-banner"
       />
-      <img
-        src={bannerImages[index]}
-        alt=""
-        className={isAnimating ? "banner-image transition" : "banner-image"}
-      />
-      <img
-        src={bannerImages[(index + 1) % length]}
-        alt=""
-        className={
-          isAnimating ? "next-banner-image fade-out" : "next-banner-image"
-        }
-      />
+      <img src={bannerImages[index]} alt="" className="banner-image" />
       <Icon
         icon={"icon-park-outline:right"}
         width={30}
