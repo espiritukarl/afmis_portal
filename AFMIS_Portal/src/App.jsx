@@ -11,6 +11,7 @@ import Faq from "./pages/Faq.jsx";
 import "./styles/App.css";
 import PriceReport from "./pages/PriceReport.jsx";
 import Infographics from "./pages/Infographics.jsx";
+import Banner from "./components/Banner";
 import FetchGoogleSheets from "./components/FetchGoogleSheets.jsx";
 
 function App() {
@@ -19,6 +20,8 @@ function App() {
       <div className="container">
         <Header />
         <Navbar />
+        <Banner />
+
         <div className="content-container">
           {/* <FetchGoogleSheets /> */}
           <Routes>

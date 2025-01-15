@@ -15,7 +15,6 @@ import {
 export function LandingMain() {
   return (
     <main>
-      <Banner />
       <article className="afmis-portal-description">
         <p className="roboto-regular">
           The AFMIS Portal consolidates all the market-related systems of the
