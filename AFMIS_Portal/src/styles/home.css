@@ -6,7 +6,7 @@
   display: flex;
   justify-content: space-around;
   align-items: flex-end;
-  margin: 0 auto;
+  margin: 5px auto;
   position: relative;
   min-height: 500px;
   max-height: 500px;
@@ -15,7 +15,7 @@
 
 .banner-container > img {
   position: absolute;
-  width: 100%;
+  width: 99%;
   min-height: 700px;
   max-height: 700px;
   bottom: -150px;
