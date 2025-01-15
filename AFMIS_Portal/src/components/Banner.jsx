@@ -50,4 +50,9 @@ export default function Banner() {
   );
 }
 
-const bannerImages = ["news1.jpg", "news2.png", "event6.jpg"];
+const bannerImages = [
+  "banner0.jpg",
+  "banner1.jpg",
+  "banner2.jpg",
+  "banner4.jpg",
+];
