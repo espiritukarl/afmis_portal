@@ -35,6 +35,11 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
     time: false,
   });
 
+  const [chosen, setChosen] = useState({
+    region: regions[0] || "Region I",
+    time: timePeriod[0],
+  });
+
   useEffect(() => {
     async function fetchRegions() {
       try {
@@ -68,12 +73,17 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
             }))
           }
         >
-          Region I{" "}
+          {chosen.region}{" "}
           <Icon
             icon={showDropdown.region ? "bxs:up-arrow" : "bxs:down-arrow"}
             width={10}
           />
-          <DropdownChoices show={showDropdown.region} dataArr={regions} />
+          <DropdownChoices
+            show={showDropdown.region}
+            dataArr={regions}
+            type="region"
+            setChosen={setChosen}
+          />
         </div>
         <div
           className="selection-bar-choice "
@@ -85,12 +95,17 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
             }))
           }
         >
-          {timePeriod[0]}{" "}
+          {chosen.time}{" "}
           <Icon
             icon={showDropdown.time ? "bxs:up-arrow" : "bxs:down-arrow"}
             width={10}
           />
-          <DropdownChoices show={showDropdown.time} dataArr={timePeriod} />
+          <DropdownChoices
+            show={showDropdown.time}
+            dataArr={timePeriod}
+            type="time"
+            setChosen={setChosen}
+          />
         </div>
       </div>
       <div className="selection-bar-container roboto-regular">
@@ -161,14 +176,23 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
   );
 }
 
-function DropdownChoices({ show, dataArr }) {
+function DropdownChoices({ show, dataArr, type, setChosen }) {
   if (!show) return null;
 
   return (
     <div className="dropdown-container">
       {dataArr.map((choice) => {
         return (
-          <div className="item roboto-regular" key={dataArr + choice}>
+          <div
+            className="item roboto-regular"
+            key={dataArr + choice}
+            onClick={() =>
+              setChosen((prevInfo) => ({
+                ...prevInfo,
+                [type]: choice,
+              }))
+            }
+          >
             {choice}
           </div>
         );
