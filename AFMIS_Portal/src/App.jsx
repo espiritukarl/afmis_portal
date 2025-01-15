@@ -11,6 +11,7 @@ import Faq from "./pages/Faq.jsx";
 import "./styles/App.css";
 import PriceReport from "./pages/PriceReport.jsx";
 import Infographics from "./pages/Infographics.jsx";
+import FetchGoogleSheets from "./components/FetchGoogleSheets.jsx";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Header />
         <Navbar />
         <div className="content-container">
+          {/* <FetchGoogleSheets /> */}
           <Routes>
             {/* HOME SECTION */}
             <Route
