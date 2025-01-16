@@ -180,3 +180,37 @@ function fromBb26(x) {
 function increment(x, n = 6) {
   return toBb26(fromBb26(x) + n);
 }
+
+//TEMP DATA:
+
+// WEEKLY:
+// [LABEL]
+// [PRICES]
+// [WEEK] <-- increment days (0 to 6), increment%6===0 => {increment = 0; week++}
+// {
+//  name: label[0]
+//  specification: label[1]
+//  price: [{
+//   week: week
+//   prevailing: prices[0]
+//   low: prices[1]
+//   high: prices[2]
+//   average: prices[3]
+//   median: prices[4]
+//  }]
+// }
+
+// DAILY:
+// [DAY]
+// [LABEL]
+// [PRICES]
+// {
+//  name: label[0]
+//  specification: label[1]
+//  unit: label[3]
+//  price: [{
+//   day: day[0]
+//   prevailing: prices[0]
+//   average: prices[1]
+//  }]
+// }
