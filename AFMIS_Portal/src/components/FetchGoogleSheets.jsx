@@ -4,14 +4,16 @@ import { gapi } from "gapi-script";
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID; // Your OAuth 2.0 Client ID
 const API_KEY = process.env.GOOGLE_API_KEY; // Your Google API Key
 const SHEET_ID = "1ME7YKJyw_bwDyNDF86M-G6CsVi4_Fw8kVbwtmsie4cU"; // The ID of your Google Sheet
-const RANGES = [
-  "Summary (with Weekends)!A9:B19",
-  "Summary (with Weekends)!C9:G19",
-];
+const LABEL_RANGES = "Summary (with Weekends)!A9:B19";
+const WEEKLY_RANGES = "Summary (with Weekends)!C9:G19";
+const DAILY_DATES_RANGES = "Daily Prevailing!D7:AJ7";
+const DAILY_RANGES_PREVAILING = "Daily Prevailing!D9:AJ19";
+const DAILY_RANGES_AVE = "Daily Average!D9:AJ19";
 const EXCLUDED_ROWS = [10, 15]; // Rows to exclude
 
 export default function GoogleSheetsExample() {
-  const [data, setData] = useState([]);
+  const [weeklyData, setWeeklyData] = useState([]);
+  const [dailyData, setDailyData] = useState([]);
   const [isSignedIn, setIsSignedIn] = useState(false);
 
   class Rice {
@@ -74,6 +76,7 @@ export default function GoogleSheetsExample() {
   };
 
   const getSheetData = () => {
+    //WEEKLY
     gapi.client.sheets.spreadsheets.values
       .batchGet({
         spreadsheetId: SHEET_ID,
@@ -100,9 +103,33 @@ export default function GoogleSheetsExample() {
           (rice, index) => new Rice(rice[0], rice[1], week1prices[index])
         );
 
-        setData(filteredData);
+        setWeeklyData(filteredData);
       })
       .catch((error) => console.error("Error fetching data", error));
+
+    //DAILY
+    gapi.client.sheets.spreadsheets.values
+      .batchGet({
+        spreadsheetId: SHEET_ID,
+        ranges: [DAILY_RANGES_AVE, DAILY_RANGES_PREVAILING],
+      })
+      .then((response) => {
+        const result = response.result.valueRanges;
+        const filteredData = result.map((rangeData, rangeIndex) => {
+          const startRow = parseInt(
+            RANGES[rangeIndex].match(/\!(\w)(\d+):/)[2]
+          );
+          return rangeData.values.filter(
+            (_, rowIndex) => !EXCLUDED_ROWS.includes(startRow + rowIndex)
+          );
+        });
+        let finalData = filteredData.map((riceArr) =>
+          riceArr.map((val) => val.filter((price) => price != ""))
+        );
+        console.log(finalData);
+        new Rice();
+        setDailyData(finalData);
+      });
   };
 
   return (
@@ -113,8 +140,8 @@ export default function GoogleSheetsExample() {
       ) : (
         <div>
           <h2>Data from Google Sheets:</h2>
-          {data.length > 0 ? (
-            data.map((rangeData, rangeIndex) => (
+          {weeklyData.length > 0 ? (
+            weeklyData.map((rangeData, rangeIndex) => (
               <div key={rangeIndex}>
                 <pre>{JSON.stringify(rangeData, null, 2)}</pre>
               </div>

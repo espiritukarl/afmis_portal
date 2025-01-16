@@ -20,7 +20,7 @@ function App() {
         <Header />
         <Navbar />
         <div className="content-container">
-          {/* <FetchGoogleSheets /> */}
+          <FetchGoogleSheets />
           <Routes>
             {/* HOME SECTION */}
             <Route

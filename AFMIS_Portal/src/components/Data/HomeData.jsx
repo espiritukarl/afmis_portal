@@ -22,6 +22,20 @@ export const priceTrends = [
   "Others",
 ];
 
+//FUTURE - INCLUDE FROM GSHEETS
+// label = WEEK BY WEEK, MONTH BY MONTH, YEAR BY YEAR, depends on chosen filter
+
+// week1.map((rice) =>
+// 	rice[0]: {
+// 		labels: label,
+// 		data: rice[2], <----THIS IS AN OBJECT, GET OBJECT VALUES, NEED TO HAVE A NEW ONE
+//    TYPE: ??? (prevailing, low, high, median), depends on chosen filter
+// 		specifications: rice[1]
+// 	}
+
+// have modal open: checkbox - rice types, radio - type, radio - time period
+// are regions useless for this????
+
 const label = [
   "Jan",
   "Feb",
