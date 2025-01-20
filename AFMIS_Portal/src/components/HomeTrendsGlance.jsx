@@ -37,7 +37,7 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
 
   const [filterOptions, setFilterOptions] = useState({
     priceTypes: priceTypes[0], //radio
-    timePeriod: Object.keys(timePeriod)[2], //radio
+    timePeriod: Object.keys(timePeriod)[3], //radio
     rice: [
       {
         category: "RICE-FOR-ALL",
@@ -104,18 +104,62 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
     });
   };
 
+  // Fake Data for Each Type
+  const fakeData = {
+    Daily: {
+      "RICE-FOR-ALL": {
+        "Well Milled": [40, 40, 40, 40, 40, 40, 40],
+      },
+      "IMPORTED COMMERCIAL RICE": {
+        Special: [60, 60, 60, 60, 60, 60, 60],
+        Premium: [57, 56, 56, 56.5, 56.5, 56, 56],
+        "Well Milled": [47.5, 45, 45, 45, 45, 45, 45],
+        "Regular Milled": [42, 42, 45, 45, 45, 45, 45],
+      },
+      "LOCAL COMMERCIAL RICE": {
+        Special: [60, 60, 60, 60, 60, 60, 60],
+        Premium: [55, 55, 55, 55, 55, 55, 55],
+        "Well Milled": [48, 50, 45, 45, 45, 45, 45],
+        "Regular Milled": [42, 42, 42, 43.5, 42, 40, 40],
+      },
+    },
+    Weekly: {
+      "RICE-FOR-ALL": {
+        "Well Milled": Array(52).fill(40),
+      },
+      "IMPORTED COMMERCIAL RICE": {
+        Special: Array(52).fill(56),
+        Premium: Array(52).fill(56),
+        "Well Milled": Array(52).fill(45),
+        "Regular Milled": Array(52).fill(45),
+      },
+      "LOCAL COMMERCIAL RICE": {
+        Special: Array(52).fill(45),
+        Premium: Array(52).fill(48),
+        "Well Milled": Array(52).fill(45),
+        "Regular Milled": Array(52).fill(42),
+      },
+    },
+  };
+
   const chartData = {
     labels: timePeriod[filterOptions.timePeriod],
     datasets: filterOptions.rice.flatMap(({ category, selected }) =>
-      selected.map((type) => ({
-        label: `${category}: ${type}`,
-        data: Array.from(
-          { length: timePeriod[filterOptions.timePeriod].length },
-          () => Math.floor(Math.random() * 100) //CHANGE TO ACTUAL VALUES HERE
-        ),
-        borderColor: generateColor(category, type),
-        tension: 0,
-      }))
+      selected.map((type) => {
+        const data =
+          fakeData[filterOptions.timePeriod]?.[category]?.[type] ||
+          Array.from(
+            { length: timePeriod[filterOptions.timePeriod].length },
+            () => Math.floor(Math.random() * 100) // Replace with actual values here
+          );
+
+        return {
+          label: `${category}: ${type}`,
+          data: data,
+          color: generateColor(category, type),
+          borderColor: generateColor(category, type),
+        };
+      })
     ),
   };
 
@@ -123,9 +167,34 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
     responsive: true,
     plugins: {
       legend: { position: "bottom" },
+      tooltip: {
+        enabled: true,
+      },
     },
     scales: {
-      y: { beginAtZero: true },
+      y: {
+        beginAtZero: true, // Ensures the Y-axis starts at 0
+        min: 0, // Set minimum value
+        max: 100, // Set maximum value
+        ticks: {
+          stepSize: 10, // Optional: Customize the tick interval
+        },
+        title: {
+          display: true,
+          text: "Price (Php)",
+        },
+      },
+      x: {
+        ticks: {
+          autoSkip: true,
+          maxRotation: 45,
+          minRotation: 0,
+        },
+        title: {
+          display: true,
+          text: filterOptions.timePeriod,
+        },
+      },
     },
   };
 
@@ -168,10 +237,7 @@ function FilterPopup({
         <Icon
           icon={"line-md:close"}
           className="modal-close-button"
-          onClick={() => {
-            onClose();
-            setLogInModal(true);
-          }}
+          onClick={() => onClose()}
           width={24}
         />
         {/* Time Period */}
@@ -243,8 +309,8 @@ function FilterPopup({
           </div>
         </fieldset>
         {/* Log selected filters */}
-        {console.log("Time Period: ", filters.timePeriod || "None")}
-        {console.log("Price Type: ", filters.priceTypes || "None")}
+        {console.log("Time Period: ", filters.timePeriod)}
+        {console.log("Price Type: ", filters.priceTypes)}
         {console.log("Rice Commodities:")}
         {filters.rice.length > 0
           ? filters.rice.map((item) => {
@@ -253,7 +319,7 @@ function FilterPopup({
                 `${item.category}: ${item.selected.join(", ")}`
               );
             })
-          : "None"}
+          : console.log("No rice selected")}
         {console.log("Filters: ", filters.rice)}
       </div>
     </div>
