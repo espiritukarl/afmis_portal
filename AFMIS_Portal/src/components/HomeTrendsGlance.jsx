@@ -33,11 +33,9 @@ ChartJS.register(
 );
 
 export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
-  const [chosenPriceTrend, setChosenPriceTrend] = useState("Rice");
-  const [regions, setRegions] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
-  const defaultFilters = {
+  const [filterOptions, setFilterOptions] = useState({
     priceTypes: priceTypes[0], //radio
     timePeriod: Object.keys(timePeriod)[2], //radio
     rice: [
@@ -54,18 +52,16 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
         selected: ["Regular Milled"],
       },
     ], //ARRAY [] because checkbox
+  });
+
+  const generateColor = (category, type) => {
+    const hash = [...category, ...type].reduce(
+      (acc, char) => acc + char.charCodeAt(0),
+      0
+    );
+    const hue = hash % 360; // Use modulo to wrap hue value
+    return `hsl(${hue}, 70%, 50%)`;
   };
-  const [filterOptions, setFilterOptions] = useState(defaultFilters);
-
-  // const [showDropdown, setShowDropdown] = useState({
-  //   region: false,
-  //   time: false,
-  // });
-
-  // const [chosen, setChosen] = useState({
-  //   region: regions[0] || "Region I",
-  //   time: timePeriod.monthly[0],
-  // });
 
   // Handler for radio buttons
   const handleRadioChange = (e) => {
@@ -108,22 +104,30 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
     });
   };
 
-  useEffect(() => {
-    async function fetchRegions() {
-      try {
-        const regionNames = await getRegion();
-        setRegions(regionNames);
-      } catch (error) {
-        console.error("Error fetching regions:", error);
-      }
-    }
+  const chartData = {
+    labels: timePeriod[filterOptions.timePeriod],
+    datasets: filterOptions.rice.flatMap(({ category, selected }) =>
+      selected.map((type) => ({
+        label: `${category}: ${type}`,
+        data: Array.from(
+          { length: timePeriod[filterOptions.timePeriod].length },
+          () => Math.floor(Math.random() * 100) //CHANGE TO ACTUAL VALUES HERE
+        ),
+        borderColor: generateColor(category, type),
+        tension: 0,
+      }))
+    ),
+  };
 
-    fetchRegions();
-  }, []);
-
-  function isChosen(category) {
-    return chosenPriceTrend === category;
-  }
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: { position: "bottom" },
+    },
+    scales: {
+      y: { beginAtZero: true },
+    },
+  };
 
   return (
     <section>
@@ -140,148 +144,12 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
           handleRadioChange={handleRadioChange}
         />
       </h4>
-      {/* <div className="selection-bar-container roboto-regular">
-       <div
-          className="selection-bar-choice selection-bar-chosen"
-          onClick={() =>
-            setShowDropdown((prevInfo) => ({
-              ...prevInfo,
-              region: !showDropdown.region,
-              time: false,
-            }))
-          }
-        >
-          {chosen.region}{" "}
-          <Icon
-            icon={showDropdown.region ? "bxs:up-arrow" : "bxs:down-arrow"}
-            width={10}
-          />
-          <DropdownChoices
-            show={showDropdown.region}
-            dataArr={regions}
-            type="region"
-            setChosen={setChosen}
-          />
-        </div>
-        <div
-          className="selection-bar-choice "
-          onClick={() =>
-            setShowDropdown((prevInfo) => ({
-              ...prevInfo,
-              region: false,
-              time: !showDropdown.time,
-            }))
-          }
-        >
-          {chosen.time}{" "}
-          <Icon
-            icon={showDropdown.time ? "bxs:up-arrow" : "bxs:down-arrow"}
-            width={10}
-          />
-          <DropdownChoices
-            show={showDropdown.time}
-            dataArr={timePeriod.monthly}
-            type="time"
-            setChosen={setChosen}
-          />
-        </div>
-      </div> */}
-      <div className="selection-bar-container roboto-regular">
-        {priceTrends.map((category) => (
-          <div
-            key={category}
-            className={`selection-bar-choice ${
-              isChosen(category) ? "selection-bar-chosen" : ""
-            }`}
-            onClick={() => setChosenPriceTrend(category)}
-          >
-            {category}
-          </div>
-        ))}
+      <div style={{ marginTop: "20px" }}>
+        <Line data={chartData} options={chartOptions} />
       </div>
-      {priceTrends.map((category) => {
-        if (isChosen(category)) {
-          const trendData = priceTrendData[category.toLowerCase()];
-          const chartData = {
-            labels: trendData.labels,
-            datasets: [
-              {
-                type: "line",
-                label: `${category} Prices`,
-                data: trendData.data,
-                borderColor: "blue",
-              },
-              {
-                type: "line",
-                label: `${category} 2 Prices`,
-                data: trendData.secondaryData,
-                borderColor: "red",
-              },
-              {
-                type: "bar",
-                label: "Sales data",
-                data: trendData.barData,
-                backgroundColor: "rgba(75,192,192,0.5)",
-              },
-            ],
-          };
-
-          const options = {
-            responsive: true,
-            plugins: {
-              legend: { position: "bottom" },
-            },
-            scales: {
-              y: {
-                beginAtZero: true, // Ensures the Y-axis always starts at 0
-                max: 100,
-              },
-            },
-          };
-
-          return (
-            <div key={`${category}ischosen`}>
-              <Line
-                data={chartData}
-                options={options}
-                className="price-trends-chart"
-              />
-            </div>
-          );
-        }
-      })}
     </section>
   );
 }
-
-// function DropdownChoices({ show, dataArr, type, setChosen }) {
-//   if (!show) return null;
-
-//   return (
-//     <div className="dropdown-container">
-//       {dataArr.map((choice) => {
-//         return (
-//           <div
-//             className="item roboto-regular"
-//             key={dataArr + choice}
-//             onClick={() =>
-//               setChosen((prevInfo) => ({
-//                 ...prevInfo,
-//                 [type]: choice,
-//               }))
-//             }
-//           >
-//             {choice}
-//           </div>
-//         );
-//       })}
-//     </div>
-//   );
-// }
-
-//type options = "prevailing, high-low range, median, average"
-//time period = "yearly, monthly, weekly, daily"
-//rice = get from gsheeeeeeets
 function FilterPopup({
   filters,
   isOpen,
@@ -293,7 +161,10 @@ function FilterPopup({
 
   return (
     <div onClick={() => onClose()} className="modal-overlay">
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="modal-content filter"
+        onClick={(e) => e.stopPropagation()}
+      >
         <Icon
           icon={"line-md:close"}
           className="modal-close-button"
@@ -306,95 +177,85 @@ function FilterPopup({
         {/* Time Period */}
         <fieldset>
           <legend>Time Period</legend>
-          {Object.keys(timePeriod).map((key) => (
-            <label key={key}>
-              <input
-                type="radio"
-                name="timePeriod"
-                value={key}
-                id={`timePeriod-${key}`}
-                onChange={handleRadioChange}
-                checked={filters.timePeriod === key}
-              />
-              {key.charAt(0).toUpperCase() + key.slice(1)}
-            </label>
-          ))}
+          <div className="filter-options">
+            {Object.keys(timePeriod).map((key) => (
+              <label key={key} className="roboto-regular ">
+                <input
+                  type="radio"
+                  name="timePeriod"
+                  value={key}
+                  id={`timePeriod-${key}`}
+                  onChange={handleRadioChange}
+                  checked={filters.timePeriod === key}
+                />
+                {key.charAt(0).toUpperCase() + key.slice(1)}
+              </label>
+            ))}
+          </div>
         </fieldset>
         {/* Price Types */}
         <fieldset>
           <legend>Price Types</legend>
-          {priceTypes.map((type) => (
-            <label key={type}>
-              <input
-                type="radio"
-                name="priceTypes"
-                value={type}
-                id={`priceTypes-${type}`}
-                onChange={handleRadioChange}
-                checked={filters.priceTypes === type}
-              />
-              {type.charAt(0).toUpperCase() + type.slice(1)}
-            </label>
-          ))}
+          <div className="filter-options">
+            {priceTypes.map((type) => (
+              <label key={type} className="roboto-regular ">
+                <input
+                  type="radio"
+                  name="priceTypes"
+                  value={type}
+                  id={`priceTypes-${type}`}
+                  onChange={handleRadioChange}
+                  checked={filters.priceTypes === type}
+                />
+                {type.charAt(0).toUpperCase() + type.slice(1)}
+              </label>
+            ))}
+          </div>
         </fieldset>
         {/* Rice Commodity */}
         <fieldset>
           <legend>Rice Commodities</legend>
-          {Object.entries(riceCommodity).map(([category, types]) => (
-            <div key={category}>
-              <h3>{category}</h3>
-              {types.map((type) => (
-                <label key={type}>
-                  <input
-                    type="checkbox"
-                    name="rice"
-                    value={type}
-                    id={`rice-${category}-${type}`}
-                    onChange={(e) => handleCheckboxChange(e, category)}
-                    checked={filters.rice.some(
-                      (item) =>
-                        item.category === category &&
-                        item.selected.includes(type)
-                    )}
-                  />
-                  {type}
-                </label>
-              ))}
-            </div>
-          ))}
+          <div className="filter-options">
+            {Object.entries(riceCommodity).map(([category, types]) => (
+              <div key={category}>
+                <h3>{category}</h3>
+                <div className="filter-options">
+                  {types.map((type) => (
+                    <label key={type} className="roboto-regular ">
+                      <input
+                        type="checkbox"
+                        name="rice"
+                        value={type}
+                        id={`rice-${category}-${type}`}
+                        onChange={(e) => handleCheckboxChange(e, category)}
+                        checked={filters.rice.some(
+                          (item) =>
+                            item.category === category &&
+                            item.selected.includes(type)
+                        )}
+                      />
+                      {type}
+                    </label>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </fieldset>
-        {/* Display selected filters */}
-        <span>
-          <h2>Selected Filters</h2>
-          <p>
-            <strong>Time Period:</strong> {filters.timePeriod || "None"}
-          </p>
-          <p>
-            <strong>Price Type:</strong> {filters.priceTypes || "None"}
-          </p>
-          <p>
-            <strong>Rice Commodities:</strong>{" "}
-            <ul>
-              {filters.rice.length > 0
-                ? filters.rice.map((item) => (
-                    <li>
-                      {item.category}: {item.selected.join(", ")}
-                    </li>
-                  ))
-                : "None"}
-            </ul>
-          </p>
-        </span>
+        {/* Log selected filters */}
+        {console.log("Time Period: ", filters.timePeriod || "None")}
+        {console.log("Price Type: ", filters.priceTypes || "None")}
+        {console.log("Rice Commodities:")}
+        {filters.rice.length > 0
+          ? filters.rice.map((item) => {
+              console.log(
+                "> ",
+                `${item.category}: ${item.selected.join(", ")}`
+              );
+            })
+          : "None"}
+        {console.log("Filters: ", filters.rice)}
       </div>
     </div>
   );
 }
-
-//priceTrendData
-// rice_name: {
-//  specifications: smthn,
-//  units: "kg"
-//  dailyPrice: {day: n, average: n, prevailing: n}, how day?????
-//  weeklyPrice: {week: n, prevailing low high average median},
-//  monthlyPrice: {idk yet LOLLLL}
-// }

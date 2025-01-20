@@ -275,3 +275,34 @@ aside {
   background-color: var(--primary-yellow);
   color: var(--primary-green);
 }
+
+.modal-content.filter {
+  display: flex;
+  justify-content: space-evenly;
+  width: 40%;
+}
+
+.modal-content.filter > fieldset {
+  margin: 50px;
+}
+
+.modal-content.filter > fieldset > legend {
+  font-size: 1.5rem;
+}
+
+.filter-options > div > h3 {
+  font-size: 1.1rem;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+.filter-options > label {
+  font-size: 1rem;
+}
+
+.filter-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
