@@ -80,7 +80,7 @@ export default function GoogleSheetsExample() {
     gapi.client.sheets.spreadsheets.values
       .batchGet({
         spreadsheetId: SHEET_ID,
-        ranges: RANGES,
+        ranges: [LABEL_RANGES, DAILY_RANGES_PREVAILING],
       })
       .then((response) => {
         const result = response.result.valueRanges;
@@ -88,7 +88,9 @@ export default function GoogleSheetsExample() {
         // Process the data and exclude unwanted rows
         const filteredData = result.map((rangeData, rangeIndex) => {
           const startRow = parseInt(
-            RANGES[rangeIndex].match(/\!(\w)(\d+):/)[2]
+            [LABEL_RANGES, DAILY_RANGES_PREVAILING][rangeIndex].match(
+              /\!(\w)(\d+):/
+            )[2]
           );
           return rangeData.values.filter(
             (_, rowIndex) => !EXCLUDED_ROWS.includes(startRow + rowIndex)
@@ -117,7 +119,9 @@ export default function GoogleSheetsExample() {
         const result = response.result.valueRanges;
         const filteredData = result.map((rangeData, rangeIndex) => {
           const startRow = parseInt(
-            RANGES[rangeIndex].match(/\!(\w)(\d+):/)[2]
+            [DAILY_RANGES_AVE, DAILY_RANGES_PREVAILING][rangeIndex].match(
+              /\!(\w)(\d+):/
+            )[2]
           );
           return rangeData.values.filter(
             (_, rowIndex) => !EXCLUDED_ROWS.includes(startRow + rowIndex)
