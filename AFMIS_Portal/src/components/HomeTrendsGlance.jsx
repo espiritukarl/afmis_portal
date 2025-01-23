@@ -202,7 +202,10 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
     <section>
       <h4 className="roboto-medium home-section-headers">
         Price Trends at a Glance
-        <div className="filter" onClick={() => setIsOpen(true)}>
+        <div
+          className={isOpen ? "filter active" : "filter"}
+          onClick={() => setIsOpen(!isOpen)}
+        >
           Filter <Icon icon={"cil:filter"} width={15} />
         </div>
         <FilterPopup
@@ -229,99 +232,85 @@ function FilterPopup({
   if (!isOpen) return null;
 
   return (
-    <div onClick={() => onClose()} className="modal-overlay">
-      <div
-        className="modal-content filter"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <Icon
-          icon={"line-md:close"}
-          className="modal-close-button"
-          onClick={() => onClose()}
-          width={24}
-        />
-        {/* Time Period */}
-        <fieldset>
-          <legend>Time Period</legend>
-          <div className="filter-options">
-            {Object.keys(timePeriod).map((key) => (
-              <label key={key} className="roboto-regular ">
-                <input
-                  type="radio"
-                  name="timePeriod"
-                  value={key}
-                  id={`timePeriod-${key}`}
-                  onChange={handleRadioChange}
-                  checked={filters.timePeriod === key}
-                />
-                {key.charAt(0).toUpperCase() + key.slice(1)}
-              </label>
-            ))}
-          </div>
-        </fieldset>
-        {/* Price Types */}
-        <fieldset>
-          <legend>Price Types</legend>
-          <div className="filter-options">
-            {priceTypes.map((type) => (
-              <label key={type} className="roboto-regular ">
-                <input
-                  type="radio"
-                  name="priceTypes"
-                  value={type}
-                  id={`priceTypes-${type}`}
-                  onChange={handleRadioChange}
-                  checked={filters.priceTypes === type}
-                />
-                {type.charAt(0).toUpperCase() + type.slice(1)}
-              </label>
-            ))}
-          </div>
-        </fieldset>
-        {/* Rice Commodity */}
-        <fieldset>
-          <legend>Rice Commodities</legend>
-          <div className="filter-options">
-            {Object.entries(riceCommodity).map(([category, types]) => (
-              <div key={category}>
-                <h3>{category}</h3>
-                <div className="filter-options">
-                  {types.map((type) => (
-                    <label key={type} className="roboto-regular ">
-                      <input
-                        type="checkbox"
-                        name="rice"
-                        value={type}
-                        id={`rice-${category}-${type}`}
-                        onChange={(e) => handleCheckboxChange(e, category)}
-                        checked={filters.rice.some(
-                          (item) =>
-                            item.category === category &&
-                            item.selected.includes(type)
-                        )}
-                      />
-                      {type}
-                    </label>
-                  ))}
-                </div>
+    <div className="filter-overlay" onClick={(e) => e.stopPropagation()}>
+      {/* Time Period */}
+      <fieldset>
+        <legend>Time Period</legend>
+        <div className="filter-options">
+          {Object.keys(timePeriod).map((key) => (
+            <label key={key} className="roboto-regular ">
+              <input
+                type="radio"
+                name="timePeriod"
+                value={key}
+                id={`timePeriod-${key}`}
+                onChange={handleRadioChange}
+                checked={filters.timePeriod === key}
+              />
+              {key.charAt(0).toUpperCase() + key.slice(1)}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+      {/* Price Types */}
+      <fieldset>
+        <legend>Price Types</legend>
+        <div className="filter-options">
+          {priceTypes.map((type) => (
+            <label key={type} className="roboto-regular ">
+              <input
+                type="radio"
+                name="priceTypes"
+                value={type}
+                id={`priceTypes-${type}`}
+                onChange={handleRadioChange}
+                checked={filters.priceTypes === type}
+              />
+              {type.charAt(0).toUpperCase() + type.slice(1)}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+      {/* Rice Commodity */}
+      <fieldset>
+        <legend>Rice Commodities</legend>
+        <div className="filter-options">
+          {Object.entries(riceCommodity).map(([category, types]) => (
+            <div key={category}>
+              <h3>{category}</h3>
+              <div className="filter-options">
+                {types.map((type) => (
+                  <label key={type} className="roboto-regular ">
+                    <input
+                      type="checkbox"
+                      name="rice"
+                      value={type}
+                      id={`rice-${category}-${type}`}
+                      onChange={(e) => handleCheckboxChange(e, category)}
+                      checked={filters.rice.some(
+                        (item) =>
+                          item.category === category &&
+                          item.selected.includes(type)
+                      )}
+                    />
+                    {type}
+                  </label>
+                ))}
               </div>
-            ))}
-          </div>
-        </fieldset>
-        {/* Log selected filters */}
-        {console.log("Time Period: ", filters.timePeriod)}
-        {console.log("Price Type: ", filters.priceTypes)}
-        {console.log("Rice Commodities:")}
-        {filters.rice.length > 0
-          ? filters.rice.map((item) => {
-              console.log(
-                "> ",
-                `${item.category}: ${item.selected.join(", ")}`
-              );
-            })
-          : console.log("No rice selected")}
-        {console.log("Filters: ", filters.rice)}
-      </div>
+            </div>
+          ))}
+        </div>
+      </fieldset>
+      {/* Log selected filters */}
+      {console.log("Time Period: ", filters.timePeriod)}
+      {console.log("Price Type: ", filters.priceTypes)}
+      {console.log("Rice Commodities:")}
+      {filters.rice.length > 0
+        ? filters.rice.map((item) => {
+            console.log("> ", `${item.category}: ${item.selected.join(", ")}`);
+          })
+        : console.log("No rice selected")}
+      {console.log("Filters: ", filters.rice)}
     </div>
   );
 }
