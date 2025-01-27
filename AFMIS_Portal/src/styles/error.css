@@ -1,0 +1,46 @@
+main.error {
+  height: 78vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.8rem;
+  font-size: 1.1rem;
+  margin-top: 15vh;
+}
+
+.error > h1 {
+  font-size: 2rem;
+}
+
+.error > h2 {
+  font-size: 1.5rem;
+  margin-bottom: 24px;
+}
+
+.error > .redirect {
+  text-decoration: none;
+  color: var(--link-color);
+}
+
+.error > .redirect:hover {
+  text-decoration: underline;
+  color: rgb(39, 39, 138);
+}
+
+.error > .contact-us > h3 {
+  margin: 1rem 0 0.4rem 0;
+  font-size: 1.1rem;
+}
+
+.error > .contact-us {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.error > .fun-fact {
+  position: absolute;
+  bottom: 1rem;
+  font-size: 0.5rem;
+}

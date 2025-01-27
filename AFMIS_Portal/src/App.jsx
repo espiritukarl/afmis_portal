@@ -12,6 +12,7 @@ import "./styles/App.css";
 import PriceReport from "./pages/PriceReport.jsx";
 import Infographics from "./pages/Infographics.jsx";
 import FetchGoogleSheets from "./components/FetchGoogleSheets.jsx";
+import { ErrorPage } from "./pages/ErrorPage.jsx";
 
 function App() {
   return (
@@ -46,6 +47,9 @@ function App() {
               <Route path="contact-us" element={<ContactUs />} />
               <Route path="faq" element={<Faq />} />
             </Route>
+
+            {/* DEFAULT ROUTE */}
+            <Route path="*" element={<ErrorPage />} />
           </Routes>
         </div>
       </div>
