@@ -1,7 +1,12 @@
+import { useEffect } from "react";
 import "../styles/error.css";
 import { Link } from "react-router-dom";
 
 export function ErrorPage() {
+  useEffect(() => {
+    document.title = "Oops! Page Not Found";
+  }, []);
+
   return (
     <main className="error roboto-regular">
       <h1 className="roboto-bold">404</h1>
