@@ -66,13 +66,13 @@ export function LandingSide() {
         header={"Events"}
         list={eventsList}
         iconSrc={"fluent:calendar-32-regular"}
-        navUrl={"/upcoming-events"}
+        navUrl={"/news/upcoming-events"}
       />
       <HomeCard
         header={"News"}
         list={newsList}
         iconSrc={"system-uicons:newspaper"}
-        navUrl={"/news-articles"}
+        navUrl={"/news/news-articles"}
       />
     </aside>
   );
