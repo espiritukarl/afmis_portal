@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Header from "./pages/Header.jsx";
 import Navbar from "./pages/Navbar.jsx";
 import { LandingMain, LandingSide } from "./pages/Home.jsx";
@@ -14,42 +19,48 @@ import Infographics from "./pages/Infographics.jsx";
 import Banner from "./components/Banner";
 import FetchGoogleSheets from "./components/FetchGoogleSheets.jsx";
 
-function App() {
+function MainPage() {
+  const location = useLocation();
+
   return (
-    <Router>
-      <div className="container">
-        <Header />
-        <Navbar />
-        <Banner />
+    <div className="container">
+      <Header />
+      <Navbar />
+      {location.pathname === "/" && <Banner />}
 
-        <div className="content-container">
-          {/* <FetchGoogleSheets /> */}
-          <Routes>
-            {/* HOME SECTION */}
-            <Route
-              path="/"
-              element={
-                <>
-                  <LandingMain />
-                  <LandingSide />
-                </>
-              }
-            />
-            {/* NEWS SECTION */}
-            <Route path="/upcoming-events" element={<UpcomingEvents />} />
-            <Route path="/news-articles" element={<NewsArticles />} />
-            <Route path="/price-report" element={<PriceReport />} />
-            <Route path="/infographics" element={<Infographics />} />
+      <div className="content-container">
+        {/* <FetchGoogleSheets /> */}
+        <Routes>
+          {/* HOME SECTION */}
+          <Route
+            path="/"
+            element={
+              <>
+                <LandingMain />
+                <LandingSide />
+              </>
+            }
+          />
+          {/* NEWS SECTION */}
+          <Route path="/upcoming-events" element={<UpcomingEvents />} />
+          <Route path="/news-articles" element={<NewsArticles />} />
+          <Route path="/price-report" element={<PriceReport />} />
+          <Route path="/infographics" element={<Infographics />} />
 
-            {/* ABOUT SECTION */}
-            <Route path="/about-us" element={<AboutUs />} />
-            <Route path="/contact-us" element={<ContactUs />} />
-            <Route path="/faq" element={<Faq />} />
-          </Routes>
-        </div>
+          {/* ABOUT SECTION */}
+          <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/faq" element={<Faq />} />
+        </Routes>
       </div>
-    </Router>
+    </div>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <Router>
+      <MainPage />
+    </Router>
+  );
+}
