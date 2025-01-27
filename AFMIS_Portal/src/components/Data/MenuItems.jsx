@@ -14,13 +14,13 @@ export const menuItems = {
     },
   ],
   "News & Events": [
-    { name: "News Articles", link: "/news-articles" },
-    { name: "Upcoming Events", link: "/upcoming-events" },
+    { name: "News Articles", link: "news/news-articles" },
+    { name: "Upcoming Events", link: "news/upcoming-events" },
     {
       name: "Daily Prices",
       submenu: [
-        { name: "Price Report", link: "/price-report" },
-        { name: "Infographics", link: "/infographics" },
+        { name: "Price Report", link: "news/price-report" },
+        { name: "Infographics", link: "news/infographics" },
         {
           name: "Comparitive World Prices",
           link: "https://docs.google.com/spreadsheets/d/1C7qUSTm8N6dDrGE9ceA4ODV_-XMxwsF3xmtl_w2y3QE/edit?gid=697672754#gid=697672754",
@@ -75,8 +75,8 @@ export const menuItems = {
     },
   ],
   About: [
-    { name: "About Us", link: "/about-us" },
-    { name: "Contact Us", link: "/contact-us" },
-    { name: "Frequently Asked Questions (FAQ)", link: "/faq" },
+    { name: "About Us", link: "about/about-us" },
+    { name: "Contact Us", link: "about/contact-us" },
+    { name: "Frequently Asked Questions (FAQ)", link: "about/faq" },
   ],
 };

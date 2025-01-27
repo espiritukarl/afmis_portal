@@ -33,15 +33,19 @@ function App() {
               }
             />
             {/* NEWS SECTION */}
-            <Route path="/upcoming-events" element={<UpcomingEvents />} />
-            <Route path="/news-articles" element={<NewsArticles />} />
-            <Route path="/price-report" element={<PriceReport />} />
-            <Route path="/infographics" element={<Infographics />} />
+            <Route path="/news">
+              <Route path="upcoming-events" element={<UpcomingEvents />} />
+              <Route path="news-articles" element={<NewsArticles />} />
+              <Route path="price-report" element={<PriceReport />} />
+              <Route path="infographics" element={<Infographics />} />
+            </Route>
 
             {/* ABOUT SECTION */}
-            <Route path="/about-us" element={<AboutUs />} />
-            <Route path="/contact-us" element={<ContactUs />} />
-            <Route path="/faq" element={<Faq />} />
+            <Route path="/about">
+              <Route path="about-us" element={<AboutUs />} />
+              <Route path="contact-us" element={<ContactUs />} />
+              <Route path="faq" element={<Faq />} />
+            </Route>
           </Routes>
         </div>
       </div>
