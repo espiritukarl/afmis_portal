@@ -29,11 +29,11 @@
   padding: 1.5rem 5px;
 }
 
-#navbar-item-active,
+/* #navbar-item-active,
 #navbar-item-active > a {
   color: var(--primary-yellow);
   text-decoration: underline;
-}
+} */
 
 .navbar-item > a {
   color: #fff;
@@ -46,10 +46,10 @@
   background-color: var(--dropdown-green);
 }
 
-.tabs > .navbar-item:hover > a {
+/* .tabs > .navbar-item:hover > a {
   text-decoration: underline;
   color: var(--primary-yellow);
-}
+} */
 
 /* Search bar styling */
 .searchbar-container {

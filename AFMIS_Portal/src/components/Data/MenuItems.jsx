@@ -52,7 +52,7 @@ export const menuItems = {
     },
   ],
   Resources: [
-    { name: "Import & Export Data", link: "/import-export-data" },
+    { name: "Import & Export Data", link: "resources/import-export-data" },
     {
       name: "Research Information & Technology",
       link: "resources/research-information-technology",

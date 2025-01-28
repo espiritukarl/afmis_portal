@@ -14,7 +14,7 @@ export function ErrorPage() {
 
       <p className="roboto-regular-italic">
         The page you're looking for is either missing or is temporarily
-        unavailable.{" "}
+        unavailable.
       </p>
 
       <Link to="/" className="redirect">

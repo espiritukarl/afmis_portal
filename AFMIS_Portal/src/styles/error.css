@@ -21,11 +21,19 @@ main.error {
 .error > .redirect {
   text-decoration: none;
   color: var(--link-color);
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  font-size: 0.8rem;
+  background-color: var(--body-fill);
+  text-shadow: 4px 4px 2px var(--text-box-shadow);
+  box-shadow: 4px 4px 2px var(--text-box-shadow);
+  transition: transform 0.2s ease-in-out;
 }
 
 .error > .redirect:hover {
-  text-decoration: underline;
   color: rgb(39, 39, 138);
+  transform: scale(1.02);
 }
 
 .error > .contact-us > h3 {

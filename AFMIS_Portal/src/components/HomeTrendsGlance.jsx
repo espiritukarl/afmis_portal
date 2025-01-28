@@ -51,7 +51,7 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
         category: "LOCAL COMMERCIAL RICE",
         selected: ["Regular Milled"],
       },
-    ], //ARRAY [] because checkbox
+    ], //ARRAY [] because checkbox - default values, can be changed
   });
 
   const generateColor = (category, type) => {
@@ -192,7 +192,7 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
         },
         title: {
           display: true,
-          text: filterOptions.timePeriod,
+          text: `${filterOptions.priceTypes} Price - ${filterOptions.timePeriod} Period`,
         },
       },
     },
