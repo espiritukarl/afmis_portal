@@ -35,6 +35,222 @@ export const timePeriod = {
   Weekly: Array.apply(null, { length: 52 }).map(Number.call, Number),
   Daily: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], //is this correct?!?!
 };
+
+const generatePriceData = (base, variation) => ({
+  Prevailing: base,
+  Low: base.map((v) => Math.round(v - Math.random() * variation)),
+  High: base.map((v) => Math.round(v + Math.random() * variation)),
+  Average: base.map((v) => Math.round(v - Math.random() * variation * 0.3)),
+  Median: base.map((v) => Math.round(v + Math.random() * variation * 0.2)),
+});
+
+//dummy data:
+export const fakeData = {
+  Daily: {
+    "RICE-FOR-ALL": {
+      "Well Milled": generatePriceData([42, 43, 42, 43, 42, 43], 1.5),
+    },
+    "IMPORTED COMMERCIAL RICE": {
+      Special: generatePriceData([55, 54, 53, 54, 55, 55], 2.0),
+      Premium: generatePriceData([52, 52, 52, 49, 51, 52], 1.8),
+      "Well Milled": generatePriceData([48, 50, 51, 48, 48, 48], 1.2),
+      "Regular Milled": generatePriceData([45, 45, 45, 45, 45, 45], 0.5),
+    },
+    "LOCAL COMMERCIAL RICE": {
+      Special: generatePriceData([50, 49, 50, 50, 52, 50], 1.5),
+      Premium: generatePriceData([47, 45, 47, 46, 47, 47], 1.0),
+      "Well Milled": generatePriceData([44, 44, 43, 44, 44, 43], 0.8),
+      "Regular Milled": generatePriceData([40, 42, 41, 44, 41, 41], 1.2),
+    },
+  },
+  Weekly: {
+    "RICE-FOR-ALL": {
+      "Well Milled": generatePriceData(
+        Array.from({ length: 52 }, (_, i) =>
+          Math.round(42.5 + Math.sin(i / 4) * 1.5)
+        ),
+        2.5
+      ),
+    },
+    "IMPORTED COMMERCIAL RICE": {
+      Special: generatePriceData(
+        Array.from({ length: 52 }, (_, i) =>
+          Math.round(54.0 + Math.cos(i / 3) * 1.2)
+        ),
+        3.0
+      ),
+      Premium: generatePriceData(
+        Array.from({ length: 52 }, (_, i) =>
+          Math.round(51.5 + Math.sin(i / 5) * 0.8)
+        ),
+        2.0
+      ),
+      "Well Milled": generatePriceData(
+        Array.from({ length: 52 }, (_, i) =>
+          Math.round(47.5 + Math.cos(i / 4) * 0.7)
+        ),
+        1.5
+      ),
+      "Regular Milled": generatePriceData(
+        Array.from({ length: 52 }, (_, i) =>
+          Math.round(44.5 + Math.sin(i / 6) * 0.6)
+        ),
+        1.0
+      ),
+    },
+    "LOCAL COMMERCIAL RICE": {
+      Special: generatePriceData(
+        Array.from({ length: 52 }, (_, i) =>
+          Math.round(49.0 + Math.cos(i / 4) * 1.0)
+        ),
+        2.0
+      ),
+      Premium: generatePriceData(
+        Array.from({ length: 52 }, (_, i) =>
+          Math.round(46.5 + Math.sin(i / 5) * 0.9)
+        ),
+        1.5
+      ),
+      "Well Milled": generatePriceData(
+        Array.from({ length: 52 }, (_, i) =>
+          Math.round(43.5 + Math.cos(i / 7) * 0.5)
+        ),
+        1.2
+      ),
+      "Regular Milled": generatePriceData(
+        Array.from({ length: 52 }, (_, i) =>
+          Math.round(40.5 + Math.sin(i / 8) * 0.4)
+        ),
+        1.0
+      ),
+    },
+  },
+  Monthly: {
+    "RICE-FOR-ALL": {
+      "Well Milled": generatePriceData(
+        Array.from({ length: 12 }, (_, i) =>
+          Math.round(42.5 + Math.sin(i / 2) * 2)
+        ),
+        3.0
+      ),
+    },
+    "IMPORTED COMMERCIAL RICE": {
+      Special: generatePriceData(
+        Array.from({ length: 12 }, (_, i) =>
+          Math.round(54.0 + Math.cos(i / 3) * 3)
+        ),
+        4.0
+      ),
+      Premium: generatePriceData(
+        Array.from({ length: 12 }, (_, i) =>
+          Math.round(51.5 + Math.sin(i / 5) * 2.5)
+        ),
+        3.0
+      ),
+      "Well Milled": generatePriceData(
+        Array.from({ length: 12 }, (_, i) =>
+          Math.round(47.5 + Math.cos(i / 4) * 1.5)
+        ),
+        2.5
+      ),
+      "Regular Milled": generatePriceData(
+        Array.from({ length: 12 }, (_, i) =>
+          Math.round(44.5 + Math.sin(i / 6) * 1.8)
+        ),
+        2.0
+      ),
+    },
+    "LOCAL COMMERCIAL RICE": {
+      Special: generatePriceData(
+        Array.from({ length: 12 }, (_, i) =>
+          Math.round(49.0 + Math.cos(i / 4) * 2.2)
+        ),
+        3.0
+      ),
+      Premium: generatePriceData(
+        Array.from({ length: 12 }, (_, i) =>
+          Math.round(46.5 + Math.sin(i / 5) * 2.0)
+        ),
+        2.5
+      ),
+      "Well Milled": generatePriceData(
+        Array.from({ length: 12 }, (_, i) =>
+          Math.round(43.5 + Math.cos(i / 7) * 1.2)
+        ),
+        2.0
+      ),
+      "Regular Milled": generatePriceData(
+        Array.from({ length: 12 }, (_, i) =>
+          Math.round(40.5 + Math.sin(i / 8) * 1.5)
+        ),
+        1.8
+      ),
+    },
+  },
+  Yearly: {
+    "RICE-FOR-ALL": {
+      "Well Milled": generatePriceData(
+        Array.from({ length: 5 }, (_, i) =>
+          Math.round(42 + i * 0.8 + Math.sin(i) * 1.2)
+        ),
+        2.5
+      ),
+    },
+    "IMPORTED COMMERCIAL RICE": {
+      Special: generatePriceData(
+        Array.from({ length: 5 }, (_, i) =>
+          Math.round(54 + i * 1.2 + Math.cos(i) * 1.5)
+        ),
+        3.0
+      ),
+      Premium: generatePriceData(
+        Array.from({ length: 5 }, (_, i) =>
+          Math.round(51 + i * 0.9 + Math.sin(i) * 1.1)
+        ),
+        2.5
+      ),
+      "Well Milled": generatePriceData(
+        Array.from({ length: 5 }, (_, i) =>
+          Math.round(47 + i * 0.7 + Math.cos(i) * 0.8)
+        ),
+        2.0
+      ),
+      "Regular Milled": generatePriceData(
+        Array.from({ length: 5 }, (_, i) =>
+          Math.round(44 + i * 0.5 + Math.sin(i) * 0.6)
+        ),
+        1.5
+      ),
+    },
+    "LOCAL COMMERCIAL RICE": {
+      Special: generatePriceData(
+        Array.from({ length: 5 }, (_, i) =>
+          Math.round(49 + i * 0.6 + Math.cos(i) * 1.0)
+        ),
+        2.0
+      ),
+      Premium: generatePriceData(
+        Array.from({ length: 5 }, (_, i) =>
+          Math.round(46 + i * 0.5 + Math.sin(i) * 0.9)
+        ),
+        1.8
+      ),
+      "Well Milled": generatePriceData(
+        Array.from({ length: 5 }, (_, i) =>
+          Math.round(43 + i * 0.4 + Math.cos(i) * 0.7)
+        ),
+        1.5
+      ),
+      "Regular Milled": generatePriceData(
+        Array.from({ length: 5 }, (_, i) =>
+          Math.round(40 + i * 0.3 + Math.sin(i) * 0.5)
+        ),
+        1.2
+      ),
+    },
+  },
+};
+
 export const riceCommodity = {
   "RICE-FOR-ALL": ["Well Milled"],
   "IMPORTED COMMERCIAL RICE": [

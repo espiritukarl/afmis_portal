@@ -1,43 +1,21 @@
 import { useState, useEffect } from "react";
-import { Line } from "react-chartjs-2";
+import Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import {
-  getRegion,
   priceTypes,
   riceCommodity,
   timePeriod,
+  fakeData,
 } from "./Data/HomeData";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  BarController,
-  BarElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  BarController,
-  BarElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
+export default function PriceTrendsGlance() {
   const [isOpen, setIsOpen] = useState(false);
+  const [chartOptions, setChartOptions] = useState({});
 
   const [filterOptions, setFilterOptions] = useState({
-    priceTypes: priceTypes[0], //radio
-    timePeriod: Object.keys(timePeriod)[3], //radio
+    priceTypes: [priceTypes[0]], // Array of selected price types
+    timePeriod: Object.keys(timePeriod)[3],
     rice: [
       {
         category: "RICE-FOR-ALL",
@@ -51,152 +29,125 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
         category: "LOCAL COMMERCIAL RICE",
         selected: ["Regular Milled"],
       },
-    ], //ARRAY [] because checkbox - default values, can be changed
+    ],
   });
 
-  const generateColor = (category, type) => {
-    const hash = [...category, ...type].reduce(
-      (acc, char) => acc + char.charCodeAt(0),
-      0
-    );
-    const hue = hash % 360; // Use modulo to wrap hue value
-    return `hsl(${hue}, 70%, 50%)`;
-  };
-
-  // Handler for radio buttons
   const handleRadioChange = (e) => {
     const { name, value } = e.target;
-    setFilterOptions((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFilterOptions((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handler for checkboxes
-  const handleCheckboxChange = (e, category) => {
+  const handleRiceCheckbox = (e, category) => {
     const { value, checked } = e.target;
-
     setFilterOptions((prev) => {
-      const riceFilters = [...prev.rice]; // Clone existing rice filters
+      const riceFilters = [...prev.rice];
       const categoryIndex = riceFilters.findIndex(
         (item) => item.category === category
       );
 
       if (categoryIndex !== -1) {
-        const selectedItems = new Set(riceFilters[categoryIndex].selected);
-
-        if (checked) {
-          selectedItems.add(value); // Add the value if checked
-        } else {
-          selectedItems.delete(value); // Remove the value if unchecked
-        }
-
-        riceFilters[categoryIndex].selected = [...selectedItems];
+        const selected = new Set(riceFilters[categoryIndex].selected);
+        checked ? selected.add(value) : selected.delete(value);
+        riceFilters[categoryIndex].selected = [...selected];
       } else if (checked) {
-        // If category not found, add new category
         riceFilters.push({ category, selected: [value] });
       }
 
       return {
         ...prev,
-        rice: riceFilters.filter((item) => item.selected.length > 0), // Remove empty categories
+        rice: riceFilters.filter((item) => item.selected.length > 0),
       };
     });
   };
 
-  // Fake Data for Each Type
-  const fakeData = {
-    Daily: {
-      "RICE-FOR-ALL": {
-        "Well Milled": [40, 40, 40, 40, 40, 40, 40],
-      },
-      "IMPORTED COMMERCIAL RICE": {
-        Special: [60, 60, 60, 60, 60, 60, 60],
-        Premium: [57, 56, 56, 56.5, 56.5, 56, 56],
-        "Well Milled": [47.5, 45, 45, 45, 45, 45, 45],
-        "Regular Milled": [42, 42, 45, 45, 45, 45, 45],
-      },
-      "LOCAL COMMERCIAL RICE": {
-        Special: [60, 60, 60, 60, 60, 60, 60],
-        Premium: [55, 55, 55, 55, 55, 55, 55],
-        "Well Milled": [48, 50, 45, 45, 45, 45, 45],
-        "Regular Milled": [42, 42, 42, 43.5, 42, 40, 40],
-      },
-    },
-    Weekly: {
-      "RICE-FOR-ALL": {
-        "Well Milled": Array(52).fill(40),
-      },
-      "IMPORTED COMMERCIAL RICE": {
-        Special: Array(52).fill(56),
-        Premium: Array(52).fill(56),
-        "Well Milled": Array(52).fill(45),
-        "Regular Milled": Array(52).fill(45),
-      },
-      "LOCAL COMMERCIAL RICE": {
-        Special: Array(52).fill(45),
-        Premium: Array(52).fill(48),
-        "Well Milled": Array(52).fill(45),
-        "Regular Milled": Array(52).fill(42),
-      },
-    },
+  const handlePriceTypeCheckbox = (e) => {
+    const { value, checked } = e.target;
+    setFilterOptions((prev) => ({
+      ...prev,
+      priceTypes: checked
+        ? [...prev.priceTypes, value]
+        : prev.priceTypes.filter((type) => type !== value),
+    }));
   };
 
-  const chartData = {
-    labels: timePeriod[filterOptions.timePeriod],
-    datasets: filterOptions.rice.flatMap(({ category, selected }) =>
-      selected.map((type) => {
-        const data =
-          fakeData[filterOptions.timePeriod]?.[category]?.[type] ||
-          Array.from(
-            { length: timePeriod[filterOptions.timePeriod].length },
-            () => Math.floor(Math.random() * 100) // Replace with actual values here
-          );
+  const riceColors = Highcharts.getOptions().colors;
 
-        return {
-          label: `${category}: ${type}`,
-          data: data,
-          color: generateColor(category, type),
-          borderColor: generateColor(category, type),
-        };
+  useEffect(() => {
+    // Create a map of rice types to color index
+    const riceColorMap = new Map();
+    let colorIndex = 0;
+
+    const series = filterOptions.rice.flatMap(({ category, selected }) =>
+      selected.flatMap((riceType) => {
+        // Get or create color index for this rice type
+        if (!riceColorMap.has(riceType)) {
+          riceColorMap.set(riceType, colorIndex++);
+        }
+        const baseColor =
+          riceColors[riceColorMap.get(riceType) % riceColors.length];
+
+        return filterOptions.priceTypes.map((priceType, priceIdx) => ({
+          name: `${category}: ${riceType} (${priceType})`,
+          color: Highcharts.color(baseColor)
+            .brighten(priceIdx * -0.2)
+            .get(),
+          dashStyle: ["Solid", "Dash", "Dot"][priceIdx % 3],
+          data:
+            fakeData[filterOptions.timePeriod]?.[category]?.[riceType]?.[
+              priceType
+            ] || [],
+        }));
       })
-    ),
-  };
+    );
 
-  const chartOptions = {
-    responsive: true,
-    plugins: {
-      legend: { position: "bottom" },
-      tooltip: {
-        enabled: true,
+    // Calculate yAxis min/max
+    const allValues = series.flatMap((s) => s.data).filter(Number.isFinite);
+    const min = allValues.length ? Math.floor(Math.min(...allValues)) : 0;
+    const max = allValues.length ? Math.ceil(Math.max(...allValues)) : 100;
+
+    setChartOptions({
+      chart: { type: "line" },
+      title: { text: "" },
+      xAxis: {
+        categories: timePeriod[filterOptions.timePeriod],
+        title: { text: filterOptions.timePeriod },
+        labels: { rotation: -45 },
       },
-    },
-    scales: {
-      y: {
-        beginAtZero: true, // Ensures the Y-axis starts at 0
-        min: 0, // Set minimum value
-        max: 100, // Set maximum value
-        ticks: {
-          stepSize: 10, // Optional: Customize the tick interval
-        },
-        title: {
-          display: true,
-          text: "Price (Php)",
-        },
-      },
-      x: {
-        ticks: {
-          autoSkip: true,
-          maxRotation: 45,
-          minRotation: 0,
-        },
-        title: {
-          display: true,
-          text: `${filterOptions.priceTypes} Price - ${filterOptions.timePeriod} Period`,
+      yAxis: {
+        title: { text: "Price (Php)" },
+        min: Math.max(0, min),
+        max: max,
+        allowDecimals: false,
+        labels: {
+          formatter: function () {
+            return this.value.toFixed(0);
+          },
         },
       },
-    },
-  };
+      series,
+      legend: {
+        layout: "horizontal",
+        align: "center",
+        verticalAlign: "bottom",
+      },
+      tooltip: { shared: true },
+      responsive: {
+        rules: [
+          {
+            condition: { maxWidth: 500 },
+            chartOptions: { legend: { enabled: false } },
+          },
+        ],
+      },
+      plotOptions: {
+        series: {
+          marker: {
+            enabled: false,
+          },
+        },
+      },
+    });
+  }, [filterOptions]);
 
   return (
     <section>
@@ -206,72 +157,71 @@ export default function PriceTrendsGlance({ priceTrends, priceTrendData }) {
           className={isOpen ? "filter active" : "filter"}
           onClick={() => setIsOpen(!isOpen)}
         >
-          Filter <Icon icon={"cil:filter"} width={15} />
+          Filter <Icon icon="cil:filter" width={15} />
         </div>
         <FilterPopup
           filters={filterOptions}
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
-          handleCheckboxChange={handleCheckboxChange}
+          handleRiceCheckbox={handleRiceCheckbox}
+          handlePriceTypeCheckbox={handlePriceTypeCheckbox}
           handleRadioChange={handleRadioChange}
         />
       </h4>
       <div style={{ marginTop: "20px" }}>
-        <Line data={chartData} options={chartOptions} />
+        <HighchartsReact highcharts={Highcharts} options={chartOptions} />
       </div>
     </section>
   );
 }
+
 function FilterPopup({
   filters,
   isOpen,
   onClose,
-  handleCheckboxChange,
+  handleRiceCheckbox,
+  handlePriceTypeCheckbox,
   handleRadioChange,
 }) {
   if (!isOpen) return null;
 
   return (
     <div className="filter-overlay" onClick={(e) => e.stopPropagation()}>
-      {/* Time Period */}
       <fieldset>
         <legend>Time Period</legend>
         <div className="filter-options">
           {Object.keys(timePeriod).map((key) => (
-            <label key={key} className="roboto-regular ">
+            <label key={key} className="roboto-regular">
               <input
                 type="radio"
                 name="timePeriod"
                 value={key}
-                id={`timePeriod-${key}`}
-                onChange={handleRadioChange}
                 checked={filters.timePeriod === key}
+                onChange={handleRadioChange}
               />
               {key.charAt(0).toUpperCase() + key.slice(1)}
             </label>
           ))}
         </div>
       </fieldset>
-      {/* Price Types */}
+
       <fieldset>
         <legend>Price Types</legend>
         <div className="filter-options">
           {priceTypes.map((type) => (
-            <label key={type} className="roboto-regular ">
+            <label key={type} className="roboto-regular">
               <input
-                type="radio"
-                name="priceTypes"
+                type="checkbox"
                 value={type}
-                id={`priceTypes-${type}`}
-                onChange={handleRadioChange}
-                checked={filters.priceTypes === type}
+                checked={filters.priceTypes.includes(type)}
+                onChange={handlePriceTypeCheckbox}
               />
-              {type.charAt(0).toUpperCase() + type.slice(1)}
+              {type}
             </label>
           ))}
         </div>
       </fieldset>
-      {/* Rice Commodity */}
+
       <fieldset>
         <legend>Rice Commodities</legend>
         <div className="filter-options">
@@ -280,18 +230,16 @@ function FilterPopup({
               <h3>{category}</h3>
               <div className="filter-options">
                 {types.map((type) => (
-                  <label key={type} className="roboto-regular ">
+                  <label key={type} className="roboto-regular">
                     <input
                       type="checkbox"
-                      name="rice"
                       value={type}
-                      id={`rice-${category}-${type}`}
-                      onChange={(e) => handleCheckboxChange(e, category)}
                       checked={filters.rice.some(
                         (item) =>
                           item.category === category &&
                           item.selected.includes(type)
                       )}
+                      onChange={(e) => handleRiceCheckbox(e, category)}
                     />
                     {type}
                   </label>
@@ -301,16 +249,6 @@ function FilterPopup({
           ))}
         </div>
       </fieldset>
-      {/* Log selected filters */}
-      {console.log("Time Period: ", filters.timePeriod)}
-      {console.log("Price Type: ", filters.priceTypes)}
-      {console.log("Rice Commodities:")}
-      {filters.rice.length > 0
-        ? filters.rice.map((item) => {
-            console.log("> ", `${item.category}: ${item.selected.join(", ")}`);
-          })
-        : console.log("No rice selected")}
-      {console.log("Filters: ", filters.rice)}
     </div>
   );
 }
