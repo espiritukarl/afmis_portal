@@ -9,12 +9,12 @@ import {
   fakeData,
 } from "./Data/HomeData";
 
-export default function PriceTrendsGlance({}) {
+export default function PriceTrendsGlance() {
   const [isOpen, setIsOpen] = useState(false);
   const [chartOptions, setChartOptions] = useState({});
 
   const [filterOptions, setFilterOptions] = useState({
-    priceTypes: priceTypes[0],
+    priceTypes: [priceTypes[0]], // Array of selected price types
     timePeriod: Object.keys(timePeriod)[3],
     rice: [
       {
@@ -37,7 +37,7 @@ export default function PriceTrendsGlance({}) {
     setFilterOptions((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleCheckboxChange = (e, category) => {
+  const handleRiceCheckbox = (e, category) => {
     const { value, checked } = e.target;
     setFilterOptions((prev) => {
       const riceFilters = [...prev.rice];
@@ -60,20 +60,34 @@ export default function PriceTrendsGlance({}) {
     });
   };
 
+  const handlePriceTypeCheckbox = (e) => {
+    const { value, checked } = e.target;
+    setFilterOptions((prev) => ({
+      ...prev,
+      priceTypes: checked
+        ? [...prev.priceTypes, value]
+        : prev.priceTypes.filter((type) => type !== value),
+    }));
+  };
+
   useEffect(() => {
+    // Generate all combinations of selected rice types and price types
     const series = filterOptions.rice.flatMap(({ category, selected }) =>
-      selected.map((type) => ({
-        name: `${category}: ${type}`,
-        data: fakeData[filterOptions.timePeriod][category][type][
-          filterOptions.priceTypes
-        ],
-      }))
+      selected.flatMap((riceType) =>
+        filterOptions.priceTypes.map((priceType) => ({
+          name: `${category} - ${riceType} (${priceType})`,
+          data:
+            fakeData[filterOptions.timePeriod]?.[category]?.[riceType]?.[
+              priceType
+            ] || [],
+        }))
+      )
     );
 
-    // Calculate min/max across all selected data
-    const allValues = series.flatMap((s) => s.data);
-    const min = Math.floor(Math.min(...allValues));
-    const max = Math.ceil(Math.max(...allValues));
+    // Calculate yAxis min/max
+    const allValues = series.flatMap((s) => s.data).filter(Number.isFinite);
+    const min = allValues.length ? Math.floor(Math.min(...allValues)) : 0;
+    const max = allValues.length ? Math.ceil(Math.max(...allValues)) : 100;
 
     setChartOptions({
       chart: { type: "line" },
@@ -85,12 +99,12 @@ export default function PriceTrendsGlance({}) {
       },
       yAxis: {
         title: { text: "Price (Php)" },
-        min: min - 10 > 0 ? min - 10 : min,
-        max: max + 10 < 100 ? max + 10 : max,
+        min: Math.max(0, min - 10),
+        max: max + 10,
         allowDecimals: false,
         labels: {
           formatter: function () {
-            return this.value.toFixed(0); // Ensure integer labels
+            return this.value.toFixed(0);
           },
         },
       },
@@ -126,7 +140,8 @@ export default function PriceTrendsGlance({}) {
           filters={filterOptions}
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
-          handleCheckboxChange={handleCheckboxChange}
+          handleRiceCheckbox={handleRiceCheckbox}
+          handlePriceTypeCheckbox={handlePriceTypeCheckbox}
           handleRadioChange={handleRadioChange}
         />
       </h4>
@@ -141,7 +156,8 @@ function FilterPopup({
   filters,
   isOpen,
   onClose,
-  handleCheckboxChange,
+  handleRiceCheckbox,
+  handlePriceTypeCheckbox,
   handleRadioChange,
 }) {
   if (!isOpen) return null;
@@ -172,13 +188,12 @@ function FilterPopup({
           {priceTypes.map((type) => (
             <label key={type} className="roboto-regular">
               <input
-                type="radio"
-                name="priceTypes"
+                type="checkbox"
                 value={type}
-                checked={filters.priceTypes === type}
-                onChange={handleRadioChange}
+                checked={filters.priceTypes.includes(type)}
+                onChange={handlePriceTypeCheckbox}
               />
-              {type.charAt(0).toUpperCase() + type.slice(1)}
+              {type}
             </label>
           ))}
         </div>
@@ -201,7 +216,7 @@ function FilterPopup({
                           item.category === category &&
                           item.selected.includes(type)
                       )}
-                      onChange={(e) => handleCheckboxChange(e, category)}
+                      onChange={(e) => handleRiceCheckbox(e, category)}
                     />
                     {type}
                   </label>
