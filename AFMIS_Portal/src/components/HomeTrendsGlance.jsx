@@ -110,7 +110,7 @@ export default function PriceTrendsGlance() {
       title: { text: "" },
       xAxis: {
         categories: timePeriod[filterOptions.timePeriod],
-        title: { text: filterOptions.timePeriod },
+        title: { text: `Time period (${filterOptions.timePeriod})` },
         labels: { rotation: -45 },
       },
       yAxis: {
