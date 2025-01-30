@@ -70,18 +70,34 @@ export default function PriceTrendsGlance() {
     }));
   };
 
+  const riceColors = Highcharts.getOptions().colors;
+
   useEffect(() => {
-    // Generate all combinations of selected rice types and price types
+    // Create a map of rice types to color index
+    const riceColorMap = new Map();
+    let colorIndex = 0;
+
     const series = filterOptions.rice.flatMap(({ category, selected }) =>
-      selected.flatMap((riceType) =>
-        filterOptions.priceTypes.map((priceType) => ({
-          name: `${category} - ${riceType} (${priceType})`,
+      selected.flatMap((riceType) => {
+        // Get or create color index for this rice type
+        if (!riceColorMap.has(riceType)) {
+          riceColorMap.set(riceType, colorIndex++);
+        }
+        const baseColor =
+          riceColors[riceColorMap.get(riceType) % riceColors.length];
+
+        return filterOptions.priceTypes.map((priceType, priceIdx) => ({
+          name: `${riceType} (${priceType})`,
+          color: Highcharts.color(baseColor)
+            .brighten(priceIdx * -0.2)
+            .get(),
+          dashStyle: ["Solid", "Dash", "Dot"][priceIdx % 3],
           data:
             fakeData[filterOptions.timePeriod]?.[category]?.[riceType]?.[
               priceType
             ] || [],
-        }))
-      )
+        }));
+      })
     );
 
     // Calculate yAxis min/max
@@ -99,8 +115,8 @@ export default function PriceTrendsGlance() {
       },
       yAxis: {
         title: { text: "Price (Php)" },
-        min: Math.max(0, min - 10),
-        max: max + 10,
+        min: Math.max(0, min),
+        max: max,
         allowDecimals: false,
         labels: {
           formatter: function () {
@@ -122,6 +138,13 @@ export default function PriceTrendsGlance() {
             chartOptions: { legend: { enabled: false } },
           },
         ],
+      },
+      plotOptions: {
+        series: {
+          marker: {
+            enabled: false, // Remove markers for cleaner look
+          },
+        },
       },
     });
   }, [filterOptions]);
