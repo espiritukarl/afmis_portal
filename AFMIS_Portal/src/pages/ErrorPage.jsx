@@ -3,9 +3,9 @@ import "../styles/error.css";
 import { Link } from "react-router-dom";
 
 export function ErrorPage() {
-  useEffect(() => {
-    document.title = "Oops! Page Not Found";
-  }, []);
+  // useEffect(() => {
+  //   document.title = "Oops! Page Not Found";
+  // }, []);
 
   return (
     <main className="error roboto-regular">
