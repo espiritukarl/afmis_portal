@@ -6,19 +6,17 @@
   display: flex;
   justify-content: space-around;
   align-items: flex-end;
-  margin: 5px auto;
   position: relative;
-  min-height: 500px;
-  max-height: 500px;
+  min-height: 600px;
+  max-height: 600px;
   overflow: hidden;
 }
 
 .banner-container > img {
   position: absolute;
-  width: 99%;
-  min-height: 700px;
-  max-height: 700px;
-  bottom: -150px;
+  width: 100%;
+  object-fit: cover;
+  bottom: -100px;
 }
 
 .banner-image {
