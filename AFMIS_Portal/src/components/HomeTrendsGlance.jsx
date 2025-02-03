@@ -146,6 +146,9 @@ export default function PriceTrendsGlance() {
           },
         },
       },
+      credits: {
+        enabled: false,
+      },
     });
   }, [filterOptions]);
 
