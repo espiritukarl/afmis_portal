@@ -9,6 +9,10 @@ import {
   fakeData,
 } from "./Data/HomeData";
 
+//HIGHCHARTS FULLSCREEN + EXPORT AS IMAGE
+import "highcharts/modules/exporting";
+import "highcharts/modules/offline-exporting";
+
 export default function PriceTrendsGlance() {
   const [isOpen, setIsOpen] = useState(false);
   const [chartOptions, setChartOptions] = useState({});
@@ -87,7 +91,7 @@ export default function PriceTrendsGlance() {
           riceColors[riceColorMap.get(riceType) % riceColors.length];
 
         return filterOptions.priceTypes.map((priceType, priceIdx) => ({
-          name: `${category}: ${riceType} (${priceType})`,
+          name: `${category.split(" ")[0]}: ${riceType} (${priceType})`,
           color: Highcharts.color(baseColor)
             .brighten(priceIdx * -0.2)
             .get(),
@@ -112,11 +116,12 @@ export default function PriceTrendsGlance() {
         categories: timePeriod[filterOptions.timePeriod],
         title: { text: `Time period (${filterOptions.timePeriod})` },
         labels: { rotation: -45 },
+        min: 0.5,
       },
       yAxis: {
         title: { text: "Price (Php)" },
         min: Math.max(0, min),
-        max: max,
+        max: max + 1,
         allowDecimals: false,
         labels: {
           formatter: function () {
