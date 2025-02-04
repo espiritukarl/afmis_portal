@@ -315,3 +315,11 @@ aside {
   transform: scale(1.01);
   margin-left: 3px;
 }
+
+.highcharts-exporting-group {
+  transform: translateY(-5px);
+}
+
+.highcharts-menu {
+  font-family: "Roboto", sans-serif;
+}
