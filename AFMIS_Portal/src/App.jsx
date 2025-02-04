@@ -11,6 +11,7 @@ import Faq from "./pages/Faq.jsx";
 import "./styles/App.css";
 import PriceReport from "./pages/PriceReport.jsx";
 import Infographics from "./pages/Infographics.jsx";
+import HarvestCalendar from "./pages/HarvestCalendar.jsx";
 import FetchGoogleSheets from "./components/FetchGoogleSheets.jsx";
 import { ErrorPage } from "./pages/ErrorPage.jsx";
 
@@ -34,7 +35,7 @@ function App() {
               }
             />
             {/* NEWS SECTION */}
-            <Route path="/news">
+            <Route path="news">
               <Route path="upcoming-events" element={<UpcomingEvents />} />
               <Route path="news-articles" element={<NewsArticles />} />
               <Route path="price-report" element={<PriceReport />} />
@@ -42,10 +43,15 @@ function App() {
             </Route>
 
             {/* ABOUT SECTION */}
-            <Route path="/about">
+            <Route path="about">
               <Route path="about-us" element={<AboutUs />} />
               <Route path="contact-us" element={<ContactUs />} />
               <Route path="faq" element={<Faq />} />
+            </Route>
+
+            {/* RESOURCES SECTION */}
+            <Route path="resources">
+              <Route path="harvest-calendar" element={<HarvestCalendar />} />
             </Route>
 
             {/* DEFAULT ROUTE */}
