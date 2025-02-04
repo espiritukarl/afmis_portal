@@ -320,6 +320,7 @@ aside {
   transform: translateY(-5px);
 }
 
-.highcharts-menu {
+.highcharts-menu,
+#highcharts-data-table-3 {
   font-family: "Roboto", sans-serif;
 }
