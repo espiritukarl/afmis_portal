@@ -29,7 +29,7 @@ export const menuItems = {
       ],
     },
   ],
-  Databases: [
+  "Market Data": [
     {
       name: "Price Monitoring System",
       link: "http://www.bantaypresyo.da.gov.ph/",
@@ -50,6 +50,10 @@ export const menuItems = {
       name: "International & Domestic Market Trends & Forecast",
       link: "analytics/market-trends-forecast",
     },
+    {
+      name: "Commodity Flow",
+      link: "analytics/commodity-flow",
+    },
   ],
   Resources: [
     { name: "Import & Export Data", link: "resources/import-export-data" },
@@ -64,6 +68,10 @@ export const menuItems = {
     {
       name: "Market Study / Market Research",
       link: "resources/market-study-research",
+    },
+    {
+      name: "Harvest Calendar",
+      link: "resources/harvest-calendar",
     },
   ],
   Directory: [
