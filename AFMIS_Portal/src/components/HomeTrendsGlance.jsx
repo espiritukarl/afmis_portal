@@ -157,6 +157,8 @@ export default function PriceTrendsGlance() {
       },
       exporting: {
         filename: "AFMIS-Portal-PriceTrends",
+        sourceWidth: 1200,
+        sourceHeight: 675,
       },
     });
   }, [filterOptions]);
