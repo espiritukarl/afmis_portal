@@ -12,6 +12,7 @@ import {
 //HIGHCHARTS FULLSCREEN + EXPORT AS IMAGE
 import "highcharts/modules/exporting";
 import "highcharts/modules/offline-exporting";
+import "highcharts/modules/export-data";
 
 export default function PriceTrendsGlance() {
   const [isOpen, setIsOpen] = useState(false);
@@ -153,6 +154,9 @@ export default function PriceTrendsGlance() {
       },
       credits: {
         enabled: false,
+      },
+      exporting: {
+        filename: "AFMIS-Portal-PriceTrends",
       },
     });
   }, [filterOptions]);
