@@ -112,7 +112,7 @@ export default function PriceTrendsGlance() {
 
     setChartOptions({
       chart: { type: "line" },
-      title: { text: "" },
+      title: { text: " " },
       xAxis: {
         categories: timePeriod[filterOptions.timePeriod],
         title: { text: `Time period (${filterOptions.timePeriod})` },
