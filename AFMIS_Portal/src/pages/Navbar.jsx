@@ -119,7 +119,6 @@ export default function Navbar() {
           <input
             className="navbar-searchbar roboto-thin"
             placeholder="Search here..."
-            tabIndex={Object.entries(menuItems).length + 1}
           />
           <Icon
             icon={"material-symbols:search"}
