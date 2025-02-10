@@ -325,7 +325,6 @@ label {
 .filter-options > label > input:hover {
   cursor: pointer;
   transform: scale(1.01);
-  margin-left: 3px;
 }
 
 .highcharts-exporting-group {
