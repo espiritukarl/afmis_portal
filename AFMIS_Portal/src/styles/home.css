@@ -280,7 +280,7 @@ aside {
 .filter-overlay {
   z-index: 9;
   position: absolute;
-  right: 31%;
+  right: 33.3%;
   top: 137.3%;
   background-color: var(--primary-yellow);
   color: var(--primary-green);
@@ -288,17 +288,29 @@ aside {
   border-radius: 5px;
   border-top-left-radius: 0;
   box-shadow: 4px 4px 2px var(--text-box-shadow);
-  font-size: 16px;
+  font-size: 0.9rem;
 }
 
 .filter-options > div > h3 {
-  font-size: 1rem;
+  font-size: 0.8rem;
   margin-left: 5px;
   margin-top: 5px;
 }
 
+input[type="radio"],
+input[type="checkbox"] {
+  vertical-align: middle;
+  margin: 0 5px 0 0;
+}
+
+label {
+  vertical-align: middle;
+}
+
 .filter-options > label {
-  font-size: 1rem;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
 }
 
 .filter-options {
@@ -323,4 +335,17 @@ aside {
 .highcharts-menu,
 .highcharts-data-table {
   font-family: "Roboto", sans-serif;
+}
+
+.range-label {
+  margin-right: 5px;
+}
+
+.range input {
+  width: 95%;
+  border-radius: 5px;
+  border: none;
+  padding: 5px;
+  margin: 5px auto;
+  font-size: 0.8rem;
 }
