@@ -15,9 +15,7 @@ export async function getRegion() {
 
 export const priceTypes = ["Prevailing", "Low", "High", "Average", "Median"];
 export const timePeriod = {
-  Yearly: [
-    2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016,
-  ].reverse(),
+  Yearly: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
   Monthly: [
     "Jan",
     "Feb",
@@ -190,7 +188,7 @@ export const fakeData = {
   Yearly: {
     "RICE-FOR-ALL": {
       "Well Milled": generatePriceData(
-        Array.from({ length: 5 }, (_, i) =>
+        Array.from({ length: timePeriod["Yearly"].length }, (_, i) =>
           Math.round(42 + i * 0.8 + Math.sin(i) * 1.2)
         ),
         2.5
@@ -198,25 +196,25 @@ export const fakeData = {
     },
     "IMPORTED COMMERCIAL RICE": {
       Special: generatePriceData(
-        Array.from({ length: 5 }, (_, i) =>
+        Array.from({ length: timePeriod["Yearly"].length }, (_, i) =>
           Math.round(54 + i * 1.2 + Math.cos(i) * 1.5)
         ),
         3.0
       ),
       Premium: generatePriceData(
-        Array.from({ length: 5 }, (_, i) =>
+        Array.from({ length: timePeriod["Yearly"].length }, (_, i) =>
           Math.round(51 + i * 0.9 + Math.sin(i) * 1.1)
         ),
         2.5
       ),
       "Well Milled": generatePriceData(
-        Array.from({ length: 5 }, (_, i) =>
+        Array.from({ length: timePeriod["Yearly"].length }, (_, i) =>
           Math.round(47 + i * 0.7 + Math.cos(i) * 0.8)
         ),
         2.0
       ),
       "Regular Milled": generatePriceData(
-        Array.from({ length: 5 }, (_, i) =>
+        Array.from({ length: timePeriod["Yearly"].length }, (_, i) =>
           Math.round(44 + i * 0.5 + Math.sin(i) * 0.6)
         ),
         1.5
@@ -224,25 +222,25 @@ export const fakeData = {
     },
     "LOCAL COMMERCIAL RICE": {
       Special: generatePriceData(
-        Array.from({ length: 5 }, (_, i) =>
+        Array.from({ length: timePeriod["Yearly"].length }, (_, i) =>
           Math.round(49 + i * 0.6 + Math.cos(i) * 1.0)
         ),
         2.0
       ),
       Premium: generatePriceData(
-        Array.from({ length: 5 }, (_, i) =>
+        Array.from({ length: timePeriod["Yearly"].length }, (_, i) =>
           Math.round(46 + i * 0.5 + Math.sin(i) * 0.9)
         ),
         1.8
       ),
       "Well Milled": generatePriceData(
-        Array.from({ length: 5 }, (_, i) =>
+        Array.from({ length: timePeriod["Yearly"].length }, (_, i) =>
           Math.round(43 + i * 0.4 + Math.cos(i) * 0.7)
         ),
         1.5
       ),
       "Regular Milled": generatePriceData(
-        Array.from({ length: 5 }, (_, i) =>
+        Array.from({ length: timePeriod["Yearly"].length }, (_, i) =>
           Math.round(40 + i * 0.3 + Math.sin(i) * 0.5)
         ),
         1.2
