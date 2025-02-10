@@ -13,13 +13,18 @@ import {
 import "highcharts/modules/exporting";
 import "highcharts/modules/offline-exporting";
 import "highcharts/modules/export-data";
+import { FilterRange } from "./FilterRange";
 
 export default function PriceTrendsGlance() {
   const [isOpen, setIsOpen] = useState(false);
   const [chartOptions, setChartOptions] = useState({});
+  const [yearRange, setYearRange] = useState({
+    start: timePeriod["Yearly"][0],
+    end: timePeriod["Yearly"][timePeriod["Yearly"].length - 1],
+  });
 
   const [filterOptions, setFilterOptions] = useState({
-    priceTypes: [priceTypes[0]], // Array of selected price types
+    priceTypes: [priceTypes[0]],
     timePeriod: Object.keys(timePeriod)[3],
     rice: [
       {
@@ -75,12 +80,23 @@ export default function PriceTrendsGlance() {
     }));
   };
 
+  const handleYearRangeChange = (e, type) => {
+    const value = parseInt(e.target.value);
+    setYearRange((prev) => ({
+      ...prev,
+      [type]: value,
+    }));
+  };
+
   const riceColors = Highcharts.getOptions().colors;
 
   useEffect(() => {
     // Create a map of rice types to color index
     const riceColorMap = new Map();
     let colorIndex = 0;
+    const startIndex = timePeriod["Yearly"].indexOf(yearRange.start);
+    const endIndex = timePeriod["Yearly"].indexOf(yearRange.end) + 1;
+    const updatedYearRange = timePeriod["Yearly"].slice(startIndex, endIndex);
 
     const series = filterOptions.rice.flatMap(({ category, selected }) =>
       selected.flatMap((riceType) => {
@@ -98,9 +114,17 @@ export default function PriceTrendsGlance() {
             .get(),
           dashStyle: ["Solid", "Dash", "Dot"][priceIdx % 3],
           data:
-            fakeData[filterOptions.timePeriod]?.[category]?.[riceType]?.[
-              priceType
-            ] || [],
+            filterOptions.timePeriod === "Yearly"
+              ? fakeData[filterOptions.timePeriod]?.[category]?.[riceType]?.[
+                  priceType
+                ].slice(startIndex, endIndex)
+              : filterOptions.timePeriod === "Monthly"
+              ? fakeData[filterOptions.timePeriod]?.[category]?.[riceType]?.[
+                  priceType
+                ] //ADD MONTHLY SHT HERE FOR NEXT
+              : fakeData[filterOptions.timePeriod]?.[category]?.[riceType]?.[
+                  priceType
+                ] || [],
         }));
       })
     );
@@ -114,7 +138,10 @@ export default function PriceTrendsGlance() {
       chart: { type: "line" },
       title: { text: " " },
       xAxis: {
-        categories: timePeriod[filterOptions.timePeriod],
+        categories:
+          filterOptions.timePeriod === "Yearly"
+            ? updatedYearRange
+            : timePeriod[filterOptions.timePeriod],
         title: { text: `Time period (${filterOptions.timePeriod})` },
         labels: { rotation: -45 },
         min: 0.5,
@@ -161,7 +188,7 @@ export default function PriceTrendsGlance() {
         sourceHeight: 675,
       },
     });
-  }, [filterOptions]);
+  }, [filterOptions, yearRange]);
 
   return (
     <section>
@@ -177,9 +204,11 @@ export default function PriceTrendsGlance() {
           filters={filterOptions}
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
+          yearRange={yearRange}
           handleRiceCheckbox={handleRiceCheckbox}
           handlePriceTypeCheckbox={handlePriceTypeCheckbox}
           handleRadioChange={handleRadioChange}
+          handleYearRangeChange={handleYearRangeChange}
         />
       </h4>
       <div style={{ marginTop: "20px" }}>
@@ -192,7 +221,8 @@ export default function PriceTrendsGlance() {
 function FilterPopup({
   filters,
   isOpen,
-  onClose,
+  yearRange,
+  handleYearRangeChange,
   handleRiceCheckbox,
   handlePriceTypeCheckbox,
   handleRadioChange,
@@ -205,16 +235,24 @@ function FilterPopup({
         <legend>Time Period</legend>
         <div className="filter-options">
           {Object.keys(timePeriod).map((key) => (
-            <label key={key} className="roboto-regular">
-              <input
-                type="radio"
-                name="timePeriod"
-                value={key}
-                checked={filters.timePeriod === key}
-                onChange={handleRadioChange}
-              />
-              {key.charAt(0).toUpperCase() + key.slice(1)}
-            </label>
+            <>
+              <label key={key} className="roboto-regular">
+                <input
+                  type="radio"
+                  name="timePeriod"
+                  value={key}
+                  checked={filters.timePeriod === key}
+                  onChange={handleRadioChange}
+                />
+                <div>{key.charAt(0).toUpperCase() + key.slice(1)}</div>
+              </label>
+              {filters.timePeriod === "Yearly" && key === "Yearly" && (
+                <FilterRange
+                  yearRange={yearRange}
+                  handleYearRangeChange={handleYearRangeChange}
+                />
+              )}
+            </>
           ))}
         </div>
       </fieldset>
@@ -230,7 +268,7 @@ function FilterPopup({
                 checked={filters.priceTypes.includes(type)}
                 onChange={handlePriceTypeCheckbox}
               />
-              {type}
+              <div>{type}</div>
             </label>
           ))}
         </div>
@@ -255,7 +293,7 @@ function FilterPopup({
                       )}
                       onChange={(e) => handleRiceCheckbox(e, category)}
                     />
-                    {type}
+                    <div>{type}</div>
                   </label>
                 ))}
               </div>
