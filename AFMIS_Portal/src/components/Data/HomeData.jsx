@@ -34,6 +34,16 @@ export const timePeriod = {
   Daily: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], //is this correct?!?!
 };
 
+const currentMonth = new Date().getMonth();
+const currentYear = new Date().getFullYear();
+export const monthlyData = timePeriod.Yearly.flatMap((year) =>
+  timePeriod.Monthly.map((month) => ({ month, year }))
+).filter(
+  ({ month, year }) =>
+    year < currentYear ||
+    (year === currentYear && timePeriod.Monthly.indexOf(month) <= currentMonth)
+);
+
 const generatePriceData = (base, variation) => ({
   Prevailing: base,
   Low: base.map((v) => Math.round(v - Math.random() * variation)),
@@ -126,7 +136,7 @@ export const fakeData = {
   Monthly: {
     "RICE-FOR-ALL": {
       "Well Milled": generatePriceData(
-        Array.from({ length: 12 }, (_, i) =>
+        Array.from({ length: monthlyData.length }, (_, i) =>
           Math.round(42.5 + Math.sin(i / 2) * 2)
         ),
         3.0
@@ -134,25 +144,25 @@ export const fakeData = {
     },
     "IMPORTED COMMERCIAL RICE": {
       Special: generatePriceData(
-        Array.from({ length: 12 }, (_, i) =>
+        Array.from({ length: monthlyData.length }, (_, i) =>
           Math.round(54.0 + Math.cos(i / 3) * 3)
         ),
         4.0
       ),
       Premium: generatePriceData(
-        Array.from({ length: 12 }, (_, i) =>
+        Array.from({ length: monthlyData.length }, (_, i) =>
           Math.round(51.5 + Math.sin(i / 5) * 2.5)
         ),
         3.0
       ),
       "Well Milled": generatePriceData(
-        Array.from({ length: 12 }, (_, i) =>
+        Array.from({ length: monthlyData.length }, (_, i) =>
           Math.round(47.5 + Math.cos(i / 4) * 1.5)
         ),
         2.5
       ),
       "Regular Milled": generatePriceData(
-        Array.from({ length: 12 }, (_, i) =>
+        Array.from({ length: monthlyData.length }, (_, i) =>
           Math.round(44.5 + Math.sin(i / 6) * 1.8)
         ),
         2.0
@@ -160,25 +170,25 @@ export const fakeData = {
     },
     "LOCAL COMMERCIAL RICE": {
       Special: generatePriceData(
-        Array.from({ length: 12 }, (_, i) =>
+        Array.from({ length: monthlyData.length }, (_, i) =>
           Math.round(49.0 + Math.cos(i / 4) * 2.2)
         ),
         3.0
       ),
       Premium: generatePriceData(
-        Array.from({ length: 12 }, (_, i) =>
+        Array.from({ length: monthlyData.length }, (_, i) =>
           Math.round(46.5 + Math.sin(i / 5) * 2.0)
         ),
         2.5
       ),
       "Well Milled": generatePriceData(
-        Array.from({ length: 12 }, (_, i) =>
+        Array.from({ length: monthlyData.length }, (_, i) =>
           Math.round(43.5 + Math.cos(i / 7) * 1.2)
         ),
         2.0
       ),
       "Regular Milled": generatePriceData(
-        Array.from({ length: 12 }, (_, i) =>
+        Array.from({ length: monthlyData.length }, (_, i) =>
           Math.round(40.5 + Math.sin(i / 8) * 1.5)
         ),
         1.8
@@ -248,6 +258,8 @@ export const fakeData = {
     },
   },
 };
+
+console.log(monthlyData);
 
 export const riceCommodity = {
   "RICE-FOR-ALL": ["Well Milled"],
