@@ -20,6 +20,7 @@ function checkMonth(index) {
 }
 
 export default function PriceTrendsGlance() {
+  const [chartKey, setChartKey] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
   const [chartOptions, setChartOptions] = useState({});
   const [yearRange, setYearRange] = useState({
@@ -28,7 +29,7 @@ export default function PriceTrendsGlance() {
   });
   const [monthRange, setMonthRange] = useState({
     start: {
-      year: 2020,
+      year: 2023,
       month: checkMonth(currentMonth + 1),
     },
     end: {
@@ -170,6 +171,7 @@ export default function PriceTrendsGlance() {
         sourceHeight: 675,
       },
     });
+    setChartKey((prev) => prev + 1);
   }, [filterOptions, monthRange, yearRange]);
 
   return (
@@ -194,7 +196,11 @@ export default function PriceTrendsGlance() {
         />
       </h4>
       <div style={{ marginTop: "20px" }}>
-        <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+        <HighchartsReact
+          key={chartKey}
+          highcharts={Highcharts}
+          options={chartOptions}
+        />
       </div>
     </section>
   );
