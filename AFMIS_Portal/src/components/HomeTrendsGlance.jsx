@@ -2,25 +2,22 @@ import { useState, useEffect } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import {
-  priceTypes,
-  riceCommodity,
-  timePeriod,
-  fakeData,
-} from "./Data/HomeData";
+import { priceTypes, timePeriod, fakeData } from "./Data/HomeData";
 
 //HIGHCHARTS FULLSCREEN + EXPORT AS IMAGE
 import "highcharts/modules/exporting";
 import "highcharts/modules/offline-exporting";
 import "highcharts/modules/export-data";
-import { FilterRange } from "./FilterRange";
+import FilterPopup from "./FilterPopup";
+
+const yearArray = timePeriod["Yearly"];
 
 export default function PriceTrendsGlance() {
   const [isOpen, setIsOpen] = useState(false);
   const [chartOptions, setChartOptions] = useState({});
   const [yearRange, setYearRange] = useState({
-    start: timePeriod["Yearly"][0],
-    end: timePeriod["Yearly"][timePeriod["Yearly"].length - 1],
+    start: yearArray[0],
+    end: yearArray[yearArray.length - 1],
   });
 
   const [filterOptions, setFilterOptions] = useState({
@@ -94,9 +91,9 @@ export default function PriceTrendsGlance() {
     // Create a map of rice types to color index
     const riceColorMap = new Map();
     let colorIndex = 0;
-    const startIndex = timePeriod["Yearly"].indexOf(yearRange.start);
-    const endIndex = timePeriod["Yearly"].indexOf(yearRange.end) + 1;
-    const updatedYearRange = timePeriod["Yearly"].slice(startIndex, endIndex);
+    const startIndex = yearArray.indexOf(yearRange.start);
+    const endIndex = yearArray.indexOf(yearRange.end) + 1;
+    const updatedYearRange = yearArray.slice(startIndex, endIndex);
 
     const series = filterOptions.rice.flatMap(({ category, selected }) =>
       selected.flatMap((riceType) => {
@@ -215,92 +212,5 @@ export default function PriceTrendsGlance() {
         <HighchartsReact highcharts={Highcharts} options={chartOptions} />
       </div>
     </section>
-  );
-}
-
-function FilterPopup({
-  filters,
-  isOpen,
-  yearRange,
-  handleYearRangeChange,
-  handleRiceCheckbox,
-  handlePriceTypeCheckbox,
-  handleRadioChange,
-}) {
-  if (!isOpen) return null;
-
-  return (
-    <div className="filter-overlay" onClick={(e) => e.stopPropagation()}>
-      <fieldset>
-        <legend>Time Period</legend>
-        <div className="filter-options">
-          {Object.keys(timePeriod).map((key) => (
-            <>
-              <label key={key} className="roboto-regular">
-                <input
-                  type="radio"
-                  name="timePeriod"
-                  value={key}
-                  checked={filters.timePeriod === key}
-                  onChange={handleRadioChange}
-                />
-                <div>{key.charAt(0).toUpperCase() + key.slice(1)}</div>
-              </label>
-              {filters.timePeriod === "Yearly" && key === "Yearly" && (
-                <FilterRange
-                  yearRange={yearRange}
-                  handleYearRangeChange={handleYearRangeChange}
-                />
-              )}
-            </>
-          ))}
-        </div>
-      </fieldset>
-
-      <fieldset>
-        <legend>Price Types</legend>
-        <div className="filter-options">
-          {priceTypes.map((type) => (
-            <label key={type} className="roboto-regular">
-              <input
-                type="checkbox"
-                value={type}
-                checked={filters.priceTypes.includes(type)}
-                onChange={handlePriceTypeCheckbox}
-              />
-              <div>{type}</div>
-            </label>
-          ))}
-        </div>
-      </fieldset>
-
-      <fieldset>
-        <legend>Rice Commodities</legend>
-        <div className="filter-options">
-          {Object.entries(riceCommodity).map(([category, types]) => (
-            <div key={category}>
-              <h3>{category}</h3>
-              <div className="filter-options">
-                {types.map((type) => (
-                  <label key={type} className="roboto-regular">
-                    <input
-                      type="checkbox"
-                      value={type}
-                      checked={filters.rice.some(
-                        (item) =>
-                          item.category === category &&
-                          item.selected.includes(type)
-                      )}
-                      onChange={(e) => handleRiceCheckbox(e, category)}
-                    />
-                    <div>{type}</div>
-                  </label>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </fieldset>
-    </div>
   );
 }
