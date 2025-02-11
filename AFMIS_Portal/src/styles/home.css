@@ -1,3 +1,4 @@
+/* GENERAL STYLES */
 .content-container {
   display: flex;
 }
@@ -87,6 +88,7 @@
   background-color: rgba(0, 0, 0, 0.65);
 }
 
+/* HEADER STYLES */
 .home-section-headers {
   font-size: 24px;
   margin: 60px 0 30px 0;
@@ -95,7 +97,13 @@
   align-items: center;
 }
 
-.home-section-headers > .filter {
+/* FILTER BUTTON + POPUP STYLES */
+.filter-container {
+  position: relative; /* Ensures the filter button is the reference */
+  display: inline-block;
+}
+
+.filter {
   display: flex;
   align-items: center;
   font-size: 1.1rem;
@@ -107,21 +115,91 @@
   border-radius: 5px;
   transition: background-color 300ms ease-in-out, color 300ms ease-in-out,
     font-weight 300ms ease-in-out;
-}
-
-.home-section-headers > .filter:hover,
-.home-section-headers > .filter.active {
-  background-color: var(--primary-yellow);
-  color: var(--primary-green);
-  font-weight: 600;
   cursor: pointer;
 }
 
+.filter.active,
+.filter:hover {
+  background-color: var(--primary-yellow);
+  color: var(--primary-green);
+  font-weight: 600;
+}
+
+/* FILTER POPUP (POSITIONED TO THE RIGHT OF THE BUTTON) */
+.filter-overlay {
+  z-index: 15;
+  position: absolute;
+  top: 0;
+  left: 110%; /* Aligns it to the right of the button */
+  background-color: var(--primary-yellow);
+  color: var(--primary-green);
+  padding: 10px;
+  border-radius: 5px;
+  border-top-left-radius: 0;
+  box-shadow: 4px 4px 2px var(--text-box-shadow);
+  font-size: 0.9rem;
+  width: 250px; /* Adjust width if necessary */
+}
+
+/* TRIANGLE POINTER FOR RIGHT-SIDE POPUP */
+.filter-overlay::before {
+  content: "";
+  position: absolute;
+  top: 2%;
+  left: -10px; /* Moves the arrow to the left edge */
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent var(--primary-yellow) transparent transparent;
+  transform: translateY(-50%);
+}
+
+/* FILTER OPTIONS */
+.filter-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 10px 0;
+  accent-color: var(--primary-green);
+}
+
+.filter-options > div > h3 {
+  font-size: 0.8rem;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+.filter-options > label {
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+}
+
+.filter-options > label:hover,
+.filter-options > label > input:hover {
+  cursor: pointer;
+  transform: scale(1.01);
+}
+
+/* CHECKBOXES AND RADIO BUTTONS */
+input[type="radio"],
+input[type="checkbox"] {
+  vertical-align: middle;
+  margin: 0 5px 0 0;
+  cursor: pointer;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+/* SELECTION BAR */
 .selection-bar-container {
   width: 100%;
   display: flex;
   justify-content: space-evenly;
-
   border: 1px solid transparent;
   border-radius: 10px;
   box-shadow: 2px 2px 4px var(--text-box-shadow);
@@ -150,6 +228,7 @@
   background-color: var(--primary-green);
 }
 
+/* IMAGE WRAPPER */
 .image-wrapper {
   position: relative;
   display: flex;
@@ -160,6 +239,11 @@
   transition: transform 100ms ease-in-out;
 }
 
+.image-wrapper:hover {
+  transform: scale(1.03);
+}
+
+/* SECTION OVERLAY */
 .section-overlay {
   position: absolute;
   top: 0;
@@ -174,32 +258,11 @@
   transition: background-color 100ms ease-in-out;
 }
 
-.price-report-img {
-  position: absolute;
-  width: 60%;
-  object-fit: cover;
-}
-
-.infographic-img {
-  position: absolute;
-  width: 100%;
-  object-fit: cover;
-}
-
-.image-wrapper:hover {
-  transform: scale(1.03);
-}
-
 .section-overlay:hover {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-/* ASIDE */
-aside {
-  margin: 50px;
-  flex: 1;
-}
-
+/* CARD CONTAINER */
 .card-container {
   background-color: var(--side-background);
   padding: 16px;
@@ -207,126 +270,12 @@ aside {
   border-radius: 5px;
 }
 
-.card-header {
-  font-size: 24px;
-  margin: 0;
-}
-
-.card-content-container {
-  margin: 24px 15px;
-  padding: 15px 25px;
-
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-
-  background-color: rgba(255, 255, 255, 0.35);
-  border-radius: 5px;
-}
-
-.card-content {
-  margin-top: 5px;
-  margin-left: 8px;
-  width: 100%;
-}
-
-.card-content > h4 {
-  font-size: 18px;
-}
-
-.card-content > p {
-  margin-top: 5px;
-  font-size: 15px;
-}
-
-.card-links {
-  display: flex;
-  justify-content: flex-end;
-  font-size: 20px;
-  color: var(--primary-green);
-  text-decoration: underline;
-}
-
-.card-links:hover {
-  color: #000;
-}
-
+/* PRICE TRENDS CHART */
 .price-trends-chart {
   margin-top: 2rem;
 }
 
-.dropdown-container {
-  position: absolute;
-  background-color: var(--dropdown-green);
-  color: var(--content-fill);
-  text-align: left;
-  margin-top: 0.65rem;
-  width: 19.45%;
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-}
-
-.dropdown-container > .item {
-  padding: 7.5px 10px;
-  border-bottom: 1px solid var(--primary-yellow);
-  font-size: 0.9rem;
-}
-
-.dropdown-container > .item:hover {
-  background-color: var(--primary-yellow);
-  color: var(--primary-green);
-}
-
-.filter-overlay {
-  z-index: 9;
-  position: absolute;
-  right: 33.3%;
-  top: 137.3%;
-  background-color: var(--primary-yellow);
-  color: var(--primary-green);
-  padding: 10px;
-  border-radius: 5px;
-  border-top-left-radius: 0;
-  box-shadow: 4px 4px 2px var(--text-box-shadow);
-  font-size: 0.9rem;
-}
-
-.filter-options > div > h3 {
-  font-size: 0.8rem;
-  margin-left: 5px;
-  margin-top: 5px;
-}
-
-input[type="radio"],
-input[type="checkbox"] {
-  vertical-align: middle;
-  margin: 0 5px 0 0;
-}
-
-label {
-  vertical-align: middle;
-}
-
-.filter-options > label {
-  font-size: 0.8rem;
-  display: flex;
-  align-items: center;
-}
-
-.filter-options {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 10px 0;
-  accent-color: var(--primary-green);
-}
-
-.filter-options > label:hover,
-.filter-options > label > input:hover {
-  cursor: pointer;
-  transform: scale(1.01);
-}
-
+/* HIGHCHARTS OVERRIDES */
 .highcharts-exporting-group {
   transform: translateY(-5px);
 }
@@ -336,6 +285,7 @@ label {
   font-family: "Roboto", sans-serif;
 }
 
+/* RANGE INPUT STYLES */
 .range-label {
   margin-top: 10px;
 }

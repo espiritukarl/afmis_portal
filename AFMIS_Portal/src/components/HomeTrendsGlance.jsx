@@ -182,23 +182,30 @@ export default function PriceTrendsGlance() {
     <section>
       <h4 className="roboto-medium home-section-headers">
         Price Trends at a Glance
-        <div
-          className={isOpen ? "filter active" : "filter"}
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          Filter <Icon icon="cil:filter" width={15} />
+        <div className="filter-container">
+          <div
+            className={isOpen ? "filter active" : "filter"}
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            Filter <Icon icon="cil:filter" width={15} />
+          </div>
+
+          {/* Pop-up moved outside of h4 */}
+          {isOpen && (
+            <FilterPopup
+              isOpen={isOpen}
+              onClose={() => setIsOpen(false)}
+              filters={filterOptions}
+              yearRange={yearRange}
+              monthRange={monthRange}
+              setYearRange={setYearRange}
+              setMonthRange={setMonthRange}
+              setFilterOptions={setFilterOptions}
+            />
+          )}
         </div>
-        <FilterPopup
-          filters={filterOptions}
-          isOpen={isOpen}
-          onClose={() => setIsOpen(false)}
-          yearRange={yearRange}
-          monthRange={monthRange}
-          setYearRange={setYearRange}
-          setMonthRange={setMonthRange}
-          setFilterOptions={setFilterOptions}
-        />
       </h4>
+
       <div style={{ marginTop: "20px" }}>
         <HighchartsReact
           key={chartKey}
