@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { priceTypes, timePeriod, fakeData } from "./Data/HomeData";
+import { priceTypes, timePeriod, fakeData, monthlyData } from "./Data/HomeData";
 
 //HIGHCHARTS FULLSCREEN + EXPORT AS IMAGE
 import "highcharts/modules/exporting";
@@ -10,7 +10,14 @@ import "highcharts/modules/offline-exporting";
 import "highcharts/modules/export-data";
 import FilterPopup from "./FilterPopup";
 
+const currentMonth = new Date().getMonth();
+
 const yearArray = timePeriod["Yearly"];
+
+function checkMonth(index) {
+  if (index >= timePeriod.Monthly.length) return 0; // Wrap around to January
+  return index;
+}
 
 export default function PriceTrendsGlance() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,6 +25,16 @@ export default function PriceTrendsGlance() {
   const [yearRange, setYearRange] = useState({
     start: yearArray[0],
     end: yearArray[yearArray.length - 1],
+  });
+  const [monthRange, setMonthRange] = useState({
+    start: {
+      year: 2020,
+      month: checkMonth(currentMonth + 1),
+    },
+    end: {
+      year: yearRange.end,
+      month: currentMonth,
+    },
   });
 
   const [filterOptions, setFilterOptions] = useState({
@@ -39,61 +56,28 @@ export default function PriceTrendsGlance() {
     ],
   });
 
-  const handleRadioChange = (e) => {
-    const { name, value } = e.target;
-    setFilterOptions((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleRiceCheckbox = (e, category) => {
-    const { value, checked } = e.target;
-    setFilterOptions((prev) => {
-      const riceFilters = [...prev.rice];
-      const categoryIndex = riceFilters.findIndex(
-        (item) => item.category === category
-      );
-
-      if (categoryIndex !== -1) {
-        const selected = new Set(riceFilters[categoryIndex].selected);
-        checked ? selected.add(value) : selected.delete(value);
-        riceFilters[categoryIndex].selected = [...selected];
-      } else if (checked) {
-        riceFilters.push({ category, selected: [value] });
-      }
-
-      return {
-        ...prev,
-        rice: riceFilters.filter((item) => item.selected.length > 0),
-      };
-    });
-  };
-
-  const handlePriceTypeCheckbox = (e) => {
-    const { value, checked } = e.target;
-    setFilterOptions((prev) => ({
-      ...prev,
-      priceTypes: checked
-        ? [...prev.priceTypes, value]
-        : prev.priceTypes.filter((type) => type !== value),
-    }));
-  };
-
-  const handleYearRangeChange = (e, type) => {
-    const value = parseInt(e.target.value);
-    setYearRange((prev) => ({
-      ...prev,
-      [type]: value,
-    }));
-  };
-
   const riceColors = Highcharts.getOptions().colors;
 
   useEffect(() => {
     // Create a map of rice types to color index
     const riceColorMap = new Map();
     let colorIndex = 0;
-    const startIndex = yearArray.indexOf(yearRange.start);
-    const endIndex = yearArray.indexOf(yearRange.end) + 1;
-    const updatedYearRange = yearArray.slice(startIndex, endIndex);
+    const startYearIndex = yearArray.indexOf(yearRange.start);
+    const endYearIndex = yearArray.indexOf(yearRange.end) + 1;
+    const updatedYearRange = yearArray.slice(startYearIndex, endYearIndex);
+    const startMonthIndex = monthlyData.findIndex(
+      (item) =>
+        item.month === timePeriod.Monthly[monthRange.start.month] &&
+        item.year === monthRange.start.year
+    );
+    const endMonthIndex =
+      monthlyData.findIndex(
+        (item) =>
+          item.month === timePeriod.Monthly[monthRange.end.month] &&
+          item.year === monthRange.end.year
+      ) + 1;
+    const updatedMonthRage = monthlyData.slice(startMonthIndex, endMonthIndex);
+    console.log(updatedMonthRage);
 
     const series = filterOptions.rice.flatMap(({ category, selected }) =>
       selected.flatMap((riceType) => {
@@ -114,11 +98,11 @@ export default function PriceTrendsGlance() {
             filterOptions.timePeriod === "Yearly"
               ? fakeData[filterOptions.timePeriod]?.[category]?.[riceType]?.[
                   priceType
-                ].slice(startIndex, endIndex)
+                ].slice(startYearIndex, endYearIndex)
               : filterOptions.timePeriod === "Monthly"
               ? fakeData[filterOptions.timePeriod]?.[category]?.[riceType]?.[
                   priceType
-                ] //ADD MONTHLY SHT HERE FOR NEXT
+                ].slice(startMonthIndex, endMonthIndex)
               : fakeData[filterOptions.timePeriod]?.[category]?.[riceType]?.[
                   priceType
                 ] || [],
@@ -138,9 +122,11 @@ export default function PriceTrendsGlance() {
         categories:
           filterOptions.timePeriod === "Yearly"
             ? updatedYearRange
+            : filterOptions.timePeriod === "Monthly"
+            ? updatedMonthRage.map((item) => `${item.month} ${item.year}`)
             : timePeriod[filterOptions.timePeriod],
         title: { text: `Time period (${filterOptions.timePeriod})` },
-        labels: { rotation: -45 },
+        labels: { rotation: -45, step: 1 },
         min: 0.5,
       },
       yAxis: {
@@ -185,7 +171,7 @@ export default function PriceTrendsGlance() {
         sourceHeight: 675,
       },
     });
-  }, [filterOptions, yearRange]);
+  }, [filterOptions, monthRange, yearRange]);
 
   return (
     <section>
@@ -202,10 +188,10 @@ export default function PriceTrendsGlance() {
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
           yearRange={yearRange}
-          handleRiceCheckbox={handleRiceCheckbox}
-          handlePriceTypeCheckbox={handlePriceTypeCheckbox}
-          handleRadioChange={handleRadioChange}
-          handleYearRangeChange={handleYearRangeChange}
+          monthRange={monthRange}
+          setYearRange={setYearRange}
+          setMonthRange={setMonthRange}
+          setFilterOptions={setFilterOptions}
         />
       </h4>
       <div style={{ marginTop: "20px" }}>
