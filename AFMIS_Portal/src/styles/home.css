@@ -337,14 +337,26 @@ label {
 }
 
 .range-label {
-  margin-right: 5px;
+  margin-top: 10px;
 }
 
-.range input {
+.range input,
+.range select {
   width: 95%;
   border-radius: 5px;
   border: none;
-  padding: 5px;
   margin: 5px auto;
+  padding: 5px;
   font-size: 0.8rem;
+}
+
+.range input {
+  padding: 6px;
+}
+
+.range .monthly {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
 }

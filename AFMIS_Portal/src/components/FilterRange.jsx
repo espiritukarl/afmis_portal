@@ -2,7 +2,7 @@ import { timePeriod } from "./Data/HomeData";
 
 export function FilterYearRange({ yearRange, handleYearRangeChange }) {
   return (
-    <div className="year-range">
+    <div className="year-range" style={{ marginTop: "10px" }}>
       <div className="range">
         <label>
           <span className="range-label">Start Year:</span>
@@ -35,13 +35,14 @@ export function FilterYearRange({ yearRange, handleYearRangeChange }) {
 
 export function FilterMonthRange({ monthRange, handleMonthRangeChange }) {
   return (
-    <div className="year-range">
-      <div className="range">
-        <label>
-          <span className="range-label">Start:</span>
+    <>
+      <div className="range" style={{ marginTop: "10px" }}>
+        <label className="range-label">Start:</label>
+        <div className="monthly">
           <select
             onChange={(e) => handleMonthRangeChange(e, "start", "month")}
             value={monthRange.start.month}
+            className="roboto-regular"
           >
             {timePeriod["Monthly"].map((month, index) => (
               <option key={month} value={index}>
@@ -57,14 +58,15 @@ export function FilterMonthRange({ monthRange, handleMonthRangeChange }) {
             max={timePeriod["Yearly"][timePeriod["Yearly"].length - 1]}
             className="roboto-regular"
           />
-        </label>
+        </div>
       </div>
       <div className="range">
-        <label>
-          <span className="range-label">End:</span>
+        <label className="range-label">End:</label>
+        <div className="monthly">
           <select
             onChange={(e) => handleMonthRangeChange(e, "end", "month")}
             value={monthRange.end.month}
+            className="roboto-regular"
           >
             {timePeriod["Monthly"].map((month, index) => (
               <option key={month} value={index}>
@@ -80,8 +82,8 @@ export function FilterMonthRange({ monthRange, handleMonthRangeChange }) {
             max={timePeriod["Yearly"][timePeriod["Yearly"].length - 1]}
             className="roboto-regular"
           />
-        </label>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
