@@ -259,8 +259,6 @@ export const fakeData = {
   },
 };
 
-console.log(monthlyData);
-
 export const riceCommodity = {
   "RICE-FOR-ALL": ["Well Milled"],
   "IMPORTED COMMERCIAL RICE": [
