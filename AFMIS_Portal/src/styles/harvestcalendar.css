@@ -30,6 +30,8 @@
   font-weight: 700;
   font-size: 0.9rem;
   border: 2px solid #09680056;
+  transition: color 200ms ease-in-out, background-color 200ms ease-in-out,
+    border 200ms ease-in-out;
 }
 
 .rbc-toolbar .rbc-btn-group .rbc-active,
@@ -79,7 +81,8 @@
 }
 
 .rbc-day-bg.rbc-today {
-  border: 1px solid #00000060;
+  background-color: var(--primary-green);
+  opacity: 0.5;
 }
 
 .rbc-date-cell.rbc-now .rbc-button-link {
