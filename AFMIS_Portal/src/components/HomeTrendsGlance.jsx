@@ -8,6 +8,7 @@ import { priceTypes, timePeriod, fakeData, monthlyData } from "./Data/HomeData";
 import "highcharts/modules/exporting";
 import "highcharts/modules/offline-exporting";
 import "highcharts/modules/export-data";
+import "highcharts/modules/accessibility";
 import FilterPopup from "./FilterPopup";
 
 const currentMonth = new Date().getMonth();
@@ -154,6 +155,9 @@ export default function PriceTrendsGlance() {
             chartOptions: { legend: { enabled: false } },
           },
         ],
+      },
+      accessibility: {
+        enabled: false,
       },
       plotOptions: {
         series: {
