@@ -15,7 +15,7 @@ export async function getRegion() {
 
 export const priceTypes = ["Prevailing", "Low", "High", "Average", "Median"];
 export const timePeriod = {
-  Yearly: [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+  Yearly: Array.from({ length: 25 }, (_, index) => index + 2001),
   Monthly: [
     "Jan",
     "Feb",
@@ -30,7 +30,7 @@ export const timePeriod = {
     "Nov",
     "Dec",
   ],
-  Weekly: Array.apply(null, { length: 52 }).map(Number.call, Number),
+  Weekly: Array.from({ length: 52 }, (_, index) => index + 1),
   Daily: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], //is this correct?!?!
 };
 
