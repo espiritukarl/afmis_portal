@@ -259,12 +259,53 @@ label {
   background-color: rgba(0, 0, 0, 0.2);
 }
 
+/* ASIDE */
+aside {
+  margin: 50px;
+  flex: 1;
+}
 /* CARD CONTAINER */
 .card-container {
   background-color: var(--side-background);
   padding: 16px;
   margin-bottom: 5vh;
   border-radius: 5px;
+}
+
+.card-header {
+  font-size: 24px;
+  margin: 0;
+}
+.card-content-container {
+  margin: 24px 15px;
+  padding: 15px 25px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background-color: rgba(255, 255, 255, 0.35);
+  border-radius: 5px;
+}
+.card-content {
+  margin-top: 5px;
+  margin-left: 8px;
+  width: 100%;
+}
+.card-content > h4 {
+  font-size: 18px;
+}
+.card-content > p {
+  margin-top: 5px;
+  font-size: 15px;
+}
+.card-links {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 20px;
+  color: var(--primary-green);
+  text-decoration: underline;
+}
+.card-links:hover {
+  color: #000;
 }
 
 /* PRICE TRENDS CHART */
