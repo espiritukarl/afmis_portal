@@ -77,7 +77,6 @@ export default function PriceTrendsGlance() {
           item.year === monthRange.end.year
       ) + 1;
     const updatedMonthRage = monthlyData.slice(startMonthIndex, endMonthIndex);
-    console.log(updatedMonthRage);
 
     const series = filterOptions.rice.flatMap(({ category, selected }) =>
       selected.flatMap((riceType) => {
