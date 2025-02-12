@@ -117,7 +117,7 @@ export default function PriceTrendsGlance() {
     const max = allValues.length ? Math.ceil(Math.max(...allValues)) : 100;
 
     setChartOptions({
-      chart: { type: "line" },
+      chart: { type: "line", height: "100%" },
       title: { text: " " },
       xAxis: {
         categories:
@@ -206,7 +206,13 @@ export default function PriceTrendsGlance() {
         </div>
       </h4>
 
-      <div style={{ marginTop: "20px" }}>
+      <div
+        style={{
+          marginTop: "20px",
+          maxWidth: "39vw",
+          overflow: "scroll",
+        }}
+      >
         <HighchartsReact
           key={chartKey}
           highcharts={Highcharts}
