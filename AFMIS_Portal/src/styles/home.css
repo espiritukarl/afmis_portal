@@ -318,6 +318,12 @@ aside {
   transform: translateY(-5px);
 }
 
+.highcharts-text,
+.highcharts-number {
+  min-width: 100px;
+  max-width: 100px;
+}
+
 .highcharts-menu,
 .highcharts-data-table {
   font-family: "Roboto", sans-serif;
