@@ -62,7 +62,7 @@ export default function HarvestCalendar() {
         localizer={localizer}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: "54vh", width: "45vw" }}
+        style={{ height: "60vh", width: "50vw" }}
         views={["month", "agenda"]}
         events={events}
         eventPropGetter={eventStyleGetter}
