@@ -76,7 +76,7 @@ export default function FilterPopup({
         <div className="filter-options">
           {Object.keys(timePeriod).map((key) => (
             <div key={key}>
-              <label className="roboto-regular">
+              <label className="roboto-regular time-period-options">
                 <input
                   type="radio"
                   name="timePeriod"
