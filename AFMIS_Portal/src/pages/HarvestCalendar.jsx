@@ -70,8 +70,3 @@ export default function HarvestCalendar() {
     </div>
   );
 }
-
-//TODO
-// harvest calendar
-// commodity flow
-// agribussiness players - filter
