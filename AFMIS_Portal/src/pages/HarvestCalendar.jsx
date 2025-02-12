@@ -48,7 +48,6 @@ export default function HarvestCalendar() {
       style: {
         backgroundColor: event.backgroundColor || "gray",
         color: event.color || "black",
-        borderRadius: "5px",
         padding: "5px",
         opacity: "0.85",
         borderRadius: "2px",
