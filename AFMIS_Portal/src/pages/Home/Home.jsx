@@ -5,7 +5,7 @@ import SectionPreviews from "../../components/HomeComponents/SectionPreviews";
 import Banner from "../../components/HomeComponents/Banner";
 import PriceReport from "/price_report.jpg";
 import Infographics from "/infographics.jpg";
-import { eventsList, newsList } from "../../Data/HomeData";
+import { eventsList, newsList } from "../../data/HomeData";
 
 export function LandingMain() {
   return (

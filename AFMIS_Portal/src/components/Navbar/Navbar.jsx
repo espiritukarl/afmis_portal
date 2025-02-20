@@ -8,7 +8,7 @@ import "./navbar.css";
 import "./dropdown.css";
 
 //Components and Data
-import { menuItems } from "../../Data/MenuItems";
+import { menuItems } from "../../data/MenuItems";
 import Modal from "../Modal/Modal";
 
 export default function Navbar() {

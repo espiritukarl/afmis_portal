@@ -1,6 +1,6 @@
 import SectionTitle from "../../components/SectionTitle";
 import NewsCard from "../News/NewsCard";
-import { newsDetails } from "../../Data/NewsDetails";
+import { newsDetails } from "../../data/NewsDetails";
 import "./news.css";
 
 export default function UpcomingEvents() {

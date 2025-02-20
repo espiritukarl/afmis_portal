@@ -9,7 +9,7 @@ import Modal from "../../components/Modal/Modal";
 import Table from "../../components/Table/Table";
 
 //Data
-import { priceReports } from "../../Data/PriceReports";
+import { priceReports } from "../../data/PriceReports";
 
 export default function Infographics() {
   const [activeImage, setActiveImage] = useState(InfographicImgs[0]);
