@@ -7,7 +7,7 @@ import {
   timePeriod,
   fakeData,
   monthlyData,
-} from "../Data/HomeData";
+} from "../../../Data/HomeData";
 
 //HIGHCHARTS FULLSCREEN + EXPORT AS IMAGE
 import "highcharts/modules/exporting";

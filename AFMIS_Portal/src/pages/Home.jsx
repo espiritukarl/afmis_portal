@@ -1,7 +1,7 @@
 import "../styles/home.css";
-import HomeCard from "../components/HomeCard";
-import HomeTrendsGlance from "../components/HomeTrendsGlance";
-import SectionPreviews from "../components/SectionPreviews";
+import HomeCard from "../components/HomeComponents/HomeCard";
+import HomeTrendsGlance from "../components/HomeComponents/ChartsSection/HomeTrendsGlance";
+import SectionPreviews from "../components/HomeComponents/SectionPreviews";
 import Banner from "../components/Banner";
 import PriceReport from "/price_report.jpg";
 import Infographics from "/infographics.jpg";

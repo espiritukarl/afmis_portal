@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./pages/Header.jsx";
-import Navbar from "./pages/Navbar.jsx";
+import Header from "./components/Header.jsx";
+import Navbar from "./components/Navbar.jsx";
 import { LandingMain, LandingSide } from "./pages/Home.jsx";
 import UpcomingEvents from "./pages/UpcomingEvents.jsx";
 import NewsArticles from "./pages/NewsArticles.jsx";

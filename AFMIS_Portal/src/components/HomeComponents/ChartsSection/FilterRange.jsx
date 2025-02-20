@@ -1,4 +1,4 @@
-import { timePeriod } from "../Data/HomeData";
+import { timePeriod } from "../../../Data/HomeData";
 
 export function FilterYearRange({ yearRange, handleYearRangeChange }) {
   return (
