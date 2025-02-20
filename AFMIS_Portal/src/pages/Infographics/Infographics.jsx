@@ -5,8 +5,8 @@ import "./Infographics.css";
 
 //Components
 import SectionTitle from "../../components/SectionTitle";
-import Modal from "../../components/Modal";
-import Table from "../../components/Table";
+import Modal from "../../components/Modal/Modal";
+import Table from "../../components/Table/Table";
 
 //Data
 import { priceReports } from "../../Data/PriceReports";

@@ -1,7 +1,7 @@
 import SectionTitle from "../../components/SectionTitle";
-import Table from "../../components/Table";
+import Table from "../../components/Table/Table";
 import { priceReports } from "../../Data/PriceReports";
-import "../../styles/table.css";
+import "../../components/Table/table.css";
 
 export default function PriceReport() {
   return (

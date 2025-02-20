@@ -1,4 +1,4 @@
-import "../styles/modal.css";
+import "./modal.css";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useState } from "react";
 

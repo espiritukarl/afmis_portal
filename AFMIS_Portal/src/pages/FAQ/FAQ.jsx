@@ -1,5 +1,5 @@
 import SectionTitle from "../../components/SectionTitle";
-import FaqCard from "../../components/FaqCard";
+import FAQCard from "./FaqCard";
 import "./FAQ.css";
 import { faqDetails } from "../../Data/FaqDetails";
 
@@ -10,7 +10,7 @@ export default function Faq() {
       <section className="faq-container">
         {faqDetails.map((entry) => {
           return (
-            <FaqCard
+            <FAQCard
               key={entry.question}
               question={entry.question}
               answer={entry.answer}

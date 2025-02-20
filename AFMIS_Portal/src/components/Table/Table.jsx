@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Icon } from "@iconify/react";
+import "./table.css";
 
 export default function DailyPriceReports({ rawData, title }) {
   const [searchTerm, setSearchTerm] = useState("");

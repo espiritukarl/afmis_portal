@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Modal from "../Modal";
+import Modal from "../Modal/Modal";
 
 export default function SectionPreviews({ header, imgSrc, imgClass }) {
   const [isModalOpen, setIsModalOpen] = useState(false);

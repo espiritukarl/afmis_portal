@@ -1,10 +1,15 @@
+//React and Libraries
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import "../styles/navbar.css";
-import "../styles/dropdown.css";
-import { menuItems } from "../Data/MenuItems";
-import Modal from "./Modal";
 import { Icon } from "@iconify/react";
+
+//Styling
+import "./navbar.css";
+import "./dropdown.css";
+
+//Components and Data
+import { menuItems } from "../../Data/MenuItems";
+import Modal from "../Modal/Modal";
 
 export default function Navbar() {
   const [visibleDropdown, setVisibleDropdown] = useState(null);

@@ -1,10 +1,10 @@
 //React & Styling
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./App.css";
+import "./styles/App.css";
 
 //Components
-import Header from "./components/Header.jsx";
-import Navbar from "./components/Navbar.jsx";
+import Header from "./components/Header/Header.jsx";
+import Navbar from "./components/Navbar/Navbar.jsx";
 import FetchGoogleSheets from "./components/FetchGoogleSheets.jsx";
 
 //Pages
