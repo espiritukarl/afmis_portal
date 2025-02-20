@@ -1,4 +1,4 @@
-import "../styles/news.css";
+import "./news.css";
 
 export default function NewsCard({ title, news, author, date, imgSrc }) {
   return (

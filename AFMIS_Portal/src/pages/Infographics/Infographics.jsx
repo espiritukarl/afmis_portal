@@ -1,10 +1,15 @@
+//React, Libraries, Styling
 import { useState } from "react";
-import SectionTitle from "../components/SectionTitle";
-import Modal from "../components/Modal";
-import Table from "../components/Table";
-import { priceReports } from "../Data/PriceReports";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import "../styles/infographics.css";
+import "./Infographics.css";
+
+//Components
+import SectionTitle from "../../components/SectionTitle";
+import Modal from "../../components/Modal";
+import Table from "../../components/Table";
+
+//Data
+import { priceReports } from "../../Data/PriceReports";
 
 export default function Infographics() {
   const [activeImage, setActiveImage] = useState(InfographicImgs[0]);

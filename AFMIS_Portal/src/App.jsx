@@ -1,18 +1,23 @@
+//React & Styling
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import "./App.css";
+
+//Components
 import Header from "./components/Header.jsx";
 import Navbar from "./components/Navbar.jsx";
-import { LandingMain, LandingSide } from "./pages/Home/Home.jsx";
-import UpcomingEvents from "./pages/UpcomingEvents.jsx";
-import NewsArticles from "./pages/NewsArticles.jsx";
-import AboutUs from "./pages/AboutUs/AboutUs.jsx";
-import ContactUs from "./pages/ContactUs.jsx";
-import Faq from "./pages/Faq.jsx";
-import "./App.css";
-import PriceReport from "./pages/PriceReport.jsx";
-import Infographics from "./pages/Infographics.jsx";
-import HarvestCalendar from "./pages/HarvestCalendar.jsx";
 import FetchGoogleSheets from "./components/FetchGoogleSheets.jsx";
-import { ErrorPage } from "./pages/ErrorPage.jsx";
+
+//Pages
+import { LandingMain, LandingSide } from "./pages/Home/Home.jsx";
+import UpcomingEvents from "./pages/Events/UpcomingEvents.jsx";
+import NewsArticles from "./pages/News/NewsArticles.jsx";
+import AboutUs from "./pages/AboutUs/AboutUs.jsx";
+import ContactUs from "./pages/ContactUs/ContactUs.jsx";
+import Faq from "./pages/FAQ/FAQ.jsx";
+import PriceReport from "./pages/PriceReport/PriceReport.jsx";
+import Infographics from "./pages/Infographics/Infographics.jsx";
+import HarvestCalendar from "./pages/HarvestCalendar/HarvestCalendar.jsx";
+import ErrorPage from "./pages/Error/ErrorPage.jsx";
 
 function App() {
   return (

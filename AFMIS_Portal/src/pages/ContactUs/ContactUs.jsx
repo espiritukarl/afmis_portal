@@ -1,5 +1,5 @@
-import SectionTitle from "../components/SectionTitle";
-import "../styles/contactUs.css";
+import SectionTitle from "../../components/SectionTitle";
+import "./contactUs.css";
 
 export default function ContactUs() {
   return (

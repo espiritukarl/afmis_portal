@@ -1,8 +1,7 @@
-import { useEffect } from "react";
-import "../styles/error.css";
+import "./ErrorPage.css";
 import { Link } from "react-router-dom";
 
-export function ErrorPage() {
+export default function ErrorPage() {
   // useEffect(() => {
   //   document.title = "Oops! Page Not Found";
   // }, []);

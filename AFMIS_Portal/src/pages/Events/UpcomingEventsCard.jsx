@@ -1,4 +1,4 @@
-import "../styles/events.css";
+import "./events.css";
 
 export default function UpcomingEventsCard({ title, author, date, imgSrc }) {
   return (

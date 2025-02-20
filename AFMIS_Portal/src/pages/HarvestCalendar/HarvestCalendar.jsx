@@ -1,6 +1,6 @@
 import { Calendar, globalizeLocalizer, Views } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import "../styles/harvestcalendar.css";
+import "./HarvestCalendar.css";
 import globalize from "globalize";
 
 const localizer = globalizeLocalizer(globalize);
