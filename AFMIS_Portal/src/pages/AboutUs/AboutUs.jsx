@@ -1,5 +1,5 @@
-import SectionTitle from "../components/SectionTitle";
-import "../styles/aboutUs.css";
+import SectionTitle from "../../components/SectionTitle";
+import "./AboutUs.css";
 
 export default function AboutUs() {
   return (

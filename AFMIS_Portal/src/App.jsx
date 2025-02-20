@@ -1,14 +1,13 @@
-import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header.jsx";
 import Navbar from "./components/Navbar.jsx";
-import { LandingMain, LandingSide } from "./pages/Home.jsx";
+import { LandingMain, LandingSide } from "./pages/Home/Home.jsx";
 import UpcomingEvents from "./pages/UpcomingEvents.jsx";
 import NewsArticles from "./pages/NewsArticles.jsx";
-import AboutUs from "./pages/AboutUs.jsx";
+import AboutUs from "./pages/AboutUs/AboutUs.jsx";
 import ContactUs from "./pages/ContactUs.jsx";
 import Faq from "./pages/Faq.jsx";
-import "./styles/App.css";
+import "./App.css";
 import PriceReport from "./pages/PriceReport.jsx";
 import Infographics from "./pages/Infographics.jsx";
 import HarvestCalendar from "./pages/HarvestCalendar.jsx";
