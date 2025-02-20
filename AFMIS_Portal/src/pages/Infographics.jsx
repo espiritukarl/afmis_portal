@@ -2,7 +2,7 @@ import { useState } from "react";
 import SectionTitle from "../components/SectionTitle";
 import Modal from "../components/Modal";
 import Table from "../components/Table";
-import { priceReports } from "../components/Data/PriceReports";
+import { priceReports } from "../Data/PriceReports";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import "../styles/infographics.css";
 

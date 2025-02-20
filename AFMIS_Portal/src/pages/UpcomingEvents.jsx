@@ -1,6 +1,6 @@
 import SectionTitle from "../components/SectionTitle";
 import UpcomingEventsCard from "../components/UpcomingEventsCard";
-import { eventDetails } from "../components/Data/EventDetails";
+import { eventDetails } from "../Data/EventDetails";
 
 export default function UpcomingEvents() {
   return (

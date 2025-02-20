@@ -1,7 +1,7 @@
 import SectionTitle from "../components/SectionTitle";
 import FaqCard from "../components/FaqCard";
 import "../styles/faq.css";
-import { faqDetails } from "../components/Data/FaqDetails";
+import { faqDetails } from "../Data/FaqDetails";
 
 export default function Faq() {
   return (

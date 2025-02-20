@@ -1,4 +1,4 @@
-import { priceTypes, riceCommodity, timePeriod } from "./Data/HomeData";
+import { priceTypes, riceCommodity, timePeriod } from "../Data/HomeData";
 import { FilterYearRange, FilterMonthRange } from "./FilterRange";
 
 export default function FilterPopup({

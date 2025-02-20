@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../styles/navbar.css";
 import "../styles/dropdown.css";
-import { menuItems } from "../components/Data/MenuItems";
+import { menuItems } from "../Data/MenuItems";
 import Modal from "../components/Modal";
 import { Icon } from "@iconify/react";
 

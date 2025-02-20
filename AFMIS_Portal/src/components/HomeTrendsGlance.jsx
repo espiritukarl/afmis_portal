@@ -2,7 +2,12 @@ import { useState, useEffect } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { priceTypes, timePeriod, fakeData, monthlyData } from "./Data/HomeData";
+import {
+  priceTypes,
+  timePeriod,
+  fakeData,
+  monthlyData,
+} from "../Data/HomeData";
 
 //HIGHCHARTS FULLSCREEN + EXPORT AS IMAGE
 import "highcharts/modules/exporting";
@@ -89,25 +94,31 @@ export default function PriceTrendsGlance() {
         const baseColor =
           riceColors[riceColorMap.get(riceType) % riceColors.length];
 
-        return filterOptions.priceTypes.map((priceType, priceIdx) => ({
-          name: `${category.split(" ")[0]}: ${riceType} (${priceType})`,
-          color: Highcharts.color(baseColor)
+        return filterOptions.priceTypes.map((priceType, priceIdx) => {
+          const name = `${category.split(" ")[0]}: ${riceType} (${priceType})`;
+          const color = Highcharts.color(baseColor)
             .brighten(priceIdx * -0.2)
-            .get(),
-          dashStyle: ["Solid", "Dash", "Dot"][priceIdx % 3],
-          data:
+            .get();
+          const dashStyle = ["Solid", "Dash", "Dot"][priceIdx % 3];
+
+          const dataPath =
+            fakeData[filterOptions.timePeriod]?.[category]?.[riceType]?.[
+              priceType
+            ];
+
+          const sliceIndices =
             filterOptions.timePeriod === "Yearly"
-              ? fakeData[filterOptions.timePeriod]?.[category]?.[riceType]?.[
-                  priceType
-                ].slice(startYearIndex, endYearIndex)
+              ? [startYearIndex, endYearIndex]
               : filterOptions.timePeriod === "Monthly"
-              ? fakeData[filterOptions.timePeriod]?.[category]?.[riceType]?.[
-                  priceType
-                ].slice(startMonthIndex, endMonthIndex)
-              : fakeData[filterOptions.timePeriod]?.[category]?.[riceType]?.[
-                  priceType
-                ] || [],
-        }));
+              ? [startMonthIndex, endMonthIndex]
+              : null;
+
+          const data = sliceIndices
+            ? dataPath?.slice(...sliceIndices)
+            : dataPath || [];
+
+          return { name, color, dashStyle, data };
+        });
       })
     );
 
@@ -190,7 +201,6 @@ export default function PriceTrendsGlance() {
             Filter <Icon icon="cil:filter" width={15} />
           </div>
 
-          {/* Pop-up moved outside of h4 */}
           {isOpen && (
             <FilterPopup
               isOpen={isOpen}
