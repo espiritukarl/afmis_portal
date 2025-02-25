@@ -17,6 +17,7 @@ import Faq from "./pages/FAQ/FAQ.jsx";
 import PriceReport from "./pages/PriceReport/PriceReport.jsx";
 import Infographics from "./pages/Infographics/Infographics.jsx";
 import HarvestCalendar from "./pages/HarvestCalendar/HarvestCalendar.jsx";
+import AgribusinessDirectory from "./pages/AgribusinessDirectory/AgribusinessDirectory.jsx";
 import ErrorPage from "./pages/Error/ErrorPage.jsx";
 
 function App() {
@@ -56,6 +57,14 @@ function App() {
             {/* RESOURCES SECTION */}
             <Route path="resources">
               <Route path="harvest-calendar" element={<HarvestCalendar />} />
+            </Route>
+
+            {/* Directory SECTION */}
+            <Route path="directory">
+              <Route
+                path="agribusiness-directory"
+                element={<AgribusinessDirectory />}
+              />
             </Route>
 
             {/* DEFAULT ROUTE */}
