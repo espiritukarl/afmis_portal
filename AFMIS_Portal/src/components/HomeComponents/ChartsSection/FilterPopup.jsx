@@ -1,6 +1,7 @@
 import { priceTypes, riceCommodity, timePeriod } from "../../../data/HomeData";
 import { FilterYearRange, FilterMonthRange } from "./FilterRange";
 
+// This is the section that opens upon clicking Filter button. It filters the Highcharts data, based on its entries
 export default function FilterPopup({
   filters,
   isOpen,
@@ -12,6 +13,7 @@ export default function FilterPopup({
 }) {
   if (!isOpen) return null;
 
+  // Sets a range for the months: Format is Start: MM/YYYY - End: MM/YYYY
   const handleMonthRangeChange = (e, type, time) => {
     const value = parseInt(e.target.value);
     setMonthRange((prev) => ({
@@ -23,6 +25,7 @@ export default function FilterPopup({
     }));
   };
 
+  // Sets a range for the years: Format is Start: YYYY - End: YYYY
   const handleYearRangeChange = (e, type) => {
     const value = parseInt(e.target.value);
     setYearRange((prev) => ({
@@ -31,11 +34,14 @@ export default function FilterPopup({
     }));
   };
 
+  // Handles the change of Radio buttons (specifically for the TIME PERIOD types e.g. Yearly, Monthly, Weekly, Daily)
   const handleRadioChange = (e) => {
     const { name, value } = e.target;
     setFilterOptions((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Handles the change of Checkboxes (specifically for the RICE COMMODITIES and its corresponding subcategories e.g. rice-for-all, imported commercial rice, local commericial rice)
+  // Note: each rice type will show data for each price type
   const handleRiceCheckbox = (e, category) => {
     const { value, checked } = e.target;
     setFilterOptions((prev) => {
@@ -59,6 +65,7 @@ export default function FilterPopup({
     });
   };
 
+  // Handles the change of Checkboxes (specifically for the PRICE TYPE e.g. prevailing, low, high, average, median)
   const handlePriceTypeCheckbox = (e) => {
     const { value, checked } = e.target;
     setFilterOptions((prev) => ({

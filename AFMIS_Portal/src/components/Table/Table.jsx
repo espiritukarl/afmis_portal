@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Icon } from "@iconify/react";
 import "./table.css";
 
+// Change rawData to whatever data you want to fill the table: rawData is an object {name: string, size: string}
 export default function DailyPriceReports({ rawData, title }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,6 +34,7 @@ export default function DailyPriceReports({ rawData, title }) {
     report.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Can do this via pagination (set up via backend)
   const totalPages = Math.ceil(filteredReports.length / itemsPerPage);
   const currentItems = filteredReports.slice(
     (currentPage - 1) * itemsPerPage,

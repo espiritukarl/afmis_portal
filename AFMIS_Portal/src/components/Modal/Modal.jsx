@@ -2,6 +2,11 @@ import "./modal.css";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useState } from "react";
 
+// Sorry for this file, I regret making it like this but it works
+// This file is for the Modals - specifically LOGIN and REGISTRATION
+// Need to setup an Auth for both though. Should be simple to make, but need to coordinate with ICTS since they're making an SSO together with our other systems
+// RECOMMENDATION: Split the Login and Registration to separate files with its functions. I made it so 1 modal is needed for both, but then the styling and everything is different
+
 export default function Modal({ isOpen, onClose, content = "" }) {
   const [logInModal, setLogInModal] = useState(true);
 

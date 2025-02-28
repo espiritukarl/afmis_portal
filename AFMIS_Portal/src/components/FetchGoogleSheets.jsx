@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import { gapi } from "gapi-script";
 
+// THIS WHOLE FILE IS NOT BEING USED (YET)
+// Originally for pulling of data from a GSheets given by the team
+
+// Input your own .env from GOOGLE API otherwise this whole file won't work
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID; // Your OAuth 2.0 Client ID
 const API_KEY = process.env.GOOGLE_API_KEY; // Your Google API Key
-const SHEET_ID = "1ME7YKJyw_bwDyNDF86M-G6CsVi4_Fw8kVbwtmsie4cU"; // The ID of your Google Sheet
+const SHEET_ID = "1ME7YKJyw_bwDyNDF86M-G6CsVi4_Fw8kVbwtmsie4cU"; // The ID of the Google Sheet
 const RANGES = [
   "Summary (with Weekends)!A9:B19",
   "Summary (with Weekends)!C9:G19",
@@ -129,6 +133,7 @@ export default function GoogleSheetsExample() {
 }
 
 //CONVERT Bijective Base-26 system for Google Sheets Range
+//Was going to be used to get all the data from a single google sheet - BUT maybe ICTS has an endpoint for the entire data
 const baseCode = "A".charCodeAt(0) - 1;
 
 function toBb26(n) {

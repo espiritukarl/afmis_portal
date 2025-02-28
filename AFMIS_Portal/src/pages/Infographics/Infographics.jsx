@@ -48,6 +48,7 @@ export default function Infographics() {
   );
 }
 
+// The carousel is to rotate between images, then sets an active image that is displayed as a bigger image
 function Carousel({ activeImage, setActiveImage }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const visibleCount = 3;
@@ -102,6 +103,7 @@ function Carousel({ activeImage, setActiveImage }) {
   );
 }
 
+// Array of strings - get from an endpoint for display of images
 const InfographicImgs = [
   "/infographics1.jpg",
   "/infographics2.jpg",

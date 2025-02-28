@@ -9,6 +9,8 @@ import {
   monthlyData,
 } from "../../../data/HomeData";
 
+// This whole file is the charts shown in the home page
+
 //HIGHCHARTS FULLSCREEN + EXPORT AS IMAGE
 import "highcharts/modules/exporting";
 import "highcharts/modules/offline-exporting";
@@ -17,7 +19,6 @@ import "highcharts/modules/accessibility";
 import FilterPopup from "./FilterPopup";
 
 const currentMonth = new Date().getMonth();
-
 const yearArray = timePeriod["Yearly"];
 
 function checkMonth(index) {
@@ -44,6 +45,7 @@ export default function PriceTrendsGlance() {
     },
   });
 
+  // Sets default values as well for filters
   const [filterOptions, setFilterOptions] = useState({
     priceTypes: [priceTypes[0]],
     timePeriod: Object.keys(timePeriod)[3],
@@ -63,12 +65,15 @@ export default function PriceTrendsGlance() {
     ],
   });
 
+  // Takes the color options from Highcharts
   const riceColors = Highcharts.getOptions().colors;
 
   useEffect(() => {
     // Create a map of rice types to color index
     const riceColorMap = new Map();
     let colorIndex = 0;
+
+    //Maybe this could have been an object - lots to fix sry :P
     const startYearIndex = yearArray.indexOf(yearRange.start);
     const endYearIndex = yearArray.indexOf(yearRange.end) + 1;
     const updatedYearRange = yearArray.slice(startYearIndex, endYearIndex);
@@ -85,6 +90,7 @@ export default function PriceTrendsGlance() {
       ) + 1;
     const updatedMonthRage = monthlyData.slice(startMonthIndex, endMonthIndex);
 
+    // Series is the data to be passed to Highcharts
     const series = filterOptions.rice.flatMap(({ category, selected }) =>
       selected.flatMap((riceType) => {
         // Get or create color index for this rice type
@@ -94,6 +100,7 @@ export default function PriceTrendsGlance() {
         const baseColor =
           riceColors[riceColorMap.get(riceType) % riceColors.length];
 
+        // Sets a similar but random color for each rice type - i.e. same colors for each rice commodity in different shades
         return filterOptions.priceTypes.map((priceType, priceIdx) => {
           const name = `${category.split(" ")[0]}: ${riceType} (${priceType})`;
           const color = Highcharts.color(baseColor)
@@ -101,6 +108,7 @@ export default function PriceTrendsGlance() {
             .get();
           const dashStyle = ["Solid", "Dash", "Dot"][priceIdx % 3];
 
+          // Entire section is for filtering the data, and showing the filtered data to Highcharts
           const dataPath =
             fakeData[filterOptions.timePeriod]?.[category]?.[riceType]?.[
               priceType
@@ -113,6 +121,7 @@ export default function PriceTrendsGlance() {
               ? [startMonthIndex, endMonthIndex]
               : null;
 
+          // Double checks if the data is empty or not
           const data = sliceIndices
             ? dataPath?.slice(...sliceIndices)
             : dataPath || [];
@@ -122,11 +131,12 @@ export default function PriceTrendsGlance() {
       })
     );
 
-    // Calculate yAxis min/max
+    // Calculate yAxis min/max - this is for the minimum and maximum value of the chart's y-axis
     const allValues = series.flatMap((s) => s.data).filter(Number.isFinite);
     const min = allValues.length ? Math.floor(Math.min(...allValues)) : 0;
     const max = allValues.length ? Math.ceil(Math.max(...allValues)) : 100;
 
+    // Check documentation of Highcharts for this: https://api.highcharts.com/highcharts/ & https://www.highcharts.com/docs/index
     setChartOptions({
       chart: { type: "line", height: "100%" },
       title: { text: " " },

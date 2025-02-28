@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
+//Simple Carousel to be showin
 export default function Banner() {
   const [index, setIndex] = useState(0);
   const length = bannerImages.length;
@@ -50,6 +51,7 @@ export default function Banner() {
   );
 }
 
+//useEffect data of bannerImages it's just an array of strings
 const bannerImages = [
   "banner0.jpg",
   "banner1.jpg",

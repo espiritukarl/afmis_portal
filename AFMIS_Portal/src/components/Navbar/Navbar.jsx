@@ -29,6 +29,7 @@ export default function Navbar() {
   const handleSubMouseEnter = (submenu) => setVisibleSubDropdown(submenu);
   const handleSubMouseLeave = () => setVisibleSubDropdown(null);
 
+  // Checks if the clicked on menu item is external or a react-router
   function isExternal(menu, item) {
     if (item.external) {
       return (

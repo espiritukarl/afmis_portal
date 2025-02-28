@@ -5,6 +5,7 @@ import globalize from "globalize";
 
 const localizer = globalizeLocalizer(globalize);
 
+// Should realyl remove the events data from local - have it via endpoint
 const events = [
   //NOTE: Month - 0 to 11 (January to December)
   //DAY: Ends -1 day (12 means 11 at the calendar)
@@ -42,6 +43,7 @@ const events = [
   },
 ];
 
+// Just for HarvestCalendar styling
 export default function HarvestCalendar() {
   const eventStyleGetter = (event) => {
     return {
@@ -55,6 +57,7 @@ export default function HarvestCalendar() {
     };
   };
 
+  // Used react-big-calendar - docs are here: https://www.npmjs.com/package/react-big-calendar
   return (
     <div className="lato-regular harvest-calendar">
       <Calendar

@@ -1,4 +1,5 @@
 import { timePeriod } from "../../../data/HomeData";
+//This whole file handles the ranges for the Filter - for now, Yearly and Monthly have been implemented
 
 export function FilterYearRange({ yearRange, handleYearRangeChange }) {
   return (
