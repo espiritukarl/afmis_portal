@@ -24,8 +24,24 @@
 - React-router
 - mui
 
-## Todo:
+# Todo:
 - Entire thing is SPA - might need to change depending on amount of data for other routes (I highly doubt this will be the case, but just in case)
 - Entire backend + endpoints
 - Database needs to be made - some from ICTS, some needs to be done in-house
 - Dynamic display of data (currently, mock data is being used by the frontend)
+
+## Backend:
+- Data is the only thing that needs to be built. Frontend has already been implemented to take their respective data structure.
+- News & Events
+    - News Articles
+    - Upcoming Articles
+    - Daily Prices (Price Reports & Infographics)
+- Analytics
+- Resources
+    - Harvest Calendar
+- Directory
+    -  Directory of Agribusiness Players
+-  About
+    - About Us
+    - Contact Us
+    - Frequently Asked Questions (FAQ)
