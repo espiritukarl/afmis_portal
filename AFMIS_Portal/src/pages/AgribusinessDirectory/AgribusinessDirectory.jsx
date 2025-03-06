@@ -2,15 +2,14 @@ import { useState, useEffect } from "react";
 import SectionTitle from "../../components/SectionTitle";
 
 export default function AgribusinessDirectory() {
-  const [companies, setCompanies] = useState();
-  const [products, setProducts] = useState();
+  const [companies, setCompanies] = useState([]);
 
   useEffect(() => {
     fetch("http://localhost:3000/agribusiness-companies/")
       .then((res) => res.json())
       .then((data) => setCompanies(data))
       .catch((err) => console.error("Fetched an error: ", err));
-  });
+  }, []);
 
   return (
     <main>
@@ -26,8 +25,34 @@ export default function AgribusinessDirectory() {
                 } ${company.city} ${company.province ?? ""} ${
                   company.region ?? ""
                 } ${company.zip_code}`}
+                <br />
+                Contact:
+                <ul>
+                  {company.contacts.length > 0 ? (
+                    company.contacts?.map((contact) => (
+                      <>
+                        <li>{contact.contact_person}</li>
+                        <li>{contact.contact_number}</li>
+                        <li>{contact.email_address}</li>
+                        <li>{contact.website}</li>
+                      </>
+                    ))
+                  ) : (
+                    <li>None</li>
+                  )}
+                </ul>
+                Products:
+                <ul>
+                  {company.products.length > 0 ? (
+                    company.products?.map((product) => (
+                      <li>{product.product_service_name}</li>
+                    ))
+                  ) : (
+                    <li>None</li>
+                  )}
+                </ul>
               </li>
-              <li>...</li>
+              <br />
             </ul>
           </li>
         ))}

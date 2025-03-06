@@ -14,103 +14,84 @@ db.connect((err) => {
   }
 });
 
-//GET agribusiness_companies
+// GET agribusiness_companies with contacts and products
 app.get("/agribusiness-companies", async (req, res) => {
-  db.query("SELECT * FROM agribusiness_companies", (err, results) => {
-    if (err) res.status(500).json({ error: err.message });
-    else return res.json(results);
-  });
-});
-
-//GET company_contacts
-app.get("/agribusiness-companies/:id/company-contacts", async (req, res) => {
-  const companyId = req.params.id;
-
   db.query(
     `
     SELECT 
         ac.id AS company_id,
         ac.company_name,
+        ac.street_no,
+        ac.street_name,
+        ac.barangay,
+        ac.city,
+        ac.province,
+        ac.region,
+        ac.zip_code,
+        ac.business_type,
         cc.contact_person,
         cc.contact_number,
         cc.email_address,
-        cc.website
+        cc.website,
+        cps.product_service_name
     FROM agribusiness_companies ac
     LEFT JOIN company_contacts cc ON ac.id = cc.company_id
-    WHERE ac.id = ?;`,
-    [companyId],
+    LEFT JOIN company_products_services cps ON ac.id = cps.company_id;
+    `,
     (err, results) => {
       if (err) {
         return res.status(500).json({ error: err.message });
       }
 
-      if (results.length === 0) {
-        return res.status(404).json({ error: "Company not found" });
-      }
-
-      const companyData = {
-        company_id: results[0].company_id,
-        company_name: results[0].company_name,
-        contacts: [],
-      };
+      const companies = {};
 
       results.forEach((row) => {
-        companyData.contacts.push({
-          contact_person: row.contact_person,
-          contact_number: row.contact_number,
-          email_address: row.email_address,
-          website: row.website,
-        });
+        // Check if the company already exists in the companies object
+        if (!companies[row.company_id]) {
+          companies[row.company_id] = {
+            company_id: row.company_id,
+            company_name: row.company_name,
+            street_no: row.street_no,
+            street_name: row.street_name,
+            barangay: row.barangay,
+            city: row.city,
+            province: row.province,
+            region: row.region,
+            zip_code: row.zip_code,
+            business_type: row.business_type,
+            contacts: [],
+            products: [],
+          };
+        }
+
+        // Add contact details if they exist
+        if (
+          row.contact_person &&
+          row.contact_number &&
+          row.email_address &&
+          row.website
+        ) {
+          companies[row.company_id].contacts.push({
+            contact_person: row.contact_person,
+            contact_number: row.contact_number,
+            email_address: row.email_address,
+            website: row.website,
+          });
+        }
+
+        // Add product/service details if they exist
+        if (row.product_service_name) {
+          companies[row.company_id].products.push({
+            product_service_name: row.product_service_name,
+          });
+        }
       });
 
-      res.json(companyData.contacts);
+      // Convert companies object back to an array
+      const response = Object.values(companies);
+      res.json(response);
     }
   );
 });
 
-//GET company_contacts
-app.get(
-  "/agribusiness-companies/:id/company-products-services",
-  async (req, res) => {
-    const companyId = req.params.id;
-
-    db.query(
-      `
-    SELECT 
-        ac.id AS company_id,
-        ac.company_name,
-        cps.product_service_name
-    FROM agribusiness_companies ac
-    LEFT JOIN company_products_services cps ON ac.id = cps.company_id
-    WHERE ac.id = ?;`,
-      [companyId],
-      (err, results) => {
-        if (err) {
-          return res.status(500).json({ error: err.message });
-        }
-
-        if (results.length === 0) {
-          return res.status(404).json({ error: "Company not found" });
-        }
-
-        const companyData = {
-          company_id: results[0].company_id,
-          company_name: results[0].company_name,
-          products: [],
-        };
-
-        results.forEach((row) => {
-          companyData.products.push({
-            product_service_name: row.product_service_name,
-          });
-        });
-
-        res.json(companyData.products);
-      }
-    );
-  }
-);
-
-app.listen(3000, () => {
-  console.log(`Server running on http://localhost:3000`);
-});
+app.listen(3000);
