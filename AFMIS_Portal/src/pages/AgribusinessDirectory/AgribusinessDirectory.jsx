@@ -20,12 +20,17 @@ export default function AgribusinessDirectory() {
             <ul>
               <li className="roboto-light">
                 {company.company_name} {" : "}
-                {`${company.street_no} ${company.street_name} ${
-                  company.barangay ?? ""
-                } ${company.city} ${company.province ?? ""} ${
-                  company.region ?? ""
-                } ${company.zip_code}`}
                 <br />
+                Address:
+                <ul>
+                  <li>{company.street_no}</li>
+                  <li>{company.street_name}</li>
+                  <li>{company.barangay}</li>
+                  <li>{company.city}</li>
+                  <li>{company.province}</li>
+                  <li>{company.region}</li>
+                  <li>{company.zip_code}</li>
+                </ul>
                 Contact:
                 <ul>
                   {company.contacts.length > 0 ? (
